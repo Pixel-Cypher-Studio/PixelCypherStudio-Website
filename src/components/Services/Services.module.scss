@@ -1,0 +1,139 @@
+.section {
+  background: var(--surface-low);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+
+.title {
+  font-size: var(--text-headline-lg);
+  font-weight: 700;
+  color: var(--on-surface);
+  max-width: 400px;
+}
+
+// ── Grid ───────────────────────────────────────────────────────────────────────
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Card ───────────────────────────────────────────────────────────────────────
+.card {
+  position: relative;
+  background: var(--surface-container);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  transition:
+    transform    var(--duration-base) var(--ease-premium),
+    background   var(--duration-base) var(--ease-premium),
+    border-color var(--duration-base) var(--ease-premium);
+
+  &:hover {
+    transform: translateY(-4px);
+    background: var(--surface-high);
+    border-color: var(--outline-variant);
+  }
+}
+
+// Accent top bar
+.bar {
+  position: absolute;
+  top: 0;
+  left: 2rem;
+  right: 2rem;
+  height: 2px;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+
+.bar--red   { background: var(--accent-red); }
+.bar--green { background: var(--accent-green); }
+.bar--blue  { background: var(--accent-blue); }
+
+// ── Card head ─────────────────────────────────────────────────────────────────
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.idTag {
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-size: var(--text-label-sm);
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  letter-spacing: var(--tracking-label);
+}
+
+.slug {
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-size: var(--text-label-md);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.slug--red   { color: var(--accent-red); }
+.slug--green { color: var(--accent-green); }
+.slug--blue  { color: var(--accent-blue); }
+
+// ── Card content ──────────────────────────────────────────────────────────────
+.cardSubtitle {
+  font-size: var(--text-title-lg);
+  font-weight: 600;
+  color: var(--on-surface);
+  letter-spacing: -0.01em;
+}
+
+.cardDesc {
+  font-size: var(--text-body-md);
+  color: var(--on-surface-variant);
+  line-height: var(--leading-relaxed);
+}
+
+// ── List ──────────────────────────────────────────────────────────────────────
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: var(--text-body-md);
+  color: var(--on-surface-variant);
+}
+
+.bullet {
+  width: 4px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.bullet--red   { background: var(--accent-red); }
+.bullet--green { background: var(--accent-green); }
+.bullet--blue  { background: var(--accent-blue); }

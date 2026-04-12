@@ -1,0 +1,107 @@
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.section {
+  background: var(--surface-low);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 780px;
+}
+
+// ── Statement ─────────────────────────────────────────────────────────────────
+.statement {
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-size: var(--text-display-md);
+  font-weight: 600;
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-snug);
+  color: var(--on-surface);
+  quotes: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.emphasis {
+  font-style: italic;
+  // kinetic RGB gradient text
+  background: linear-gradient(
+    135deg,
+    var(--accent-red)   0%,
+    var(--accent-green) 45%,
+    var(--accent-blue)  100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+.body {
+  font-size: var(--text-body-lg);
+  color: var(--on-surface-variant);
+  line-height: var(--leading-relaxed);
+  max-width: 600px;
+}
+
+// ── Link ──────────────────────────────────────────────────────────────────────
+.actions {
+  padding-top: 0.5rem;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  color: var(--primary);
+  transition: color var(--duration-fast) var(--ease-premium),
+              gap   var(--duration-fast) var(--ease-premium);
+
+  &:hover {
+    color: var(--primary-container);
+    gap: 0.75rem;
+  }
+}
+
+.arrow {
+  transition: transform var(--duration-fast) var(--ease-premium);
+
+  .link:hover & {
+    transform: translateX(3px);
+  }
+}
+
+// ── Decoration ────────────────────────────────────────────────────────────────
+.decoration {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 5rem;
+  opacity: 0.35;
+}
+
+.decoLine {
+  flex: 1;
+  height: 1px;
+  background: var(--outline-variant);
+}
+
+.decoText {
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-size: var(--text-label-sm);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--on-surface-variant);
+  white-space: nowrap;
+}

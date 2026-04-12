@@ -1,0 +1,84 @@
+.hero {
+  padding-top: 10rem;
+  padding-bottom: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.bgOrbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: var(--orb-opacity);
+}
+
+.orbRed {
+  background: var(--accent-red);
+  width: 50vw;
+  height: 50vw;
+  max-width: 600px;
+  max-height: 600px;
+  top: -20%;
+  right: -5%;
+}
+
+.orbGreen {
+  background: var(--accent-green);
+  width: 30vw;
+  height: 30vw;
+  max-width: 380px;
+  max-height: 380px;
+  bottom: -10%;
+  left: 10%;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  max-width: 800px;
+}
+
+.headline {
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-tight);
+  color: var(--on-surface);
+}
+
+.sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--on-surface-variant);
+  line-height: var(--leading-relaxed);
+  max-width: 560px;
+}
+
+// ── Pills ─────────────────────────────────────────────────────────────────────
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  padding-top: 0.5rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 1rem;
+  background: var(--surface-container);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-size: var(--text-label-sm);
+  font-weight: 500;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.02em;
+}

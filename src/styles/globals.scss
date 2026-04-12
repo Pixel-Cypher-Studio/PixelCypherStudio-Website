@@ -1,0 +1,131 @@
+// ─── PixelCypher — SCSS Global Styles ────────────────────────────────────────
+// Tailwind is imported separately in globals.css (plain CSS, no Sass warnings).
+// This file owns: design tokens, keyframes, base reset, and utility classes.
+@use './variables';
+@use './animations';
+
+// ── Base Reset ────────────────────────────────────────────────────────────────
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--on-surface);
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-relaxed);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  transition:
+    background-color var(--duration-base) var(--ease-premium),
+    color            var(--duration-base) var(--ease-premium);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-headline);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+// ── Scrollbar ─────────────────────────────────────────────────────────────────
+::-webkit-scrollbar             { width: 5px; }
+::-webkit-scrollbar-track       { background: var(--surface-lowest); }
+::-webkit-scrollbar-thumb       { background: var(--outline-variant); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--outline); }
+
+// ── Layout Utilities ──────────────────────────────────────────────────────────
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.section {
+  padding-block: var(--section-py);
+}
+
+// ── RGB Gradient text (signature effect) ──────────────────────────────────────
+.kinetic-text {
+  background: linear-gradient(
+    135deg,
+    var(--accent-red)   0%,
+    var(--accent-green) 45%,
+    var(--accent-blue)  100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+// ── Label caps ────────────────────────────────────────────────────────────────
+.label-caps {
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  font-size: var(--text-label-md);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--on-surface-variant);
+}
+
+// ── Focus ring ────────────────────────────────────────────────────────────────
+:focus-visible {
+  outline: 2px solid var(--primary-container);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+// ── View Transition — circular theme reveal ───────────────────────────────────
+// The browser's default is a cross-fade between old and new root snapshots.
+// We replace that entirely: old snapshot sits frozen underneath, new snapshot
+// starts clipped to a point at the toggle button and expands via JS animation.
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;       // cancel the default cross-fade
+  mix-blend-mode: normal;
+}
+
+// Old state — static, sits below the incoming layer
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+// New state — on top; JS sets a clip-path circle animation on this layer
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+// When reduced-motion is preferred, the JS skips startViewTransition entirely,
+// so these rules never run — no need for a separate @media guard here.

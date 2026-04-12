@@ -1,0 +1,82 @@
+// Keyframe must live in the same module file — Turbopack/CSS-Modules scopes
+// animation-name references to the local file, so a globally-defined @keyframes
+// is invisible here and the animation silently does nothing.
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.wrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+
+  // Fade edges
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 8rem;
+    z-index: 1;
+    pointer-events: none;
+  }
+  &::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg), transparent);
+  }
+  &::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg), transparent);
+  }
+}
+
+.dividerLine {
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-speed, 30s) linear infinite;
+  padding-block: 1.25rem;
+}
+
+// Reverse direction applied via a class, not an inline style that fights
+// with the animation shorthand's own animation-direction sub-property.
+.trackReverse {
+  animation-direction: reverse;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding-inline: 1.5rem;
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-size: var(--text-title-md);
+  font-weight: 500;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease-premium);
+
+  &:hover {
+    color: var(--on-surface);
+  }
+}
+
+.dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+
+  // Cycle neon accent colors across dots
+  .item:nth-child(3n + 1) & { background: var(--accent-red); }
+  .item:nth-child(3n + 2) & { background: var(--accent-green); }
+  .item:nth-child(3n + 3) & { background: var(--accent-blue); }
+}

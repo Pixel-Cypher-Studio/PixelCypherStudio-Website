@@ -1,26 +1,30 @@
-@import "tailwindcss";
+/* Tailwind v4 entry point — kept as plain CSS to avoid Sass @import deprecation */
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ── Tailwind Theme Extension ─────────────────────────────────────────────────
+   Maps runtime CSS custom properties → Tailwind utility class tokens.
+   `inline` keeps them as CSS vars so they update when the theme changes.        */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-bg:                   var(--bg);
+  --color-surface:              var(--surface);
+  --color-surface-low:          var(--surface-low);
+  --color-surface-container:    var(--surface-container);
+  --color-surface-high:         var(--surface-high);
+  --color-surface-highest:      var(--surface-highest);
+  --color-surface-lowest:       var(--surface-lowest);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  --color-on-surface:           var(--on-surface);
+  --color-on-surface-variant:   var(--on-surface-variant);
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --color-primary:              var(--primary);
+  --color-primary-container:    var(--primary-container);
+  --color-on-primary:           var(--on-primary);
+  --color-on-primary-container: var(--on-primary-container);
+
+  --color-outline:              var(--outline);
+  --color-outline-variant:      var(--outline-variant);
+
+  --color-accent-red:           var(--accent-red);
+  --color-accent-green:         var(--accent-green);
+  --color-accent-blue:          var(--accent-blue);
 }

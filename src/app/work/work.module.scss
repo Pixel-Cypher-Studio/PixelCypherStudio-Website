@@ -1,0 +1,47 @@
+.hero {
+  padding-top: 10rem;
+  padding-bottom: 5rem;
+  position: relative;
+  overflow: hidden;
+
+  // Decorative accent orb
+  &::after {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 40vw;
+    height: 40vw;
+    max-width: 500px;
+    max-height: 500px;
+    background: var(--accent-blue);
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: var(--orb-opacity);
+    pointer-events: none;
+  }
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 760px;
+}
+
+.headline {
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-tight);
+  color: var(--on-surface);
+}
+
+.sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--on-surface-variant);
+  line-height: var(--leading-relaxed);
+  max-width: 520px;
+}

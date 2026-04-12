@@ -7,12 +7,16 @@ interface MarqueeProps {
 }
 
 const DEFAULT_ITEMS = [
-  'Kinetic Motion',
-  'RGB Aesthetics',
-  'Digital Monoliths',
-  'Pixel Perfect',
+  'Graphic Design',
+  'Motion Graphics',
+  'Brandings',
+  'Website Design',
+  'Video Editing',
   'Motion Direction',
   '3D Generative',
+  'Brand Toolkits',
+  'Promotional Reels',
+  'Portfolio Building',
 ];
 
 export default function Marquee({

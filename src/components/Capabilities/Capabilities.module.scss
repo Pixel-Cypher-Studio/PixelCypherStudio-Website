@@ -55,8 +55,9 @@
     left: 0;
     right: 0;
     height: 1px;
-    opacity: 0;
-    transition: opacity var(--duration-base) var(--ease-premium);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-slow) var(--ease-premium);
   }
 
   &:hover {
@@ -65,7 +66,7 @@
     border-color: var(--outline-variant);
 
     &::before {
-      opacity: 1;
+      transform: scaleX(1);
     }
   }
 }

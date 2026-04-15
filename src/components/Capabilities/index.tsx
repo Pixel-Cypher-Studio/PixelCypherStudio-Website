@@ -1,29 +1,30 @@
 import styles from './Capabilities.module.scss';
+import Link from 'next/link';
 
 const capabilities = [
   {
     number: '01',
-    title: 'Motion Direction',
+    title: 'Graphic Design',
     description:
-      'Animation systems, kinetic typography, and motion-driven brand experiences that pulse with life.',
+      'Visual identity systems, typography, and high-impact brand communication crafted for clarity, consistency, and cultural relevance.',
     accent: 'red' as const,
-    tags: ['Brand Animation', 'UI Motion', 'Title Sequences'],
+    tags: ['Brand Identity', 'Typography', 'Visual Systems'],
   },
   {
     number: '02',
-    title: '3D Generative',
+    title: 'Motion Graphics / Video Editing',
     description:
-      'Procedural environments, generative art installations, and immersive 3D brand worlds built to scale.',
+      'Narrative-driven motion design, cinematic editing, and dynamic visual storytelling engineered for engagement across digital platforms.',
     accent: 'green' as const,
-    tags: ['CGI', 'WebGL', 'Procedural Art'],
+    tags: ['Motion Design', 'Video Editing', 'Storytelling'],
   },
   {
     number: '03',
-    title: 'Core Lab',
+    title: 'Web Development',
     description:
-      'R&D division for experimental interfaces, emerging tech integrations, and digital innovation at the frontier.',
+      'Scalable web architectures, interactive front-end systems, and performance-optimized digital experiences built with modern technologies.',
     accent: 'blue' as const,
-    tags: ['R&D', 'Emerging Tech', 'Prototyping'],
+    tags: ['Frontend', 'Backend', 'Performance'],
   },
 ];
 
@@ -40,21 +41,42 @@ export default function Capabilities() {
         </div>
 
         <div className={styles.grid}>
-          {capabilities.map(({ number, title, description, accent, tags }) => (
-            <article key={number} className={`${styles.card} ${styles[`card--${accent}`]}`}>
-              <div className={styles.cardTop}>
-                <span className={styles.number}>{number} //</span>
-                <div className={`${styles.accentDot} ${styles[`dot--${accent}`]}`} />
-              </div>
-              <h3 className={styles.cardTitle}>{title}</h3>
-              <p className={styles.cardDesc}>{description}</p>
-              <div className={styles.tags}>
-                {tags.map((tag) => (
-                  <span key={tag} className={styles.tag}>{tag}</span>
-                ))}
-              </div>
-            </article>
-          ))}
+          {capabilities.map(({ number, title, description, accent, tags }) => {
+  const cardContent = (
+    <>
+      <div className={styles.cardTop}>
+        <span className={styles.number}>{number} //</span>
+        <div className={`${styles.accentDot} ${styles[`dot--${accent}`]}`} />
+      </div>
+      <h3 className={styles.cardTitle}>{title}</h3>
+      <p className={styles.cardDesc}>{description}</p>
+      <div className={styles.tags}>
+        {tags.map((tag) => (
+          <span key={tag} className={styles.tag}>{tag}</span>
+        ))}
+      </div>
+    </>
+  );
+
+  if (title === 'Web Development') {
+    return (
+      <Link
+        key={number}
+        href="/capabilities/web-development"
+        className={`${styles.card} ${styles[`card--${accent}`]}`}
+        aria-label="Open Web Development capability page"
+      >
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return (
+    <article key={number} className={`${styles.card} ${styles[`card--${accent}`]}`}>
+      {cardContent}
+    </article>
+  );
+})}
         </div>
       </div>
     </section>

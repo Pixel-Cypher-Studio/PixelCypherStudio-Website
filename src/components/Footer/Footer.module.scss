@@ -47,19 +47,28 @@
 }
 
 .logoMark {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  display: block;
   width: 2.25rem;
   height: 2.25rem;
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
   flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--surface-container) 78%, transparent);
+  border: 1px solid var(--border-subtle);
+}
+
+.logoImage {
+  object-fit: contain;
+  padding: 0.2rem;
+}
+
+:global([data-theme='dark']) .logoImage {
+  filter: brightness(1.12) contrast(1.08);
+}
+
+:global([data-theme='light']) .logoImage {
+  filter: brightness(0.92) contrast(1.16) saturate(0.95);
 }
 
 .logoName {
@@ -107,6 +116,41 @@
   flex-direction: column;
   gap: 0.75rem;
 }
+
+.inactiveLink {
+  display: inline-block;
+  cursor: default;
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+
+.footerLink {
+  font-size: var(--text-body-md);
+  color: var(--on-surface-variant);
+  transition: color var(--duration-fast) var(--ease-premium);
+
+  &:hover {
+    color: var(--on-surface);
+  }
+}
+
+.legalLink {
+  font-size: var(--text-label-md);
+  color: var(--on-surface-variant);
+  opacity: 0.6;
+  transition: opacity var(--duration-fast) var(--ease-premium);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.inactiveLink.footerLink:hover,
+.inactiveLink.legalLink:hover {
+  color: var(--on-surface-variant);
+  opacity: 0.55;
+}
+
 
 .footerLink {
   font-size: var(--text-body-md);

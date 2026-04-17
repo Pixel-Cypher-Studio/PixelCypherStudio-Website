@@ -35,11 +35,10 @@ export default function StudioPage() {
             A High-Fidelity<br />
             <span className="kinetic-text">Digital Craft House.</span>
           </h1>
-          <p className={styles.sub}>
-            At the intersection of brutalist architecture and neon aesthetics — we
-            operate as a creative engine where technical precision meets relentless
-            creative chaos.
-          </p>
+        <p className={styles.sub}>
+  We shape visual identity, motion content, and modern web experiences through
+  a studio process that balances creative direction with production-grade execution.
+</p>
 
           {/* Studio philosophy pills */}
           <div className={styles.pills}>

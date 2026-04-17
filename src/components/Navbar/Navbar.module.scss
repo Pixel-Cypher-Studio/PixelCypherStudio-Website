@@ -55,19 +55,35 @@
 }
 
 .logoMark {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  display: block;
   width: 2rem;
   height: 2rem;
-  background: var(--primary-container);
-  color: var(--on-primary-container);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
   flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--surface-container) 78%, transparent);
+  border: 1px solid var(--border-subtle);
+}
+
+.logoImage {
+  object-fit: contain;
+  padding: 0.18rem;
+  transition: transform var(--duration-fast) var(--ease-premium),
+    filter var(--duration-fast) var(--ease-premium),
+    opacity var(--duration-fast) var(--ease-premium);
+}
+
+:global([data-theme='dark']) .logoImage {
+  filter: brightness(1.12) contrast(1.08);
+}
+
+:global([data-theme='light']) .logoImage {
+  filter: brightness(0.92) contrast(1.16) saturate(0.95);
+}
+
+.logo:hover .logoImage {
+  transform: scale(1.04);
 }
 
 .logoText {
@@ -77,6 +93,46 @@
   letter-spacing: var(--tracking-label);
   color: var(--on-surface-variant);
   transition: color var(--duration-fast) var(--ease-premium);
+
+  @media (max-width: 980px) {
+    display: none;
+  }
+}
+
+.overlayBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  width: fit-content;
+  margin-top: 4.75rem;
+  margin-bottom: 1.5rem;
+  text-decoration: none;
+}
+
+.overlayLogoMark {
+  position: relative;
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--surface-container);
+  border: 1px solid var(--border-subtle);
+}
+
+.overlayBrandText {
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--on-surface);
+}
+
+@media (max-width: 768px) {
+  .overlayBrand {
+    margin-top: 4.5rem;
+  }
 }
 
 // ── Nav Links ─────────────────────────────────────────────────────────────────

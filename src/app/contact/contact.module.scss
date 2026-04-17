@@ -1,0 +1,228 @@
+.hero {
+  padding-top: 10rem;
+  padding-bottom: 5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.bgOrbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: var(--orb-opacity);
+}
+
+.orbBlue {
+  background: var(--accent-blue);
+  width: 42vw;
+  height: 42vw;
+  max-width: 520px;
+  max-height: 520px;
+  top: -14%;
+  right: -6%;
+}
+
+.orbRed {
+  background: var(--accent-red);
+  width: 28vw;
+  height: 28vw;
+  max-width: 340px;
+  max-height: 340px;
+  bottom: -8%;
+  left: 8%;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  max-width: 820px;
+}
+
+.headline {
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-tight);
+  color: var(--on-surface);
+}
+
+.sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--on-surface-variant);
+  line-height: var(--leading-relaxed);
+  max-width: 620px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  padding-top: 0.5rem;
+}
+
+.primaryCta,
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.85rem 1.4rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition:
+    transform var(--duration-fast) var(--ease-premium),
+    opacity var(--duration-fast) var(--ease-premium),
+    background var(--duration-fast) var(--ease-premium),
+    color var(--duration-fast) var(--ease-premium);
+}
+
+.primaryCta {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.primaryCta:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.secondaryCta {
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-container);
+  color: var(--on-surface);
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.secondaryCta:hover {
+  background: var(--surface-high);
+  transform: translateY(-1px);
+}
+
+.section {
+  padding: 5rem 0 6rem;
+  background: var(--surface-low);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.copyBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionTitle {
+  font-size: var(--text-headline-lg);
+  font-weight: 700;
+  color: var(--on-surface);
+  line-height: var(--leading-tight);
+}
+
+.sectionBody {
+  max-width: 580px;
+  color: var(--on-surface-variant);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-relaxed);
+}
+
+.infoPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--surface-container);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.infoRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1.25rem 1.35rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.infoRow:last-of-type {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.infoLabel {
+  font-size: var(--text-label-sm);
+  letter-spacing: var(--tracking-label);
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+}
+
+.infoValue {
+  color: var(--on-surface);
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-relaxed);
+}
+
+.infoActions {
+  padding: 1.35rem;
+}
+
+.inlineLink {
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary);
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    color var(--duration-fast) var(--ease-premium),
+    transform var(--duration-fast) var(--ease-premium);
+}
+
+.inlineLink:hover {
+  color: var(--primary-container);
+  transform: translateX(2px);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionBody {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    width: 100%;
+  }
+
+  .infoRow,
+  .infoActions {
+    padding-inline: 1rem;
+  }
+}

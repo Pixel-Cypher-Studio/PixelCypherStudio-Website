@@ -21,7 +21,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'PixelCypher — A Hyper-Kinetic Design Studio',
+  title: 'PixelCypherStudio — A Hyper-Kinetic Design Studio',
   description:
     'A hyper-kinetic design studio specializing in digital motion, neon aesthetics, and immersive brand identities that break through the noise.',
   keywords: ['design studio', 'motion design', 'branding', 'UI/UX', 'WebGL', '3D'],

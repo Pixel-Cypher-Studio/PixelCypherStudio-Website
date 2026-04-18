@@ -51,7 +51,7 @@ export default function Footer() {
                   className={styles.logoImage}
                 />
               </span>
-              <span className={styles.logoName}>PIXEL CYPHER STUDIO</span>
+              <span className={styles.logoName}>PIXELCYPHER STUDIO</span>
             </Link>
 
             <p className={styles.tagline}>

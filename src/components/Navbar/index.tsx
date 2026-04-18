@@ -59,7 +59,7 @@ export default function Navbar() {
           <Link href="/" className={styles.logo}>
             <span className={styles.logoMark}>
               <Image
-                src="/images/logo/pixelcypherstudio.webp"
+                src="/images/logo/pcslogo1.png"
                 alt="Pixel Cypher Studio logo"
                 fill
                 sizes="32px"
@@ -67,7 +67,7 @@ export default function Navbar() {
                 priority
               />
             </span>
-            <span className={styles.logoText}>PIXEL CYPHER STUDIO</span>
+            <span className={styles.logoText}>PIXELCYPHER STUDIO</span>
           </Link>
 
           <ul className={styles.links}>
@@ -147,7 +147,7 @@ export default function Navbar() {
                 className={styles.logoImage}
               />
             </span>
-            <span className={styles.overlayBrandText}>PIXEL CYPHER STUDIO</span>
+            <span className={styles.overlayBrandText}>PIXELCYPHER STUDIO</span>
           </Link>
 
           <nav className={styles.overlayNav}>

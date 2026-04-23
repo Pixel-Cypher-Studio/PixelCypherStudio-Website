@@ -1,0 +1,793 @@
+
+:root {
+  --ink: #0a0a0a;
+  --paper: #f4f1eb;
+  --accent: #d4401a;
+  --muted: #7a7570;
+  --rail-h: 260px;
+  --rail-p: 420px;
+}
+
+// ── Reset ──────────────────────────────────────────────────
+// *,
+// *::before,
+// *::after {
+//   box-sizing: border-box;
+//   margin: 0;
+//   padding: 0;
+// }
+
+// ── Global ─────────────────────────────────────────────────
+.htmlRoot {
+  scroll-behavior: smooth;
+}
+
+.body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+// ── Noise SVG (data URIs kept as SCSS variables) ───────────
+$noise-svg: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+$grain-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E");
+
+// ── NAV ────────────────────────────────────────────────────
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  mix-blend-mode: difference;
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.08em;
+  color: var(--paper);
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+}
+
+.navLink {
+  text-decoration: none;
+  color: var(--paper);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// ── HERO ───────────────────────────────────────────────────
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 6rem 3rem 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.heroTag {
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+
+.heroTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 10vw, 9rem);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: var(--paper);
+
+  span {
+    color: var(--accent);
+  }
+}
+
+.heroSub {
+  margin-top: 2rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 380px;
+}
+
+.heroCta {
+  margin-top: 3rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.btnPrimary {
+  background: var(--accent);
+  color: var(--paper);
+  border: none;
+  padding: 0.9rem 2.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  text-decoration: none;
+  display: inline-block;
+
+  &:hover {
+    background: #bf3615;
+    transform: translateY(-2px);
+  }
+}
+
+.btnGhost {
+  color: var(--paper);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  border-bottom: 1px solid rgba(244, 241, 235, 0.3);
+  padding-bottom: 2px;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.heroRight {
+  position: relative;
+  overflow: hidden;
+}
+
+.heroReel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 6rem 2rem 2rem 1rem;
+}
+
+.heroClip {
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  background: #1a1a1a;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(10, 10, 10, 0.8) 100%);
+  }
+
+  video,
+  .clipPlaceholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.clipPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  position: relative;
+
+  .noise {
+    position: absolute;
+    inset: 0;
+    background-image: $noise-svg;
+    opacity: 0.4;
+  }
+}
+
+.heroStats {
+  position: absolute;
+  bottom: 2rem;
+  left: 3rem;
+  right: 3rem;
+  display: flex;
+  gap: 3rem;
+  z-index: 2;
+}
+
+.statNum {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: var(--paper);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+// ── SECTION LABELS ─────────────────────────────────────────
+.sectionLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  &::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+  }
+}
+
+// ── REEL SECTION ───────────────────────────────────────────
+.reelSection {
+  padding: 6rem 0;
+}
+
+.reelHeader {
+  padding: 0 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+
+.reelTitle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: 0.03em;
+  line-height: 1;
+}
+
+.reelDesc {
+  color: var(--muted);
+  font-size: 0.9rem;
+  max-width: 280px;
+  text-align: right;
+  line-height: 1.6;
+}
+
+// ── SCROLLING RAILS ────────────────────────────────────────
+.railWrap {
+  overflow: hidden;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--ink), transparent);
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(-90deg, var(--ink), transparent);
+  }
+}
+
+.rail {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation: scrollLeft 40s linear infinite;
+  padding: 8px 0;
+
+  &.reverse {
+    animation: scrollRight 44s linear infinite;
+  }
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scrollRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+// ── LANDSCAPE CARDS ────────────────────────────────────────
+.cardLandscape {
+  width: 420px;
+  height: var(--rail-h);
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  cursor: pointer;
+  background: #111;
+
+  &:hover .cardOverlay {
+    opacity: 1;
+  }
+
+  &:hover .cardInner {
+    transform: scale(1.04);
+  }
+}
+
+.cardInner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.55);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.cardGenre {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+
+.cardName {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  color: var(--paper);
+}
+
+.cardDur {
+  font-size: 0.75rem;
+  color: rgba(244, 241, 235, 0.5);
+  margin-top: 0.2rem;
+}
+
+.playBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border: 1.5px solid rgba(244, 241, 235, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+
+  svg {
+    margin-left: 3px;
+  }
+
+  &:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
+// ── PORTRAIT CARDS ─────────────────────────────────────────
+.cardPortrait {
+  width: 200px;
+  height: var(--rail-p);
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  cursor: pointer;
+  background: #111;
+
+  &:hover .cardOverlay {
+    opacity: 1;
+  }
+
+  &:hover .cardInner {
+    transform: scale(1.04);
+  }
+}
+
+// ── DIVIDER ────────────────────────────────────────────────
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--muted), transparent);
+  margin: 2rem 3rem;
+  opacity: 0.2;
+}
+
+// ── ABOUT ──────────────────────────────────────────────────
+.aboutSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 6rem 0;
+}
+
+.aboutLeft {
+  padding: 0 3rem;
+  border-right: 1px solid rgba(244, 241, 235, 0.08);
+}
+
+.aboutRight {
+  padding: 0 3rem;
+}
+
+.aboutHeading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  margin-bottom: 2rem;
+}
+
+.aboutText {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--muted);
+  max-width: 440px;
+
+  & + & {
+    margin-top: 1rem;
+  }
+}
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2rem;
+  margin-top: 2.5rem;
+}
+
+.skillName {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--paper);
+  margin-bottom: 0.5rem;
+}
+
+.skillBar {
+  height: 2px;
+  background: rgba(244, 241, 235, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.skillFill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  animation: fillBar 1.5s ease forwards;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+@keyframes fillBar {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+// ── Clients row ────────────────────────────────────────────
+.clientsRow {
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(244, 241, 235, 0.08);
+}
+
+.clientName {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  color: rgba(244, 241, 235, 0.25);
+}
+
+.clientsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+// ── SERVICES ───────────────────────────────────────────────
+.servicesSection {
+  padding: 6rem 3rem;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 4rem;
+  background: rgba(244, 241, 235, 0.08);
+}
+
+.serviceCard {
+  background: var(--ink);
+  padding: 3rem 2rem;
+  transition: background 0.3s;
+  position: relative;
+
+  &:hover {
+    background: #111;
+  }
+}
+
+.serviceNum {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  color: rgba(244, 241, 235, 0.04);
+  line-height: 1;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.serviceIcon {
+  width: 44px;
+  height: 44px;
+  background: rgba(212, 64, 26, 0.15);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.serviceName {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  color: var(--paper);
+  margin-bottom: 1rem;
+}
+
+.serviceText {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+// ── CONTACT ────────────────────────────────────────────────
+.contactSection {
+  padding: 8rem 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: 'CONTACT';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20vw;
+    color: rgba(244, 241, 235, 0.025);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+}
+
+.contactHeading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 7vw, 6rem);
+  letter-spacing: 0.03em;
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.contactSub {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.emailLink {
+  display: inline-block;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+  transition: color 0.3s, border-color 0.3s;
+  position: relative;
+  z-index: 1;
+
+  &:hover {
+    color: var(--paper);
+    border-color: var(--paper);
+  }
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.socialLink {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--paper);
+  }
+}
+
+// ── FOOTER ─────────────────────────────────────────────────
+.footer {
+  border-top: 1px solid rgba(244, 241, 235, 0.08);
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footerCopy {
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.footerSocials {
+  display: flex;
+  gap: 1.5rem;
+
+  a {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--paper);
+    }
+  }
+}
+
+// ── CURSOR DOT ─────────────────────────────────────────────
+.cursorDot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s;
+  transform: translate(-50%, -50%);
+}
+
+// ── CLIP COLOR PLACEHOLDERS ────────────────────────────────
+.c1 { background: #1c1812; }
+.c2 { background: #0f1a1c; }
+.c3 { background: #1c0f10; }
+.c4 { background: #131c0f; }
+.c5 { background: #1a0f1c; }
+.c6 { background: #0f1318; }
+.c7 { background: #1c1318; }
+.c8 { background: #181c0f; }
+
+// ── GRAIN OVERLAY ──────────────────────────────────────────
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.06;
+  background-image: $grain-svg;
+}
+
+// ── TICKER ─────────────────────────────────────────────────
+.ticker {
+  display: flex;
+  overflow: hidden;
+  border-top: 1px solid rgba(244, 241, 235, 0.08);
+  border-bottom: 1px solid rgba(244, 241, 235, 0.08);
+  padding: 0.6rem 0;
+  margin: 2rem 0;
+}
+
+.tickerInner {
+  display: flex;
+ 
+  gap: 4rem;
+  width: max-content;
+  animation: scrollLeft 18s linear infinite;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  color: rgba(244, 241, 235, 0.3);
+
+  span{
+
+  }
+
+  .accent {
+    color: var(--accent);
+    display: block;
+  }
+}
+
+
+
+
+// ── RAIL HEIGHT SPACER ─────────────────────────────────────
+.railSpacer {
+  height: 16px;
+}

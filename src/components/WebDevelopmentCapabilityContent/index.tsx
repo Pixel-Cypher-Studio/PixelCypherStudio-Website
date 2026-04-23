@@ -414,7 +414,7 @@ export default function WebDevelopmentCapabilityContent() {
             <Link href="/work">WORK</Link>
             <Link href="/studio">STUDIO</Link>
             <Link href="/">HOME</Link>
-            <Link href="#contact">CONTACT</Link>
+            <Link href="/contact">CONTACT</Link>
           </div>
         </footer>
       </main>

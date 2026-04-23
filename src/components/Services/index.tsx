@@ -20,6 +20,7 @@ const services = [
     slug: 'MOTION',
     subtitle: 'Motion Graphics / Video Editing',
     accent: 'green' as const,
+     href: '/capabilities/video-editing-motion-graphics',
     items: [
       'Motion Graphics Systems',
       'Video Editing for Campaigns',

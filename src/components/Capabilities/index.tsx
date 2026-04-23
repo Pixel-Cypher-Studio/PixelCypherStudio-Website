@@ -70,6 +70,18 @@ export default function Capabilities() {
       </Link>
     );
   }
+  else  if (title === 'Motion Graphics / Video Editing') {
+    return (
+      <Link
+        key={number}
+        href="/capabilities/video-editing-motion-graphics"
+        className={`${styles.card} ${styles[`card--${accent}`]}`}
+        aria-label="Open Motion Graphics / Video Editing capability page"
+      >
+        {cardContent}
+      </Link>
+    );
+  }
 
   return (
     <article key={number} className={`${styles.card} ${styles[`card--${accent}`]}`}>

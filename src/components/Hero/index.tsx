@@ -1,9 +1,12 @@
 import Link from 'next/link';
+import HeroScene from '@/components/HeroScene';
 import styles from './Hero.module.scss';
 
 export default function Hero() {
   return (
     <section className={styles.hero}>
+      <HeroScene />
+
       {/* RGB ambient orbs */}
       <div className={styles.orbs} aria-hidden="true">
         <div className={`${styles.orb} ${styles.orbRed}`}    />

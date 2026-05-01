@@ -30,36 +30,29 @@ const stats = [
 
 const projects = [
   {
-    tag: 'WEB APP',
-    title: 'CONSTRUCT OS',
+    tag: 'E-COMMERCE',
+    title: 'VELORA',
     description:
-      'Real-time project management built for construction firms. Used daily by 50k+ project managers worldwide.',
+      'High-performance e-commerce platform with instant checkout, AI-powered search, and real-time analytics. 200k+ daily active users.',
     accent: 'orange',
-    icon: '🏗',
+    sampleUrl: '/samples/ecommerce-platform.html',
   },
+ 
   {
-    tag: 'MOBILE',
-    title: 'BOLT DELIVERY',
+    tag: 'PORTFOLIO',
+    title: 'LUMINA',
     description:
-      'Last-mile logistics platform powering 80,000 daily active couriers across 12 metropolitan areas.',
-    accent: 'blue',
-    icon: '⚡',
-  },
-  {
-    tag: 'GAME',
-    title: 'PIXEL FORGE',
-    description:
-      'Award-winning indie tower defense with procedural pixel art generation. 200k+ downloads.',
+      'Award-winning creative portfolio for a digital studio. Blend of brand identity, web design, and motion systems.',
     accent: 'teal',
-    icon: '🎮',
+    sampleUrl: '/samples/portfolio-creative.html',
   },
   {
-    tag: 'AI PLATFORM',
-    title: 'NEURAL DRAFT',
+    tag: 'AGENCY',
+    title: 'STELLAR',
     description:
-      'AI design assistant that speaks the language of pixels, vectors, and motion. Ship designs 10x faster.',
+      'Full-service agency landing page with strategy showcases, client logos, and conversion-optimized layout.',
     accent: 'violet',
-    icon: '🤖',
+    sampleUrl: '/samples/agency-landing.html',
   },
 ];
 
@@ -323,15 +316,29 @@ export default function WebDevelopmentCapabilityContent() {
                 className={styles.carouselTrack}
                 style={{ transform: `translateX(-${activeProjectIndex * 100}%)` }}
               >
-                {projects.map((project) => (
+                               {projects.map((project) => (
                   <article key={project.title} className={styles.slide}>
-                    <div className={`${styles.slideVisual} ${styles[`accent--${project.accent}`]}`}>
-                      {project.icon}
-                    </div>
+                    <a
+                      href={project.sampleUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`${styles.slideVisual} ${styles[`accent--${project.accent}`]}`}
+                    >
+                      <span className={styles.previewLabel}>VIEW</span>
+                      <span className={styles.previewSub}>Live Sample</span>
+                    </a>
                     <div>
                       <span className={styles.slideTag}>{project.tag}</span>
                       <h3 className={styles.slideTitle}>{project.title}</h3>
                       <p className={styles.slideDescription}>{project.description}</p>
+                      <a
+                        href={project.sampleUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.sampleLink}
+                      >
+                        OPEN PREVIEW ↗
+                      </a>
                     </div>
                   </article>
                 ))}
@@ -397,7 +404,7 @@ export default function WebDevelopmentCapabilityContent() {
           </div>
         </section>
 
-        <footer
+        {/* <footer
           id="contact"
           ref={(node) => {
             sectionRefs.current[4] = node;
@@ -416,7 +423,7 @@ export default function WebDevelopmentCapabilityContent() {
             <Link href="/">HOME</Link>
             <Link href="/contact">CONTACT</Link>
           </div>
-        </footer>
+        </footer> */}
       </main>
     </div>
   );

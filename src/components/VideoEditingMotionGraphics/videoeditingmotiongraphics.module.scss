@@ -17,7 +17,28 @@
 //   padding: 0;
 // }
 
+
 // ── Global ─────────────────────────────────────────────────
+
+
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXoo9Wdhyzbi.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+                 U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
+                 U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+                 U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+
+.light-text {
+  font-weight: 300;
+  font-style: italic;
+}
+
 .htmlRoot {
   scroll-behavior: smooth;
 }
@@ -26,7 +47,7 @@
   background: var(--ink);
   color: var(--paper);
   font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 500;
   overflow-x: hidden;
   cursor: crosshair;
 }
@@ -761,12 +782,13 @@ $grain-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' wi
   border-bottom: 1px solid rgba(244, 241, 235, 0.08);
   padding: 0.6rem 0;
   margin: 2rem 0;
+   white-space: nowrap;
 }
 
 .tickerInner {
   display: flex;
- 
-  gap: 4rem;
+   align-items: center;
+  gap: 2.5rem;
   width: max-content;
   animation: scrollLeft 18s linear infinite;
   font-family: 'Bebas Neue', sans-serif;
@@ -774,13 +796,12 @@ $grain-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' wi
   letter-spacing: 0.15em;
   color: rgba(244, 241, 235, 0.3);
 
-  span{
 
-  }
 
   .accent {
     color: var(--accent);
-    display: block;
+    // display: inline;
+    margin-left: 20px;
   }
 }
 

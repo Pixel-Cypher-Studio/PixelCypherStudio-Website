@@ -4,6 +4,18 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import styles from './HeroScene.module.scss';
 
+interface ImageOrbital {
+  mesh: THREE.Mesh;
+  angle: number;
+  radius: number;
+  speed: number;
+  yOffset: number;
+  floatSpeed: number;
+  floatAmp: number;
+  rotationSpeed: number;
+  baseY: number;
+}
+
 export default function HeroScene() {
   const mountRef = useRef<HTMLDivElement | null>(null);
 
@@ -89,7 +101,7 @@ export default function HeroScene() {
       { label: 'WEB DEVELOPMENT', color: '#5b8cff', position: new THREE.Vector3(0.45, -1.85, 0.9), image: '/images/philosophy/studio-main.jpg' },
     ];
 
-    const markerTextures: THREE.CanvasTexture[] = [];
+    const markerTextures: THREE.Texture[] = [];
     const markerMaterials: THREE.Material[] = [];
     const markerGeometries: THREE.BufferGeometry[] = [];
 
@@ -165,6 +177,70 @@ export default function HeroScene() {
     group.add(wireframe);
     group.add(ring);
 
+    // ── Floating Image Planes ────────────────────────────────────
+    const imageOrbitals: ImageOrbital[] = [];
+    const imageUrls = [
+      '/images/philosophy/studio-abstract.jpg',
+      '/images/philosophy/studio-wave.jpg',
+      '/images/philosophy/studio-main.jpg',
+      '/images/logo/pcslogo1.png',
+    ];
+
+    const loader = new THREE.TextureLoader();
+
+    imageUrls.forEach((url, index) => {
+      loader.load(url, (texture) => {
+        const aspect = texture.image.width / texture.image.height;
+        const baseWidth = 1.0;
+        const planeWidth = baseWidth;
+        const planeHeight = baseWidth / aspect;
+
+        const planeGeo = new THREE.PlaneGeometry(planeWidth, planeHeight);
+
+        const planeMat = new THREE.MeshBasicMaterial({
+          map: texture,
+          transparent: true,
+          opacity: 0.45,
+          depthWrite: false,
+          side: THREE.DoubleSide,
+        });
+
+        const mesh = new THREE.Mesh(planeGeo, planeMat);
+
+        const angleOffset = (index / imageUrls.length) * Math.PI * 2;
+        const radius = 2.8 + Math.random() * 0.6;
+        const yBase = (Math.random() - 0.5) * 3.5;
+
+        mesh.position.set(
+          Math.cos(angleOffset) * radius,
+          yBase,
+          Math.sin(angleOffset) * radius
+        );
+
+        mesh.lookAt(0, 0, 0);
+        mesh.userData = { opacity: 0.45 + Math.random() * 0.2 };
+
+        markerGeometries.push(planeGeo);
+        markerMaterials.push(planeMat);
+        markerTextures.push(texture);
+
+        group.add(mesh);
+
+        imageOrbitals.push({
+          mesh,
+          angle: angleOffset,
+          radius,
+          speed: 0.0015 + Math.random() * 0.0015,
+          yOffset: (Math.random() - 0.5) * 2.0,
+          floatSpeed: 0.0004 + Math.random() * 0.0006,
+          floatAmp: 0.15 + Math.random() * 0.2,
+          rotationSpeed: 0.0003 + Math.random() * 0.0003,
+          baseY: yBase,
+        });
+      });
+    });
+
+    // ── Event handlers ──────────────────────────────────────────
     const resize = () => {
       width = mount.clientWidth;
       height = mount.clientHeight;
@@ -191,6 +267,7 @@ export default function HeroScene() {
       lastPointerY = 0;
     };
 
+    // ── Animate loop ────────────────────────────────────────────
     const animate = () => {
       animationFrameId = window.requestAnimationFrame(animate);
 
@@ -207,6 +284,19 @@ export default function HeroScene() {
 
       points.rotation.y -= 0.0015;
       points.rotation.x += 0.0009;
+
+      // Animate floating image planes
+      const now = performance.now();
+      imageOrbitals.forEach((orb) => {
+        orb.angle += orb.speed;
+        orb.mesh.position.x = Math.cos(orb.angle) * orb.radius;
+        orb.mesh.position.z = Math.sin(orb.angle) * orb.radius;
+        orb.mesh.position.y = orb.baseY + Math.sin(now * orb.floatSpeed) * orb.floatAmp;
+
+        orb.mesh.rotation.x += Math.sin(now * 0.0005) * 0.001;
+        orb.mesh.rotation.y += 0.003;
+        orb.mesh.rotation.z += Math.cos(now * 0.0004) * 0.0005;
+      });
 
       renderer.render(scene, camera);
     };

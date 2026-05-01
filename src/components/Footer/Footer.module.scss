@@ -152,15 +152,7 @@
 }
 
 
-.footerLink {
-  font-size: var(--text-body-md);
-  color: var(--on-surface-variant);
-  transition: color var(--duration-fast) var(--ease-premium);
 
-  &:hover {
-    color: var(--on-surface);
-  }
-}
 
 // ── Bottom bar ────────────────────────────────────────────────────────────────
 .bottom {

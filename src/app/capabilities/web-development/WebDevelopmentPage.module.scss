@@ -276,9 +276,10 @@
   justify-content: center;
   font-size: 54px;
   clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    background-image: url('../../../../public/images/sample_images/screen.png');
 }
 
-.accent--orange { background: var(--orange); }
+// .accent--orange { background: var(--orange); }
 .accent--blue { background: var(--blue); }
 .accent--teal { background: #0d6e6e; }
 .accent--violet { background: var(--violet); }
@@ -466,6 +467,69 @@
 .footerLinks a:hover {
   color: var(--orange);
 }
+
+.slideVisual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.slideVisual:hover {
+  transform: scale(1.05);
+}
+
+.previewLabel {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.previewSub {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+.sampleLink {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 6px 14px;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  color: var(--orange);
+  border: 1px solid var(--orange);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.sampleLink:hover {
+  background: var(--orange);
+  color: #fff;
+}
+
+.slide a {
+  color: inherit;
+}
+
+.accent--orange .previewLabel,
+.accent--blue .previewLabel,
+.accent--teal .previewLabel,
+.accent--violet .previewLabel {
+  color: #fff;
+}
+
 
 @media (max-width: 900px) {
   .stats,

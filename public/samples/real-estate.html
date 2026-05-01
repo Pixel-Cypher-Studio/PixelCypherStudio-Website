@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Architecture | Luxury Real Estate</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#403f3d",
+                        "on-primary-fixed-variant": "#5c5b5b",
+                        "inverse-primary": "#ffffff",
+                        "secondary-fixed": "#e5e2de",
+                        "tertiary-dim": "#595246",
+                        "surface-container-high": "#e8e8e3",
+                        "tertiary": "#655e52",
+                        "error-container": "#fe8983",
+                        "primary-fixed": "#e5e2e1",
+                        "primary-container": "#e5e2e1",
+                        "on-tertiary-fixed": "#4f493d",
+                        "primary-dim": "#535252",
+                        "secondary-container": "#e5e2de",
+                        "secondary": "#605f5c",
+                        "error-dim": "#4e0309",
+                        "on-error": "#fff7f6",
+                        "surface-tint": "#5f5e5e",
+                        "background": "#fbf9f6",
+                        "on-tertiary": "#fff8f0",
+                        "surface-bright": "#fbf9f6",
+                        "on-error-container": "#752121",
+                        "outline": "#797b77",
+                        "surface-variant": "#e2e3dd",
+                        "on-tertiary-fixed-variant": "#6d6559",
+                        "on-secondary": "#fbf8f4",
+                        "on-primary-container": "#525151",
+                        "on-tertiary-container": "#625b4f",
+                        "surface-container-low": "#f5f3f0",
+                        "on-primary": "#faf7f6",
+                        "secondary-fixed-dim": "#d6d4d0",
+                        "primary": "#5f5e5e",
+                        "surface": "#fbf9f6",
+                        "primary-fixed-dim": "#d6d4d3",
+                        "surface-dim": "#d9dbd4",
+                        "surface-container-highest": "#e2e3dd",
+                        "on-surface-variant": "#5d605b",
+                        "inverse-surface": "#0e0e0d",
+                        "on-secondary-container": "#52524f",
+                        "on-secondary-fixed-variant": "#5c5b59",
+                        "on-background": "#30332f",
+                        "on-surface": "#30332f",
+                        "tertiary-fixed": "#fdf2e2",
+                        "inverse-on-surface": "#9e9d9a",
+                        "error": "#9f403d",
+                        "on-primary-fixed": "#403f3f",
+                        "surface-container": "#eeeeea",
+                        "secondary-dim": "#545350",
+                        "tertiary-container": "#fdf2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#b1b3ad",
+                        "tertiary-fixed-dim": "#efe4d4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope", "sans-serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fbf9f6]/60 dark:bg-[#0e0e0d]/60 backdrop-blur-2xl transition-colors duration-500">
+<div class="flex justify-between items-center px-12 py-6 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-8">
+<a class="text-xl font-bold tracking-tighter text-[#30332f] dark:text-[#fbf9f6]" href="#">AETHER ARCHITECTURE</a>
+<nav class="hidden md:flex gap-6 font-manrope tracking-tight text-sm uppercase">
+<a class="text-[#30332f] dark:text-white border-b border-[#5f5e5e] pb-1" href="#">Properties</a>
+<a class="text-[#5f5e5e]/60 dark:text-[#e2e3dd]/40 hover:text-[#30332f] dark:hover:text-white transition-all duration-300" href="#">Curations</a>
+<a class="text-[#5f5e5e]/60 dark:text-[#e2e3dd]/40 hover:text-[#30332f] dark:hover:text-white transition-all duration-300" href="#">Architects</a>
+<a class="text-[#5f5e5e]/60 dark:text-[#e2e3dd]/40 hover:text-[#30332f] dark:hover:text-white transition-all duration-300" href="#">Journal</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-4 text-[#5f5e5e] dark:text-[#e2e3dd]">
+<span class="material-symbols-outlined hover:text-[#30332f] cursor-pointer transition-colors">favorite</span>
+<span class="material-symbols-outlined hover:text-[#30332f] cursor-pointer transition-colors">account_circle</span>
+</div>
+<button class="bg-gradient-to-r from-primary to-primary-dim text-on-primary px-6 py-3 rounded text-sm uppercase tracking-wider hover:from-primary-dim hover:to-primary transition-all duration-300 scale-98 hover:scale-100 ease-out shadow-[0_10px_40px_rgba(48,51,47,0.06)]">
+                    Private Enquiry
+                </button>
+</div>
+</div>
+</header>
+<main class="pt-32">
+<!-- Hero Section -->
+<section class="relative w-full h-[870px] flex items-center justify-center overflow-hidden bg-surface-container-low mb-24">
+<img alt="Luxury modern architectural home with large glass windows at dusk" class="absolute inset-0 w-full h-full object-cover object-center opacity-90 scale-105 transition-transform duration-[10s] hover:scale-100" data-alt="luxury modern minimalist home exterior with large floor to ceiling glass windows, warm interior lighting, sleek concrete and timber accents, dusk lighting, architectural photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC21k-uGGt_hyGL3g02seraCs9cpuJWXWwRUTs_0fjCy9bQ-gyt7HbLbOgatk3irSbQH_SkWno6i-Aix1sOOqp5eM3b-ahuJ_pO4tSWp4q3UpfmmpPHg2Jur4Sill-JVIoCQZC3Byvd7xAwgZAju7c0a3-8w3NnYn6FRvgxeGVzIqPzzfCiXONF5pFuJq7MyP4foWwMdGfXbQRsi9l0xse62SGRPI5bYmWSxEpUYYYmAwFCHlwDAdYRPhO_ypQFQUeepN6hYNPMt-sZ"/>
+<div class="absolute inset-0 bg-gradient-to-b from-surface/40 via-transparent to-surface/80"></div>
+<div class="relative z-10 max-w-screen-xl mx-auto px-12 w-full flex flex-col items-start justify-end h-full pb-24">
+<div class="max-w-3xl">
+<p class="font-label text-sm uppercase tracking-[0.2em] text-on-surface mb-6 opacity-80">Defining the Modern Monolith</p>
+<h1 class="font-headline text-5xl md:text-7xl font-light tracking-tighter text-on-surface leading-tight mb-8 drop-shadow-sm">
+                        Curating Spaces of<br/><span class="font-medium">Quiet Luxury.</span>
+</h1>
+<button class="flex items-center gap-4 border border-outline-variant/30 px-8 py-4 bg-surface-container-lowest/80 backdrop-blur-md hover:bg-surface-container-lowest transition-colors duration-300 text-on-surface rounded">
+<span class="font-label text-sm uppercase tracking-wider font-medium">Explore the Portfolio</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Current Listings (Bento Grid) -->
+<section class="max-w-screen-2xl mx-auto px-12 py-24">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+<div class="max-w-xl">
+<h2 class="font-headline text-4xl tracking-tight text-on-surface mb-4">Current Curations</h2>
+<p class="font-body text-on-surface-variant text-lg">A curated selection of architectural masterpieces, available for private acquisition.</p>
+</div>
+<button class="text-sm font-label uppercase tracking-widest border-b border-outline hover:border-on-surface transition-colors pb-1 text-on-surface">View All Properties</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[400px]">
+<!-- Listing 1 (Large Span) -->
+<article class="col-span-1 md:col-span-8 group relative overflow-hidden bg-surface-container-low rounded-lg">
+<img alt="Modern concrete villa interior" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="expansive modern living room with exposed concrete walls, minimalist luxury furniture, floor to ceiling windows overlooking the ocean, natural daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwRSsXNS-GYQDo3Muye5DNYLiHdligHpCywgY9XWmIskJ2oyyuTIxMk0YL8u7Dy-WHuKniniZDwg-UGZJlSkA03LCMkd-gSeGE1oOvOzydL2s4xpOgAvoQe7nzkUAteZIDMC37msUFUW1MNOXeEMek7mdL7nhU45NDkDA5oltfV-lXZSEddj_jl4CvQQoZ-HmdV6RNSBdoQfc8GMWkQxpzhyt9FTMtTQqmqRc8ittWiURZp4E2qFLlwtPZO0SAKPzDjCurWQnKcClF"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface/90 via-surface/20 to-transparent"></div>
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 text-xs uppercase tracking-wider font-medium rounded">Featured</span>
+<span class="bg-surface-container-lowest/80 backdrop-blur text-on-surface px-3 py-1 text-xs uppercase tracking-wider font-medium rounded">New Construction</span>
+</div>
+<div class="absolute bottom-0 left-0 w-full p-8 flex justify-between items-end">
+<div>
+<h3 class="font-headline text-3xl text-on-surface mb-2 font-medium tracking-tight">The Brutalist Pavilion</h3>
+<p class="font-body text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                                Malibu, California
+                            </p>
+</div>
+<div class="text-right">
+<p class="font-label text-sm uppercase tracking-widest text-on-surface-variant mb-1">P.O.A</p>
+<p class="font-label text-sm text-on-surface">12,500 SQ FT • 6 BED</p>
+</div>
+</div>
+</article>
+<!-- Listing 2 (Tall) -->
+<article class="col-span-1 md:col-span-4 group relative overflow-hidden bg-surface-container-low rounded-lg">
+<img alt="Contemporary home exterior at night" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="sleek contemporary home exterior at night, warm interior glowing lights, dark slate siding, minimalist landscaping" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwH2AjbR2gOawTQDhCpxqNvn2-MUaI8YKPf8DNdJ88A9BxxSz8OOJ8M_guoAtl6F3m9ux7PvSExg8-04kR_vGTmJZ_D_Y5y9AoI9yPdWYGMbRg9TRvlzKpJoEMXDq7wOvpcFCCRVglEd3e5xK3pBG3ivKFKsvCJyvfRHbjQamXNPl3vruY9ADsoxSpzTYR2NKtf6fQGI6_2or7CDDJUdikXTWDQWY-KFmLY0UZtRlBj9u815UYgHZNLjnZs1OhO5r8ZDvPlNbzm87n"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface/90 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 w-full p-6">
+<h3 class="font-headline text-xl text-on-surface mb-1 font-medium">Slate House</h3>
+<p class="font-body text-sm text-on-surface-variant mb-3">Aspen, Colorado</p>
+<p class="font-label text-xs uppercase tracking-wider text-on-surface">$14,200,000</p>
+</div>
+</article>
+</div>
+</section>
+<!-- Firm Philosophy (Asymmetric Text/Image) -->
+<section class="py-32 bg-surface-container-low">
+<div class="max-w-screen-2xl mx-auto px-12 flex flex-col md:flex-row items-center gap-24">
+<div class="w-full md:w-[35%] order-2 md:order-1">
+<h2 class="font-headline text-sm uppercase tracking-[0.2em] text-on-surface-variant mb-8">The Philosophy</h2>
+<h3 class="font-headline text-4xl tracking-tight text-on-surface leading-snug mb-8">
+                        Architecture is the thoughtful making of space.
+                    </h3>
+<p class="font-body text-lg text-on-surface-variant leading-relaxed mb-8">
+                        We believe that true luxury lies not in excess, but in the perfection of essential forms. Our approach strips away the superfluous to reveal the inherent beauty of raw materials, light, and structure.
+                    </p>
+<button class="bg-transparent border border-outline-variant/30 text-on-surface px-6 py-3 rounded text-sm uppercase tracking-wider hover:bg-surface-container-lowest transition-colors duration-300">
+                        Read the Manifesto
+                    </button>
+</div>
+<div class="w-full md:w-[65%] order-1 md:order-2 relative">
+<div class="aspect-[4/3] w-full overflow-hidden rounded-lg bg-surface-variant">
+<img alt="Architectural sketches and blueprints on a desk" class="w-full h-full object-cover mix-blend-multiply opacity-80" data-alt="minimalist architectural workspace, architectural blueprints and sketches on a light wood desk, natural soft light, premium drafting tools" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHCxzlp2d4W1L_5BjU_68AS7Y3qnEOyFiXEVQeE3iQYPR2l2iBaAKvqAm-xh9bRPKNOLVDfhY0vU_F5oJI34D3xQ48eE2eZE4DfsIFvTYnZY4sUWPhZ3jG4Xol2iovBJpSgeCEIGp3TP0KpQi_OZSTO1vEGChL_QgS33Z5U_xb7G-GxeQ6p9kTAMoIMGzm4q93DiQzPLAIgpIqZ9NDRXcjvZ6Ugoz47FRezcGsecfRojMFYF5zleL-Ff9TvEfDWI1enyeUIyPDUDbE"/>
+</div>
+<!-- Overlapping highlight card -->
+<div class="absolute -bottom-12 -left-12 bg-surface-container-lowest p-8 rounded shadow-[0_20px_60px_rgba(48,51,47,0.05)] w-72 hidden md:block">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">architecture</span>
+<p class="font-headline text-lg text-on-surface mb-2">Award Winning</p>
+<p class="font-body text-sm text-on-surface-variant">Recognized globally for sustainable, monolithic design principles.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-20 px-12 border-t border-[#b1b3ad]/10 bg-[#f5f3f0] dark:bg-[#0e0e0d] transition-colors">
+<div class="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-end gap-12 w-full">
+<div>
+<a class="text-sm font-bold tracking-widest text-[#30332f] dark:text-white block mb-6" href="#">AETHER ARCHITECTURE</a>
+<p class="font-manrope text-[10px] uppercase tracking-[0.2em] font-medium text-[#5f5e5e] dark:text-[#e2e3dd]">
+                    © 2024 AETHER ARCHITECTURE. ALL RIGHTS RESERVED.
+                </p>
+</div>
+<nav class="flex flex-wrap gap-8 font-manrope text-[10px] uppercase tracking-[0.2em] font-medium">
+<a class="text-[#5f5e5e]/50 dark:text-[#e2e3dd]/30 hover:text-[#30332f] dark:hover:text-white transition-opacity duration-300" href="#">Privacy Policy</a>
+<a class="text-[#5f5e5e]/50 dark:text-[#e2e3dd]/30 hover:text-[#30332f] dark:hover:text-white transition-opacity duration-300" href="#">Terms</a>
+<a class="text-[#5f5e5e]/50 dark:text-[#e2e3dd]/30 hover:text-[#30332f] dark:hover:text-white transition-opacity duration-300" href="#">Accessibility</a>
+<a class="text-[#5f5e5e]/50 dark:text-[#e2e3dd]/30 hover:text-[#30332f] dark:hover:text-white transition-opacity duration-300" href="#">Press</a>
+</nav>
+</div>
+</footer>
+</body></html>

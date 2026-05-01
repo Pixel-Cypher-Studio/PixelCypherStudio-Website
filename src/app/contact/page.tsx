@@ -102,7 +102,7 @@ export default function ContactPage() {
 
             <div className={styles.infoActions}>
               <ContactMailLink
-                email="hello@pixelcypherstudio.com"
+                email="pixelcypherstudio@gmail.com"
                 subject="Project Inquiry"
                 body="Hi PixelCypher Studio,%0D%0A%0D%0AI would like to discuss a project."
                 className={styles.inlineLink}

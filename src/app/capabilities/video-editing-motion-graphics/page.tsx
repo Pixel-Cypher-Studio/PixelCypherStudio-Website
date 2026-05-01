@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import  VideoEditingMotionGraphicsContent  from '@/components/VideoEditingMotionGraphics';
+import  VideoEditingMotionGraphics  from '@/components/VideoEditingMotionGraphics';
 
 export const metadata: Metadata = {
   title: 'Video Editing & Motion Graphics — PixelCypher',
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function VideoEditingMotionGraphicsCapabilityPage() {
-  return <VideoEditingMotionGraphicsContent />;
+  return <VideoEditingMotionGraphics />;
 }

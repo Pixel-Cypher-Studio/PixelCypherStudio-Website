@@ -318,7 +318,7 @@ const VideoEditingMotionGraphics = () => {
       {/* HERO */}
       <section className={styles.hero}>
         <div className={styles.heroLeft}>
-          <div className={styles.heroTag}>Available for projects — 2025</div>
+          <div className={styles.heroTag}>Available for projects — 2026</div>
           <h1 className={styles.heroTitle}>
             VISUAL<br />
             <span>STORIES</span><br />
@@ -349,7 +349,7 @@ const VideoEditingMotionGraphics = () => {
                       lineHeight: 1,
                     }}
                   >
-                    REEL<br />2024
+                    REEL<br />2026
                   </div>
                 </div>
               </div>
@@ -383,11 +383,13 @@ const VideoEditingMotionGraphics = () => {
       <div className={styles.ticker}>
         <div className={styles.tickerInner}>
           {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-            <span key={i}>
+            <>
+            <span  key={i}>
               {item}
-              {/* accent diamond after each item */}
               <span className={styles.accent}> ✦ </span>
             </span>
+            
+            </>
           ))}
         </div>
       </div>
@@ -458,7 +460,7 @@ const VideoEditingMotionGraphics = () => {
             THE PERSON<br />BEHIND<br />THE CUT
           </h2>
           <p className={styles.aboutText}>
-            I'm Alex Mercer, a Berlin-based video editor with 8 years of experience turning raw footage into emotional
+            I'm Vaishnav Iyer, a video editor with 3 years of experience turning raw footage into emotional
             experiences. From 30-second ads to feature-length documentaries, I believe every frame has a purpose.
           </p>
           <p className={styles.aboutText}>
@@ -537,7 +539,7 @@ const VideoEditingMotionGraphics = () => {
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* FOOTER
       <footer className={styles.footer}>
         <div className={styles.footerCopy}>© 2025 Alex Mercer — FRAME. All rights reserved.</div>
         <div className={styles.footerSocials}>
@@ -545,7 +547,7 @@ const VideoEditingMotionGraphics = () => {
             <a key={s} href="#">{s}</a>
           ))}
         </div>
-      </footer>
+      </footer> */}
     </>
   );
 };

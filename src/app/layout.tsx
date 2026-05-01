@@ -1,10 +1,24 @@
 import type { Metadata } from 'next';
 import { Space_Grotesk, Inter } from 'next/font/google';
+import { Bebas_Neue, DM_Sans } from "next/font/google";
 import Providers from '@/components/Providers';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import './globals.css';
 import '@/styles/globals.scss';
+
+const bebas = Bebas_Neue({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-bebas",
+});
+
+const dmSans = DM_Sans({
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-dm",
+});
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -32,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${spaceGrotesk.variable} ${inter.variable}`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${bebas.variable} ${dmSans.variable}`}
     >
       <body>
         <Providers>

@@ -4,6 +4,8 @@ import { Bebas_Neue, DM_Sans } from "next/font/google";
 import Providers from '@/components/Providers';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import InteractiveBackground from '@/components/InteractiveBackground';
+import ScrollProgress from '@/components/ScrollProgress';
 import './globals.css';
 import '@/styles/globals.scss';
 
@@ -48,13 +50,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
       className={`${spaceGrotesk.variable} ${inter.variable} ${bebas.variable} ${dmSans.variable}`}
     >
-      <body>
-        <Providers>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </Providers>
-      </body>
+<body>
+    <Providers>
+      <InteractiveBackground />
+      <ScrollProgress />
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+    </Providers>
+  </body>
     </html>
   );
 }

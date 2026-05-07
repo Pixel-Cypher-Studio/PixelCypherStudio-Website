@@ -78,15 +78,11 @@ function ParticleField({ count = 200 }: { count?: number }) {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={particles.length}
-          array={new Float32Array(particles.length * 3)}
-          itemSize={3}
+          args={[new Float32Array(particles.length * 3), 3]}
         />
         <bufferAttribute
           attach="attributes-color"
-          count={particles.length * 3}
-          array={new Float32Array(particles.length * 3)}
-          itemSize={3}
+          args={[new Float32Array(particles.length * 3), 3]}
         />
       </bufferGeometry>
       <pointsMaterial
@@ -121,7 +117,6 @@ function AnimatedStars() {
         saturation={0}
         fade
         speed={1}
-        color={COLORS.primary}
       />
     </group>
   );

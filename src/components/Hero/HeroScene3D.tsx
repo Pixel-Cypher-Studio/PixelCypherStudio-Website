@@ -18,11 +18,13 @@ function InteractiveLogo({ position }: { position: [number, number, number] }) {
   const groupRef = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState(false);
   const [active, setActive] = useState(false);
+  const elapsedTimeRef = useRef(0);
 
   useFrame((state, delta) => {
     if (!groupRef.current) return;
     
-    easing.damp(groupRef.current.scale, '', active ? [1.2, 1.2, 1.2] : [1, 1, 1], 0.1, delta);
+    elapsedTimeRef.current = state.clock.elapsedTime;
+    easing.damp3(groupRef.current.scale, active ? [1.2, 1.2, 1.2] : [1, 1, 1], 0.1, delta);
     
     if (hovered) {
       groupRef.current.rotation.x += delta * 0.5;
@@ -31,7 +33,7 @@ function InteractiveLogo({ position }: { position: [number, number, number] }) {
   });
 
   return (
-    <group ref={groupRef} position={position}>
+    <><group ref={groupRef} position={position}>
       <Float speed={3} rotationIntensity={0.5} floatIntensity={0.5}>
         {/* Outer ring */}
         <Torus
@@ -45,8 +47,7 @@ function InteractiveLogo({ position }: { position: [number, number, number] }) {
             emissive={COLORS.accent1}
             emissiveIntensity={hovered ? 2 : 0.5}
             distort={0.3}
-            speed={2}
-          />
+            speed={2} />
         </Torus>
 
         {/* Middle ring */}
@@ -62,8 +63,7 @@ function InteractiveLogo({ position }: { position: [number, number, number] }) {
             emissive={COLORS.accent2}
             emissiveIntensity={hovered ? 2 : 0.5}
             distort={0.4}
-            speed={3}
-          />
+            speed={3} />
         </Torus>
 
         {/* Inner ring */}
@@ -79,8 +79,7 @@ function InteractiveLogo({ position }: { position: [number, number, number] }) {
             emissive={COLORS.accent3}
             emissiveIntensity={hovered ? 2 : 0.5}
             distort={0.5}
-            speed={4}
-          />
+            speed={4} />
         </Torus>
 
         {/* Center sphere */}
@@ -89,36 +88,34 @@ function InteractiveLogo({ position }: { position: [number, number, number] }) {
             color={COLORS.primary}
             metalness={0.8}
             roughness={0.2}
-            envMapIntensity={1}
-          />
+            envMapIntensity={1} />
         </Sphere>
 
         {/* Orbiting particles */}
-        {[...Array(8)].map((_, i) => (
-          <mesh
-            key={i}
-            position={[
-              Math.cos((i / 8) * Math.PI * 2 + state => state.clock.elapsedTime) * 2,
-              Math.sin((i / 8) * Math.PI * 2 + state => state.clock.elapsedTime * 0.8) * 2,
-              Math.sin((i / 8) * Math.PI * 2) * 0.5,
-            ]}
-          >
-            <sphereGeometry args={[0.08, 16, 16]} />
-            <meshBasicMaterial
-              color={i % 3 === 0 ? COLORS.accent1 : i % 3 === 1 ? COLORS.accent2 : COLORS.accent3}
-            />
-          </mesh>
-        ))}
-      </Float>
-
-      <ContactShadows
+        {[...Array(8)].map((_, i) => {
+          const elapsed = elapsedTimeRef.current;
+          return (
+            <mesh
+              key={i}
+              position={[
+                Math.cos((i / 8) * Math.PI * 2 + elapsed) * 2,
+                Math.sin((i / 8) * Math.PI * 2 + elapsed * 0.8) * 2,
+                Math.sin((i / 8) * Math.PI * 2) * 0.5,
+              ]}
+            >
+              <sphereGeometry args={[0.08, 16, 16]} />
+              <meshBasicMaterial
+                color={i % 3 === 0 ? COLORS.accent1 : i % 3 === 1 ? COLORS.accent2 : COLORS.accent3} />
+            </mesh>
+          );
+        })}
+    </Float><ContactShadows
         position={[0, -2.5, 0]}
         opacity={0.4}
         scale={10}
         blur={2}
-        far={4.5}
-      />
-    </group>
+        far={4.5} />
+    </group></>
   );
 }
 

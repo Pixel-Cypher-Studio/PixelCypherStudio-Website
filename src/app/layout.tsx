@@ -5,7 +5,7 @@ import Providers from '@/components/Providers';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import InteractiveBackground from '@/components/InteractiveBackground';
-import ScrollProgress from '@/components/ScrollProgress';
+// import ScrollProgress from '@/components/ScrollProgress';
 import './globals.css';
 import '@/styles/globals.scss';
 
@@ -53,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 <body>
     <Providers>
       <InteractiveBackground />
-      <ScrollProgress />
+      {/* <ScrollProgress /> */}
       <Navbar />
       <main>{children}</main>
       <Footer />

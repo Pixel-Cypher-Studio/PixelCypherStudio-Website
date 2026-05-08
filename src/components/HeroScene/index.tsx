@@ -96,9 +96,9 @@ export default function HeroScene() {
     ring.rotation.y = 0.22;
 
     const markerPositions = [
-      { label: 'GRAPHIC DESIGN', color: '#ff4d6d', position: new THREE.Vector3(1.7, 1.15, 0.6), image: '/images/logo/pixelcypherstudio.webp' },
-      { label: 'MOTION GRAPHICS', color: '#6effc6', position: new THREE.Vector3(-1.95, 0.15, -0.35), image: '/images/philosophy/studio-wave.jpg' },
-      { label: 'WEB DEVELOPMENT', color: '#5b8cff', position: new THREE.Vector3(0.45, -1.85, 0.9), image: '/images/philosophy/studio-main.jpg' },
+      { label: 'GRAPHIC DESIGN', color: '#ff4d6d', position: new THREE.Vector3(1.7, 1.15, 0.6), image: '#' },
+      { label: 'MOTION GRAPHICS', color: '#6effc6', position: new THREE.Vector3(-1.95, 0.15, -0.35), image: '#' },
+      { label: 'WEB DEVELOPMENT', color: '#5b8cff', position: new THREE.Vector3(0.45, -1.85, 0.9), image: '#' },
     ];
 
     const markerTextures: THREE.Texture[] = [];
@@ -179,66 +179,66 @@ export default function HeroScene() {
 
     // ── Floating Image Planes ────────────────────────────────────
     const imageOrbitals: ImageOrbital[] = [];
-    const imageUrls = [
-      '/images/philosophy/studio-abstract.jpg',
-      '/images/philosophy/studio-wave.jpg',
-      '/images/philosophy/studio-main.jpg',
-      '/images/logo/pcslogo1.png',
-    ];
+    // const imageUrls = [
+    //   '/images/philosophy/studio-abstract.jpg',
+    //   '/images/philosophy/studio-wave.jpg',
+    //   '/images/philosophy/studio-main.jpg',
+    //   '/images/logo/pcslogo1.png',
+    // ];
 
     const loader = new THREE.TextureLoader();
 
-    imageUrls.forEach((url, index) => {
-      loader.load(url, (texture) => {
-        const aspect = texture.image.width / texture.image.height;
-        const baseWidth = 1.0;
-        const planeWidth = baseWidth;
-        const planeHeight = baseWidth / aspect;
+    // imageUrls.forEach((url, index) => {
+    //   loader.load(url, (texture) => {
+    //     const aspect = texture.image.width / texture.image.height;
+    //     const baseWidth = 1.0;
+    //     const planeWidth = baseWidth;
+    //     const planeHeight = baseWidth / aspect;
 
-        const planeGeo = new THREE.PlaneGeometry(planeWidth, planeHeight);
+    //     const planeGeo = new THREE.PlaneGeometry(planeWidth, planeHeight);
 
-        const planeMat = new THREE.MeshBasicMaterial({
-          map: texture,
-          transparent: true,
-          opacity: 0.45,
-          depthWrite: false,
-          side: THREE.DoubleSide,
-        });
+    //     const planeMat = new THREE.MeshBasicMaterial({
+    //       map: texture,
+    //       transparent: true,
+    //       opacity: 0.45,
+    //       depthWrite: false,
+    //       side: THREE.DoubleSide,
+    //     });
 
-        const mesh = new THREE.Mesh(planeGeo, planeMat);
+    //     const mesh = new THREE.Mesh(planeGeo, planeMat);
 
-        const angleOffset = (index / imageUrls.length) * Math.PI * 2;
-        const radius = 2.8 + Math.random() * 0.6;
-        const yBase = (Math.random() - 0.5) * 3.5;
+    //     const angleOffset = (index / imageUrls.length) * Math.PI * 2;
+    //     const radius = 2.8 + Math.random() * 0.6;
+    //     const yBase = (Math.random() - 0.5) * 3.5;
 
-        mesh.position.set(
-          Math.cos(angleOffset) * radius,
-          yBase,
-          Math.sin(angleOffset) * radius
-        );
+    //     mesh.position.set(
+    //       Math.cos(angleOffset) * radius,
+    //       yBase,
+    //       Math.sin(angleOffset) * radius
+    //     );
 
-        mesh.lookAt(0, 0, 0);
-        mesh.userData = { opacity: 0.45 + Math.random() * 0.2 };
+    //     mesh.lookAt(0, 0, 0);
+    //     mesh.userData = { opacity: 0.45 + Math.random() * 0.2 };
 
-        markerGeometries.push(planeGeo);
-        markerMaterials.push(planeMat);
-        markerTextures.push(texture);
+    //     markerGeometries.push(planeGeo);
+    //     markerMaterials.push(planeMat);
+    //     markerTextures.push(texture);
 
-        group.add(mesh);
+    //     group.add(mesh);
 
-        imageOrbitals.push({
-          mesh,
-          angle: angleOffset,
-          radius,
-          speed: 0.0015 + Math.random() * 0.0015,
-          yOffset: (Math.random() - 0.5) * 2.0,
-          floatSpeed: 0.0004 + Math.random() * 0.0006,
-          floatAmp: 0.15 + Math.random() * 0.2,
-          rotationSpeed: 0.0003 + Math.random() * 0.0003,
-          baseY: yBase,
-        });
-      });
-    });
+    //     imageOrbitals.push({
+    //       mesh,
+    //       angle: angleOffset,
+    //       radius,
+    //       speed: 0.0015 + Math.random() * 0.0015,
+    //       yOffset: (Math.random() - 0.5) * 2.0,
+    //       floatSpeed: 0.0004 + Math.random() * 0.0006,
+    //       floatAmp: 0.15 + Math.random() * 0.2,
+    //       rotationSpeed: 0.0003 + Math.random() * 0.0003,
+    //       baseY: yBase,
+    //     });
+    //   });
+    // });
 
     // ── Event handlers ──────────────────────────────────────────
     const resize = () => {

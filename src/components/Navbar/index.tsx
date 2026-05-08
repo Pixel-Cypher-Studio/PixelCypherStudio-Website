@@ -8,9 +8,9 @@ import ThemeToggle from '@/components/ThemeToggle';
 import styles from './Navbar.module.scss';
 
 const navLinks = [
-  { href: '/work', label: 'Work' },
+  // { href: '/work', label: 'Work' },
   { href: '/studio', label: 'Studio' },
-  { href: '/lab', label: 'Lab' },
+  // { href: '/lab', label: 'Lab' },
  { href: '/contact', label: 'Contact' },
 ];
 

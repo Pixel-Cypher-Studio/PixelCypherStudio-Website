@@ -1,86 +1,153 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import styles from './Philosophy.module.scss';
 
-const philosophyImages = [
+const services = [
   {
-    id: 'main',
-    src: '/images/philosophy/studio-main.jpg',
-    alt: 'PixelCypher studio setup',
-    className: 'featureMedia',
-    sizes: '(max-width: 900px) 100vw, 66vw',
+    number: '01',
+    title: 'BRANDING',
+    description: 'Strategy-led identity systems that build recognition and trust.',
+    href: '/services/branding',
+    image: '/images/philosophy/studioPhilosophy_branding.png',
   },
   {
-    id: 'wave',
-    src: '/images/philosophy/studio-wave.jpg',
-    alt: 'Abstract light wave',
-    className: 'secondaryMedia',
-    sizes: '(max-width: 900px) 100vw, 33vw',
+    number: '02',
+    title: 'PACKAGING',
+    description: 'Packaging that embodies the product and elevates the experience.',
+    href: '/services/packaging',
+    image: '/images/philosophy/studioPhilosophy_package.png',
   },
   {
-    id: 'abstract',
-    src: '/images/philosophy/studio-abstract.jpg',
-    alt: 'Abstract architectural light composition',
-    className: 'secondaryMediaWide',
-    sizes: '(max-width: 900px) 100vw, 66vw',
+    number: '03',
+    title: 'MOTION GRAPHICS',
+    description: 'Bringing brands to life through movement, typography and rhythm.',
+    href: '/services/motion-graphics',
+    image: '/images/philosophy/studio-main.jpg',
+  },
+  {
+    number: '04',
+    title: 'VIDEO EDITING',
+    description: 'Story-driven editing that captures emotion and tells a tale.',
+    href: '/services/video-editing',
+    image: '/images/philosophy/studio-main.jpg',
+  },
+  {
+    number: '05',
+    title: 'WEB DEVELOPMENT',
+    description: 'Immersive digital experiences built for performance and impact.',
+    href: '/services/web-development',
+    image: '/images/philosophy/studio-main.jpg',
   },
 ];
 
-
 export default function Philosophy() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   return (
     <section className={`section ${styles.section}`}>
-  <div className="container">
-    <div className={styles.grid}>
-  {philosophyImages.slice(0, 1).map((image) => (
-    <div key={image.id} className={styles[image.className]}>
-      <div className={styles.mediaFrame}>
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          className={styles.mediaImage}
-          sizes={image.sizes}
-        />
+      <div className="container">
+        <div className={styles.header}>
+          <span className="label-caps">Studio Philosophy</span>
+          <h2 className={styles.title}>
+            We Don't Just Build Websites;<br />
+            We Build <span className="kinetic-text">Digital Monoliths</span>
+          </h2>
+        </div>
+
+        <div className={styles.grid}>
+          {/* Top Row - 2 cards */}
+          <div className={styles.topRow}>
+            {services.slice(0, 2).map((service, index) => {
+              const isHovered = hoveredIndex === index;
+              
+              return (
+                <Link
+                  key={service.number}
+                  href={service.href}
+                  className={`${styles.card} ${styles[`card--${index % 3}`]} ${styles.cardLarge}`}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                >
+                  <div className={styles.backgroundImage}>
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className={`${styles.image} ${isHovered ? styles.imageHover : ''}`}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  
+                  <div className={styles.content}>
+                    <div className={styles.number}>{service.number}</div>
+                    <h3 className={styles.cardTitle}>{service.title}</h3>
+                    <p className={styles.cardDescription}>{service.description}</p>
+                  </div>
+                  
+                  <div className={styles.arrowContainer}>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={styles.arrow}>
+                      <path d="M7 17L17 7M17 7H7M17 7V17" />
+                    </svg>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Bottom Row - 3 cards */}
+          <div className={styles.bottomRow}>
+            {services.slice(2).map((service, index) => {
+              const actualIndex = index + 2;
+              const isHovered = hoveredIndex === actualIndex;
+              
+              return (
+                <Link
+                  key={service.number}
+                  href={service.href}
+                  className={`${styles.card} ${styles[`card--${actualIndex % 3}`]}`}
+                  onMouseEnter={() => setHoveredIndex(actualIndex)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                >
+                  <div className={styles.backgroundImage}>
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className={`${styles.image} ${isHovered ? styles.imageHover : ''}`}
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  </div>
+                  
+                  <div className={styles.content}>
+                    <div className={styles.number}>{service.number}</div>
+                    <h3 className={styles.cardTitle}>{service.title}</h3>
+                    <p className={styles.cardDescription}>{service.description}</p>
+                  </div>
+                  
+                  <div className={styles.arrowContainer}>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={styles.arrow}>
+                      <path d="M7 17L17 7M17 7H7M17 7V17" />
+                    </svg>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* <div className={styles.footer}>
+          <Link href="/studio" className={styles.learnMore}>
+            <span className="label-caps">Explore Our Studio</span>
+            <div className={styles.arrowWrapper}>
+              <span className={styles.arrowLine} />
+              <span className={styles.arrowHead}>→</span>
+            </div>
+          </Link>
+        </div> */}
       </div>
-    </div>
-  ))}
-
-  <div className={styles.copyPanel}>
-    <span className="label-caps">Studio Philosophy</span>
-
-    <blockquote className={styles.statement}>
-      We don't just build websites; we build{' '}
-      <em className={styles.emphasis}>digital monoliths</em> that stand the test of time and trend.
-    </blockquote>
-
-    <p className={styles.body}>
-      Every project begins with a question: what does this brand feel like at
-      3 AM, in motion, on a screen? We work at the intersection of technical
-      precision and creative chaos.
-    </p>
-
-    <Link href="/studio" className={styles.link}>
-      Learn Our Process
-      <span className={styles.arrow}>→</span>
-    </Link>
-  </div>
-
-  {philosophyImages.slice(1).map((image) => (
-    <div key={image.id} className={styles[image.className]}>
-      <div className={styles.mediaFrame}>
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          className={styles.mediaImage}
-          sizes={image.sizes}
-        />
-      </div>
-    </div>
-  ))}
-</div>
-  </div>
-</section>
+    </section>
   );
 }

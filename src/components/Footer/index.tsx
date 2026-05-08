@@ -10,9 +10,9 @@ const socialLinks = [
 ];
 
 const navLinks = [
-  { label: 'Work', href: '/work' },
+  { label: 'Home', href: '/' },
   { label: 'Studio', href: '/studio' },
-  { label: 'Lab', href: '/lab' },
+  // { label: 'Lab', href: '/lab' },
   { label: 'Contact', href: '/contact' },
 ];
 

@@ -74,12 +74,12 @@ const SKILLS = [
   { name: 'Premiere Pro',   width: '95%', delay: '0.1s' },
   { name: 'DaVinci Resolve',width: '90%', delay: '0.2s' },
   { name: 'After Effects',  width: '85%', delay: '0.3s' },
-  { name: 'Color Grading',  width: '92%', delay: '0.4s' },
-  { name: 'Sound Design',   width: '78%', delay: '0.5s' },
-  { name: 'Motion Graphics',width: '80%', delay: '0.6s' },
+  // { name: 'Color Grading',  width: '92%', delay: '0.4s' },
+  // { name: 'Sound Design',   width: '78%', delay: '0.5s' },
+  // { name: 'Motion Graphics',width: '80%', delay: '0.6s' },
 ];
 
-const CLIENTS = ['NIKE', 'SONY', 'APPLE', 'VOGUE', 'RED BULL', 'NETFLIX', 'HBO', 'SPOTIFY'];
+// const CLIENTS = ['NIKE', 'SONY', 'APPLE', 'VOGUE', 'RED BULL', 'NETFLIX', 'HBO', 'SPOTIFY'];
 
 interface ServiceItem {
   num: string;
@@ -457,15 +457,13 @@ const VideoEditingMotionGraphics = () => {
         <div className={styles.aboutLeft}>
           <div className={styles.sectionLabel}>About</div>
           <h2 className={styles.aboutHeading}>
-            THE PERSON<br />BEHIND<br />THE CUT
+            THE TEAM<br />BEHIND<br />THE CUT
           </h2>
           <p className={styles.aboutText}>
-            I'm Vaishnav Iyer, a video editor with 3 years of experience turning raw footage into emotional
-            experiences. From 30-second ads to feature-length documentaries, I believe every frame has a purpose.
+            Vaishnav lyer & Ankit Kayden. We're video editors focused on turning raw footage into seamless, impactful stories. From short-form content to cinematic edits, we believe every frame should serve a purpose.
           </p>
           <p className={styles.aboutText}>
-            My approach is rooted in storytelling first — the technical craft follows. I work closely with directors,
-            brands, and creatives to find the edit that amplifies their vision.
+            Our approach is simple-story first, craft second. We collaborate closely with creators, brands, and filmmakers to shape edits that not only look good, but feel right.
           </p>
           <div className={styles.heroCta} style={{ marginTop: '2.5rem' }}>
             <a href="#contact" className={styles.btnPrimary}>Hire Me</a>
@@ -489,11 +487,11 @@ const VideoEditingMotionGraphics = () => {
           </div>
 
           <div className={styles.clientsRow}>
-            <div className={styles.sectionLabel}>Clients</div>
+            {/* <div className={styles.sectionLabel}>Clients</div> */}
             <div className={styles.clientsList}>
-              {CLIENTS.map((c) => (
+              {/* {CLIENTS.map((c) => (
                 <span key={c} className={styles.clientName}>{c}</span>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>

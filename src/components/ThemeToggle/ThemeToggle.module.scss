@@ -35,3 +35,46 @@
 .iconMoon {
   transform: rotate(-20deg);
 }
+
+// Particle burst animation
+.particleBurst {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--particle-color);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  animation: particleBurst 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  
+  @keyframes particleBurst {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: 
+        translate(
+          calc(-50% + var(--particle-x)), 
+          calc(-50% + var(--particle-y))
+        ) 
+        scale(0);
+    }
+  }
+}
+
+// Theme change wave effect
+:global(.theme-changing) * {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}

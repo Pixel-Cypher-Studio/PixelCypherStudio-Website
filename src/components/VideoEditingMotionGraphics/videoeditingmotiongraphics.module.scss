@@ -245,6 +245,7 @@ $grain-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' wi
   left: 3rem;
   right: 3rem;
   display: flex;
+  justify-content: end;
   gap: 3rem;
   z-index: 2;
 }

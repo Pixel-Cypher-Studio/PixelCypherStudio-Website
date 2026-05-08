@@ -36,21 +36,21 @@ export default function Hero() {
 
         {/* CTAs */}
         <div className={styles.actions}>
-          <Link href="#contact" className={styles.ctaPrimary}>
-            Launch Project
+          <Link href="#" className={styles.ctaPrimary}>
+            View Reel
             <span className={styles.arrow}>→</span>
           </Link>
-          <Link href="/work" className={styles.ctaSecondary}>
-            View Reel
+          <Link href="/contact" className={styles.ctaSecondary}>
+           Contact
           </Link>
         </div>
 
         {/* Stats row */}
         <div className={styles.stats}>
           {[
-            { value: '7+',  label: 'Years'    },
-            { value: '120', label: 'Projects' },
-            { value: '40+', label: 'Clients'  },
+            // { value: '7+',  label: 'Years'    },
+            // { value: '120', label: 'Projects' },
+            // { value: '40+', label: 'Clients'  },
           ].map(({ value, label }) => (
             <div key={label} className={styles.stat}>
               <span className={styles.statValue}>{value}</span>

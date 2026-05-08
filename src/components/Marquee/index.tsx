@@ -24,8 +24,6 @@ export default function Marquee({
   speed = 30,
   reverse = false,
 }: MarqueeProps) {
-  // Duplicate for seamless infinite loop: track width = 2× one copy,
-  // animation moves by −50% (= one copy width), then loops invisibly.
   const allItems = [...items, ...items];
 
   return (
@@ -33,7 +31,6 @@ export default function Marquee({
       <div className={styles.dividerLine} />
       <div
         className={`${styles.track} ${reverse ? styles.trackReverse : ''}`}
-        // --marquee-speed is a CSS custom property read by the animation shorthand
         style={{ '--marquee-speed': `${speed}s` } as React.CSSProperties}
       >
         {allItems.map((item, i) => (

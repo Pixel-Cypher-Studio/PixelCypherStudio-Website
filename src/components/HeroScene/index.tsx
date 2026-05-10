@@ -46,7 +46,8 @@ export default function HeroScene() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-    camera.position.z = 7;
+    camera.position.x = -3;
+    camera.position.z = 12;
 
     const group = new THREE.Group();
     scene.add(group);

@@ -5,7 +5,7 @@ import styles from './Hero.module.scss';
 export default function Hero() {
   return (
     <section className={styles.hero}>
-      <HeroScene />
+      {/* <HeroScene /> */}
 
       {/* RGB ambient orbs */}
       <div className={styles.orbs} aria-hidden="true">
@@ -16,6 +16,7 @@ export default function Hero() {
 
       <div className={`container ${styles.content}`}>
         {/* Studio label */}
+        <div className={styles.leftSideContent}>
         <div className={styles.label}>
           <span className={styles.labelDot} />
           <span className="label-caps">A Hyper-Kinetic Design Studio</span>
@@ -58,6 +59,15 @@ export default function Hero() {
             </div>
           ))}
         </div>
+        </div>
+
+          <div className={styles.rightSideSphereContent}>
+
+            <HeroScene />
+
+          </div>
+
+
       </div>
 
       {/* Scroll indicator */}

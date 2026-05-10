@@ -131,16 +131,16 @@ const SERVICES: ServiceItem[] = [
     name: 'Social Reels',
     text: 'High-retention short-form content for Instagram, TikTok, and YouTube Shorts. Hook-first editing strategy that converts.',
   },
-  {
-    num: '05',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M3 10h3l3-6 4 12 3-6h1" stroke="#d4401a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-    name: 'Sound Design',
-    text: 'SFX layering, music supervision, audio mix and master. Sound that reinforces every visual decision.',
-  },
+  // {
+  //   num: '05',
+  //   icon: (
+  //     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+  //       <path d="M3 10h3l3-6 4 12 3-6h1" stroke="#d4401a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  //     </svg>
+  //   ),
+  //   name: 'Sound Design',
+  //   text: 'SFX layering, music supervision, audio mix and master. Sound that reinforces every visual decision.',
+  // },
   {
     num: '06',
     icon: (
@@ -151,7 +151,7 @@ const SERVICES: ServiceItem[] = [
         <rect x="11" y="11" width="6" height="6" rx="1" stroke="#d4401a" strokeWidth="1.5" />
       </svg>
     ),
-    name: 'VFX & Compositing',
+    name: 'Basic VFX & Compositing',
     text: 'Green screen, tracking, rotoscoping, and compositing work to add the impossible to your footage.',
   },
 ];

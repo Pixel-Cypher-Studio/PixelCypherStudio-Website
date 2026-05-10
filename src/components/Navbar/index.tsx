@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTheme } from 'next-themes';
 import ThemeToggle from '@/components/ThemeToggle';
 import styles from './Navbar.module.scss';
 
@@ -17,8 +18,16 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const { theme } = useTheme();
+
+  useEffect(() => setMounted(true), []);
+
+  const logoSrc = mounted && theme === 'dark'
+    ? '/images/logo/pcslogo1_dark.png'
+    : '/images/logo/pcslogo1.png';
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -59,7 +68,7 @@ export default function Navbar() {
           <Link href="/" className={styles.logo}>
             <span className={styles.logoMark}>
               <Image
-                src="/images/logo/pcslogo1.png"
+                src={logoSrc}
                 alt="Pixel Cypher Studio logo"
                 fill
                 sizes="32px"
@@ -140,7 +149,7 @@ export default function Navbar() {
           <Link href="/" className={styles.overlayBrand} onClick={close}>
             <span className={styles.overlayLogoMark}>
               <Image
-                src="/image/logo/YOUR_LOGO_FILE.webp"
+                src={logoSrc}
                 alt="Pixel Cypher Studio logo"
                 fill
                 sizes="40px"

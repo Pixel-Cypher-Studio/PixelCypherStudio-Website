@@ -1,0 +1,6 @@
+{
+  "slots": {
+    "home.philosophy.branding": {"path": "home/philosophy/branding.png", "label": "Branding", "type": "image/png"},
+    "home.philosophy.packaging": {"path": "home/philosophy/package.png", "label": "Packaging", "type": "image/png"}
+  }
+}

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import styles from './Philosophy.module.scss';
+import { mediaUrl } from '@/utils/media';
 
 const services = [
   {
@@ -11,14 +12,14 @@ const services = [
     title: 'BRANDING',
     description: 'Strategy-led identity systems that build recognition and trust.',
     href: '/services/branding',
-    image: '/images/philosophy/studioPhilosophy_branding.png',
+    image: mediaUrl('home.philosophy.branding'),
   },
   {
     number: '02',
     title: 'PACKAGING',
     description: 'Packaging that embodies the product and elevates the experience.',
     href: '/services/packaging',
-    image: '/images/philosophy/studioPhilosophy_package.png',
+    image: mediaUrl('home.philosophy.packaging'),
   },
   {
     number: '03',

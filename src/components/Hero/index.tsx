@@ -19,7 +19,7 @@ export default function Hero() {
         <div className={styles.leftSideContent}>
         <div className={styles.label}>
           <span className={styles.labelDot} />
-          <span className="label-caps">A Hyper-Kinetic Design Studio</span>
+          <span className="label-caps">An Innovative Design Studio</span>
         </div>
 
         {/* Main headline */}

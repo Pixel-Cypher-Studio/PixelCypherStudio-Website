@@ -37,10 +37,82 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'PixelCypherStudio — A Hyper-Kinetic Design Studio',
+  metadataBase: new URL('https://www.pixelcypherstudio.in'),
+  title: {
+    default: 'PixelCypher Studio — A Hyper-Kinetic Design Studio',
+    template: '%s | PixelCypher Studio',
+  },
   description:
-    'A hyper-kinetic design studio specializing in digital motion, neon aesthetics, and immersive brand identities that break through the noise.',
-  keywords: ['design studio', 'motion design', 'branding', 'UI/UX', 'WebGL', '3D'],
+    'PixelCypher Studio is a high-fidelity creative studio based in Kalyan, Mumbai — crafting brands that move. Specializing in branding, motion graphics, web development, packaging, and immersive digital experiences since 2017.',
+  keywords: [
+    'PixelCypher Studio',
+    'design studio',
+    'branding agency',
+    'motion graphics',
+    'web development',
+    'UI UX design',
+    'digital identity',
+    'brand identity',
+    'packaging design',
+    'graphic design',
+    'WebGL',
+    'interactive experiences',
+    'video editing',
+    'visual storytelling',
+    'creative studio India',
+    // local SEO
+    'design studio in Kalyan',
+    'design studio in Mumbai',
+    'design studio in Thane',
+    'branding agency Kalyan',
+    'branding agency Mumbai',
+    'branding agency Thane',
+    'web development Kalyan',
+    'web development Mumbai',
+    'graphic design Kalyan',
+    'graphic design Mumbai',
+    'graphic design Thane',
+    'creative agency Kalyan',
+    'creative agency Mumbai',
+    'creative agency Navi Mumbai',
+    'design studio Maharashtra',
+  ],
+  authors: [{ name: 'PixelCypher Studio', url: 'https://www.pixelcypherstudio.in' }],
+  creator: 'PixelCypher Studio',
+  publisher: 'PixelCypher Studio',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://www.pixelcypherstudio.in',
+    siteName: 'PixelCypher Studio',
+    title: 'PixelCypher Studio — A Hyper-Kinetic Design Studio',
+    description:
+      'A high-fidelity creative studio at the intersection of brutalist architecture and neon aesthetics. We craft brands, motion systems, and digital monoliths for the relentless.',
+    images: [
+      {
+        url: '/images/logo/pixelcypherstudio.webp',
+        width: 1200,
+        height: 630,
+        alt: 'PixelCypher Studio',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PixelCypher Studio — A Hyper-Kinetic Design Studio',
+    description:
+      'A high-fidelity creative studio crafting brands that move — branding, motion, web, and immersive digital experiences.',
+    images: ['/images/logo/pixelcypherstudio.webp'],
+    creator: '@pixelcypherstudio',
+  },
+  icons: {
+    icon: '/images/logo/pixelcypherstudio.webp',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

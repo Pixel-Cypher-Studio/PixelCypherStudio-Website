@@ -26,7 +26,7 @@ const services = [
     title: 'MOTION GRAPHICS',
     description: 'Bringing brands to life through movement, typography and rhythm.',
     href: '/services/motion-graphics',
-    image: '/images/philosophy/studio-main.jpg',
+    image: '/images/philosophy/studioPhilosophy_MotionGraphics.png',
   },
   {
     number: '04',
@@ -125,7 +125,7 @@ export default function Philosophy() {
                   <div className={styles.content}>
                     <div className={styles.number}>{service.number}</div>
                     <h3 className={styles.cardTitle}>{service.title}</h3>
-                    <p className={styles.cardDescription}>{service.description}</p>
+                    <p className={styles.cardDescriptionToSmallTabs}>{service.description}</p>
                   </div>
                   
                   <div className={styles.arrowContainer}>

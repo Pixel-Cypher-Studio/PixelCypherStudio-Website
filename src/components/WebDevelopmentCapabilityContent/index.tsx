@@ -273,10 +273,10 @@ export default function WebDevelopmentCapabilityContent() {
               and built to last on any screen.
             </p>
             <div className={styles.cta}>
-              <Link href="#contact" className={styles.primaryButton}>
+              <Link href="/contact" className={styles.primaryButton}>
                 START PROJECT
               </Link>
-              <Link href="/work" className={styles.secondaryButton}>
+              <Link href="#" className={styles.secondaryButton}>
                 VIEW WORK ↓
               </Link>
             </div>

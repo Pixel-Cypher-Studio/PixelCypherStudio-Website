@@ -96,10 +96,11 @@ export default function HeroScene() {
     ring.rotation.x = 1.12;
     ring.rotation.y = 0.22;
 
+
     const markerPositions = [
-      { label: 'GRAPHIC DESIGN', color: '#ff4d6d', position: new THREE.Vector3(1.7, 1.15, 0.6), image: '#' },
-      { label: 'MOTION GRAPHICS', color: '#6effc6', position: new THREE.Vector3(-1.95, 0.15, -0.35), image: '#' },
-      { label: 'WEB DEVELOPMENT', color: '#5b8cff', position: new THREE.Vector3(0.45, -1.85, 0.9), image: '#' },
+      { label: 'GRAPHIC DESIGN', color: '#ff4d6d', position: new THREE.Vector3(1.7, 1.15, 0.6).normalize().multiplyScalar(1.65), image: '#' },
+      { label: 'MOTION GRAPHICS', color: '#6effc6', position: new THREE.Vector3(-1.95, 0.15, -0.35).normalize().multiplyScalar(1.65), image: '#' },
+      { label: 'WEB DEVELOPMENT', color: '#5b8cff', position: new THREE.Vector3(0.45, -1.85, 0.9).normalize().multiplyScalar(1.65), image: '#' },
     ];
 
     const markerTextures: THREE.Texture[] = [];

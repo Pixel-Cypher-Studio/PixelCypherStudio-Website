@@ -26,7 +26,7 @@ const services = [
     title: 'MOTION GRAPHICS',
     description: 'Bringing brands to life through movement, typography and rhythm.',
     href: '/services/motion-graphics',
-    image: '/images/philosophy/studioPhilosophy_MotionGraphics.png',
+    image: mediaUrl('home.philosophy.motionGraphics'),
   },
   {
     number: '04',

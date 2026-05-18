@@ -1,0 +1,470 @@
+.page {
+  --col-red: #ba0029;
+  --col-red-bright: #ff5961;
+  --col-green: #00fc40;
+  --col-blue: #899dff;
+  --surface-alt: #0e0e0e;
+  --text-muted: rgba(255, 255, 255, 0.5);
+  --faded-heading: rgba(255, 255, 255, 0.12);
+  --outline: rgba(255, 255, 255, 0.06);
+
+  background: #050505;
+  color: #ffffff;
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+:global([data-theme='light']) .page {
+  --col-red: #ba0029;
+  --col-red-bright: #ba0029;
+  --col-green: #006b15;
+  --col-blue: #0043f3;
+  --surface-alt: #f3f0ef;
+  --text-muted: rgba(0, 0, 0, 0.55);
+  --faded-heading: rgba(0, 0, 0, 0.25);
+  --outline: rgba(0, 0, 0, 0.08);
+
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+// ── Color helpers ──────────────────────────────────────────
+
+.red  { color: var(--col-red); }
+.green { color: var(--col-green); }
+.blue  { color: var(--col-blue); }
+
+// ── Hero ───────────────────────────────────────────────────
+
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 2rem;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.heroBgImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.22;
+  filter: grayscale(1);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 1152px;
+  width: 100%;
+}
+
+.heroTitle {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: clamp(3.5rem, 10vw, 12rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 0.85;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, #ba0029 0%, #0043f3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSub {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: clamp(0.75rem, 2vw, 1.25rem);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+:global([data-theme='light']) .heroSub {
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+.heroScroll {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.scrollArrow {
+  color: var(--col-green);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+.heroFootnote {
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footnoteLine {
+  width: 4rem;
+  height: 1px;
+  background: var(--col-red);
+}
+
+.footnoteText {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--col-red-bright);
+}
+
+// ── Anatomy of a Brand ─────────────────────────────────────
+
+.anatomy {
+  padding: 8rem 2rem;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.anatomyHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6rem;
+  gap: 2rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.anatomyHeadline {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.anatomyFaded {
+  color: var(--faded-heading);
+}
+
+.anatomyDesc {
+  max-width: 24rem;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.anatomyGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem 6rem;
+  }
+}
+
+.anatomyColumn {
+  &:hover .columnListItem {
+    transform: translateX(0.5rem);
+  }
+}
+
+.columnTitle {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--outline);
+}
+
+.columnList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.columnListItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: transform 0.3s ease;
+}
+
+.bullet {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex-shrink: 0;
+  background: currentColor;
+}
+
+// ── Iconic Artifacts ───────────────────────────────────────
+
+.artifacts {
+  background: var(--surface-alt);
+  padding: 8rem 0;
+}
+
+.artifactsHeader {
+  padding: 0 2rem;
+  max-width: 1920px;
+  margin: 0 auto 4rem;
+}
+
+.artifactsTitle {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.artifactsBar {
+  display: inline-block;
+  width: 3rem;
+  height: 0.25rem;
+  background: var(--col-red);
+  flex-shrink: 0;
+}
+
+.artifactsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.artifactCard {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #111111;
+  border-right: 1px solid var(--outline);
+
+  &:last-child {
+    border-right: none;
+  }
+
+  &:hover .artifactImg {
+    filter: grayscale(0) brightness(1);
+  }
+
+  &:hover .artifactOverlay {
+    opacity: 1;
+  }
+}
+
+.artifactImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) brightness(0.45);
+  transition: filter 0.7s ease;
+}
+
+.artifactOverlay {
+  position: absolute;
+  inset: 0;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.artifactOverlayTitle {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 1.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+}
+
+.artifactOverlayDesc {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+// ── Chromatic Tension ──────────────────────────────────────
+
+.chromatic {
+  padding: 8rem 2rem;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.chromaticGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6rem;
+  align-items: center;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.chromaticTitle {
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 3rem;
+}
+
+.chromaticAccent {
+  color: var(--col-blue);
+}
+
+.chromaticBody {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 4rem;
+  max-width: 40rem;
+}
+
+.metricsStack {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.metricRow {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.metricLabels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.metricTrack {
+  height: 2px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+:global([data-theme='light']) .metricTrack {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.metricFill {
+  height: 100%;
+}
+
+.fillRed {
+  background: var(--col-red);
+  box-shadow: 0 0 10px rgba(186, 0, 41, 0.5);
+}
+
+.fillGreen {
+  background: var(--col-green);
+  box-shadow: 0 0 10px rgba(0, 252, 64, 0.5);
+}
+
+.glassPanel {
+  background: rgba(38, 38, 38, 0.4);
+  backdrop-filter: blur(24px);
+  border-left: 1px solid rgba(186, 0, 41, 0.2);
+  padding: 1px;
+}
+
+:global([data-theme='light']) .glassPanel {
+  background: rgba(240, 240, 240, 0.6);
+}
+
+.technicalVisual {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #111111;
+}
+
+.technicalImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
+.technicalWatermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: clamp(2rem, 8vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: rgba(255, 255, 255, 0.04);
+  user-select: none;
+  pointer-events: none;
+}
+
+.technicalBadge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 0.625rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}

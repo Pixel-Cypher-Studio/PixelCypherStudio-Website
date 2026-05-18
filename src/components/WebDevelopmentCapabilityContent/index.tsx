@@ -22,10 +22,10 @@ type BuildRect = {
 };
 
 const stats = [
-  { value: 248, label: 'PROJECTS BUILT' },
+  { value: 2, label: 'DEDICATED DEVS' },
   { value: 99, label: '% UPTIME SLA' },
-  { value: 12, label: 'YEARS BUILDING' },
-  { value: 47, label: 'ENGINEERS ON CREW' },
+  { value: 100, label: '% CUSTOM BUILT' },
+  { value: 100, label: '% CLIENT RETENTION' },
 ];
 
 const projects = [

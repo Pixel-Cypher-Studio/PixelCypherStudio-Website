@@ -5,7 +5,7 @@ import styles from './studio.module.scss';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Studio — PixelCypher',
+  title: 'Studio — PixelCypherStudio',
   description: 'A high-fidelity digital craft house at the intersection of brutalist architecture and neon aesthetics.',
 };
 

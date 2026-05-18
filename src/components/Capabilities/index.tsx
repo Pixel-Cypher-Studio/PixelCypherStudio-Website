@@ -58,6 +58,19 @@ export default function Capabilities() {
     </>
   );
 
+  if (title === 'Graphic Design') {
+    return (
+      <Link
+        key={number}
+        href="/capabilities/graphic-design"
+        className={`${styles.card} ${styles[`card--${accent}`]}`}
+        aria-label="Open Graphic Design capability page"
+      >
+        {cardContent}
+      </Link>
+    );
+  }
+
   if (title === 'Web Development') {
     return (
       <Link

@@ -7,6 +7,7 @@ const services = [
     slug: 'VISUAL',
     subtitle: 'Graphic Design',
     accent: 'red' as const,
+    href: '/capabilities/graphic-design',
     items: [
       'Brand Identity Systems',
       'Editorial & Social Assets',

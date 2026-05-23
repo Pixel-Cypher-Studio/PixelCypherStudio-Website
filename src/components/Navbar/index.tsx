@@ -10,8 +10,8 @@ import styles from './Navbar.module.scss';
 
 const navLinks = [
   // { href: '/work', label: 'Work' },
-  { href: '/studio', label: 'Studio' },
-  // { href: '/lab', label: 'Lab' },
+  { href: '/', label: 'Studio' },
+  { href: '/packages', label: 'Packages' },
  { href: '/contact', label: 'Contact' },
 ];
 
@@ -94,9 +94,9 @@ export default function Navbar() {
 
           <div className={styles.actions}>
             <ThemeToggle />
-            <Link href="/contact" className={styles.cta}>
+            {/* <Link href="/contact" className={styles.cta}>
               Hire Us
-            </Link>
+            </Link> */}
           </div>
         </nav>
       </header>

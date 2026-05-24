@@ -18,14 +18,14 @@ const services = [
     number: '02',
     title: 'PACKAGING',
     description: 'Packaging that embodies the product and elevates the experience.',
-    href: '/services/packaging',
+    href: '/packaging',
     image: mediaUrl('home.philosophy.packaging'),
   },
   {
     number: '03',
     title: 'MOTION GRAPHICS',
     description: 'Bringing brands to life through movement, typography and rhythm.',
-    href: '/capabilities/motion-graphics',
+    href: '/capabilities/graphic-design',
     image: mediaUrl('home.philosophy.motionGraphics'),
   },
   {

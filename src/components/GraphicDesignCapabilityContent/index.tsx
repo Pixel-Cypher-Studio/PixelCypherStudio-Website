@@ -81,15 +81,6 @@ const pricingPlans = [
 
 const tickerItems = ['Brand Identity', 'Logo Design', 'Typography Systems', 'Brand Guidelines', 'Visual Communication', 'Packaging Design', 'Print & Digital', 'Brand Strategy', 'Art Direction'];
 
-function makeOrbit(label: string, labelStep: number, radius: number, fontSize = 16) {
-  const fillStep = (fontSize * 0.6 * 180) / (Math.PI * radius);
-  const labelChars = Array.from(label).map((char, i) => ({ char, angle: i * labelStep, isFill: false }));
-  const startAngle = labelChars.length * labelStep;
-  const fillCount = Math.floor((360 - startAngle) / fillStep) - 2;
-  const fillChars = Array.from({ length: fillCount }, (_, i) => ({ char: '─', angle: startAngle + i * fillStep, isFill: true }));
-  return [...labelChars, ...fillChars];
-}
-
 export default function GraphicDesignCapabilityContent() {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
   return (
@@ -133,38 +124,44 @@ export default function GraphicDesignCapabilityContent() {
               <div className={styles.visualCenterIcon}>◈</div>
               <div className={styles.visualCenterLabel}>Design Core</div>
             </div>
-            {/* duration 20s, start 0°  → delay 0s */}
-            <div className={styles.brandOrbit} style={{ color: 'var(--accent-green)', animationDuration: '20s', animationDelay: '0s' }}>
-              {makeOrbit(' BRANDING IDENTITY ', 4, 160).map(({ char, angle, isFill }, i) => (
-                <span key={i} className={styles.orbitChar} style={{ transform: `rotate(${angle}deg) translateY(-160px)`, opacity: isFill ? 0.25 : 1 }}>
-                  {char}
-                </span>
-              ))}
-            </div>
-            {/* duration 30s, start 90° → delay -(90/360)×30 = -7.5s */}
-            <div className={styles.brandOrbit} style={{ color: 'var(--accent-purple)', animationDuration: '30s', animationDelay: '-7.5s' }}>
-              {makeOrbit('TYPOGRAPHY ', 3, 200).map(({ char, angle, isFill }, i) => (
-                <span key={i} className={styles.orbitChar} style={{ transform: `rotate(${angle}deg) translateY(-200px)`, opacity: isFill ? 0.25 : 1 }}>
-                  {char}
-                </span>
-              ))}
-            </div>
-            {/* duration 45s, start 180° → delay -(180/360)×45 = -22.5s */}
-            <div className={styles.brandOrbit} style={{ color: 'var(--accent-pink)', animationDuration: '45s', animationDelay: '-22.5s' }}>
-              {makeOrbit('COLOR SYSTEMS ', 3, 240).map(({ char, angle, isFill }, i) => (
-                <span key={i} className={styles.orbitChar} style={{ transform: `rotate(${angle}deg) translateY(-240px)`, opacity: isFill ? 0.25 : 1 }}>
-                  {char}
-                </span>
-              ))}
-            </div>
-            {/* duration 65s, start 270° → delay -(270/360)×65 = -48.75s */}
-            <div className={styles.brandOrbit} style={{ color: 'var(--accent-cyan)', animationDuration: '65s', animationDelay: '-48.75s' }}>
-              {makeOrbit(' VISUAL STRATEGY ', 3, 280).map(({ char, angle, isFill }, i) => (
-                <span key={i} className={styles.orbitChar} style={{ transform: `rotate(${angle}deg) translateY(-280px)`, opacity: isFill ? 0.25 : 1 }}>
-                  {char}
-                </span>
-              ))}
-            </div>
+            <svg className={styles.orbitSvg} viewBox="-300 -300 600 600" aria-hidden="true">
+              <g className={styles.orbitGroup} style={{ animationDuration: '20s', animationDelay: '0s' }}>
+                <path id="gd-c1" d="M -160,0 a 160,160 0 1,1 320,0 a 160,160 0 1,1 -320,0" fill="none" />
+                <text fill="var(--accent-green)" fontSize="16" fontFamily="var(--font-stack-mono)" letterSpacing="2">
+                  <textPath href="#gd-c1">
+                    <tspan opacity="1">{' BRANDING IDENTITY '}</tspan>
+                    <tspan opacity="0.25">{'─'.repeat(200)}</tspan>
+                  </textPath>
+                </text>
+              </g>
+              <g className={styles.orbitGroup} style={{ animationDuration: '30s', animationDelay: '-7.5s' }}>
+                <path id="gd-c2" d="M -200,0 a 200,200 0 1,1 400,0 a 200,200 0 1,1 -400,0" fill="none" />
+                <text fill="var(--accent-purple)" fontSize="16" fontFamily="var(--font-stack-mono)" letterSpacing="2">
+                  <textPath href="#gd-c2">
+                    <tspan opacity="1">{'TYPOGRAPHY '}</tspan>
+                    <tspan opacity="0.25">{'─'.repeat(200)}</tspan>
+                  </textPath>
+                </text>
+              </g>
+              <g className={styles.orbitGroup} style={{ animationDuration: '45s', animationDelay: '-22.5s' }}>
+                <path id="gd-c3" d="M -240,0 a 240,240 0 1,1 480,0 a 240,240 0 1,1 -480,0" fill="none" />
+                <text fill="var(--accent-pink)" fontSize="16" fontFamily="var(--font-stack-mono)" letterSpacing="2">
+                  <textPath href="#gd-c3">
+                    <tspan opacity="1">{'COLOR SYSTEMS '}</tspan>
+                    <tspan opacity="0.25">{'─'.repeat(200)}</tspan>
+                  </textPath>
+                </text>
+              </g>
+              <g className={styles.orbitGroup} style={{ animationDuration: '65s', animationDelay: '-48.75s' }}>
+                <path id="gd-c4" d="M -280,0 a 280,280 0 1,1 560,0 a 280,280 0 1,1 -560,0" fill="none" />
+                <text fill="var(--accent-cyan)" fontSize="16" fontFamily="var(--font-stack-mono)" letterSpacing="2">
+                  <textPath href="#gd-c4">
+                    <tspan opacity="1">{' VISUAL STRATEGY '}</tspan>
+                    <tspan opacity="0.25">{'─'.repeat(200)}</tspan>
+                  </textPath>
+                </text>
+              </g>
+            </svg>
           </div>
         </div>
       </section>

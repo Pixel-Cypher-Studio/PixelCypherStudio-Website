@@ -194,6 +194,7 @@
 .heroRight {
   position: relative; z-index: 2;
   display: flex; justify-content: center; align-items: center;
+  contain: layout style;
 }
 .heroVisual {
   width: 660px; height: 660px;
@@ -222,7 +223,7 @@
   border-radius: 24px;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 8px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
 
   :global([data-theme='light']) & {
     backdrop-filter: none;
@@ -255,54 +256,29 @@
   from { transform: rotate(240deg) translateX(120px) translate(-50%,-50%); }
   to { transform: rotate(600deg) translateX(120px) translate(-50%,-50%); }
 }
-.brandOrbit {
+.orbitSvg {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 0;
-  height: 0;
-  transform-origin: 0 0;
-  animation: rotateBrandOrbit 22s linear infinite;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  overflow: visible;
+  pointer-events: none;
   z-index: 3;
 }
-
-/* LETTERS */
-.orbitChar {
-  position: absolute;
-
-  /* shift span so its center lands exactly on brandOrbit origin (0,0)
-     so transform-origin:center rotates around the real circle center */
-  left: -0.5ch;
-  top: -0.5em;
-  line-height: 1;
-
+.orbitGroup {
+  transform-box: fill-box;
   transform-origin: center;
-
-  font-family: var(--font-stack-mono);
-  font-size: 16px;
-  font-weight: 500;
-
-  letter-spacing: 0;
-  text-transform: uppercase;
-
-  color: inherit;
-
-  white-space: pre;
-
-  pointer-events: none;
-
-  text-orientation: mixed;
+  animation-name: rotateBrandOrbit;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 /* ORBIT ROTATION */
 @keyframes rotateBrandOrbit {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 

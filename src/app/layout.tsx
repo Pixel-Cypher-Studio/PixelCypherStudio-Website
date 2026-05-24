@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { Space_Grotesk, Inter } from 'next/font/google';
-import { Bebas_Neue, DM_Sans } from "next/font/google";
+import { Space_Grotesk, Inter, DM_Mono } from 'next/font/google';
+import { Bebas_Neue } from "next/font/google";
 import Providers from '@/components/Providers';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -13,13 +13,6 @@ const bebas = Bebas_Neue({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-bebas",
-});
-
-const dmSans = DM_Sans({
-  weight: ["300", "400", "500"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  variable: "--font-dm",
 });
 
 const spaceGrotesk = Space_Grotesk({
@@ -35,6 +28,14 @@ const inter = Inter({
   display: 'swap',
   weight: ['300', '400', '500', '600'],
 });
+
+const dmMono = DM_Mono({
+  subsets: ['latin'],
+  variable: '--font-dm-mono',
+  display: 'swap',
+  weight: ['300', '400', '500'],
+});
+
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.pixelcypherstudio.in'),
@@ -120,7 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${spaceGrotesk.variable} ${inter.variable} ${bebas.variable} ${dmSans.variable}`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${bebas.variable} ${dmMono.variable}`}
     >
 <body>
     <Providers>

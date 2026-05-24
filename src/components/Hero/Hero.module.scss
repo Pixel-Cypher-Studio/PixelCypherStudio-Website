@@ -117,7 +117,7 @@
 
 // ── Subheadline ───────────────────────────────────────────────────────────────
 .sub {
-  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
   color: var(--on-surface-variant);
   max-width: 520px;
   line-height: var(--leading-relaxed);

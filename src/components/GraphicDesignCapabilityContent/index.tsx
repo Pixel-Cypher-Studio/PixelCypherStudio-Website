@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './graphicdesign.module.scss';
 
 const processSteps = [
@@ -81,27 +81,19 @@ const pricingPlans = [
 
 const tickerItems = ['Brand Identity', 'Logo Design', 'Typography Systems', 'Brand Guidelines', 'Visual Communication', 'Packaging Design', 'Print & Digital', 'Brand Strategy', 'Art Direction'];
 
+function makeOrbit(label: string, labelStep: number, radius: number, fontSize = 16) {
+  const fillStep = (fontSize * 0.6 * 180) / (Math.PI * radius);
+  const labelChars = Array.from(label).map((char, i) => ({ char, angle: i * labelStep, isFill: false }));
+  const startAngle = labelChars.length * labelStep;
+  const fillCount = Math.floor((360 - startAngle) / fillStep) - 2;
+  const fillChars = Array.from({ length: fillCount }, (_, i) => ({ char: '─', angle: startAngle + i * fillStep, isFill: true }));
+  return [...labelChars, ...fillChars];
+}
+
 export default function GraphicDesignCapabilityContent() {
-  const [activeStep, setActiveStep] = useState(0);
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-  const [ringPos, setRingPos] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setCursorPos({ x: e.clientX, y: e.clientY });
-      setRingPos((prev) => ({
-        x: prev.x + (e.clientX - prev.x) * 0.15,
-        y: prev.y + (e.clientY - prev.y) * 0.15,
-      }));
-    };
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => document.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
   return (
     <div className={styles.page}>
-      <div className={styles.cursor} style={{ left: cursorPos.x, top: cursorPos.y }} />
-      <div className={styles.cursorRing} style={{ left: ringPos.x, top: ringPos.y }} />
 
       {/* <nav className={styles.nav}>
         <a href="#" className={styles.navLogo}>
@@ -131,103 +123,48 @@ export default function GraphicDesignCapabilityContent() {
           </h1>
           <p className={styles.heroDesc}>We build brand languages that are unmistakable — rooted in strategy, executed with obsessive precision, and built to cut through the noise.</p>
           <div className={styles.heroActions}>
-            <a href="#" className={styles.btnPrimary}>Start a Project →</a>
-            <a href="#" className={styles.btnSecondary}>View Portfolio</a>
+            <a href="/packages" className={styles.btnPrimary}>Start a Project →</a>
+            <a href="/" className={styles.btnSecondary}>View Portfolio</a>
           </div>
         </div>
         <div className={styles.heroRight}>
           <div className={styles.heroVisual}>
-            <div className={`${styles.visualRing} ${styles.vr1}`} />
-            <div className={`${styles.visualRing} ${styles.vr2}`} />
-            <div className={`${styles.visualRing} ${styles.vr3}`} />
-            <div className={`${styles.orbitDot} ${styles.od1}`} />
-            <div className={`${styles.orbitDot} ${styles.od2}`} />
-            <div className={`${styles.orbitDot} ${styles.od3}`} />
             <div className={styles.visualCenter}>
               <div className={styles.visualCenterIcon}>◈</div>
               <div className={styles.visualCenterLabel}>Design Core</div>
             </div>
-            <div className={styles.floatTags}>
-
- <div className={styles.brandOrbit}>
-  {Array.from(
-    "• BRANDING IDENTITY •  ⬡  • BRANDING IDENTITY • "
-  ).map((char, i) => (
-    <span
-      key={i}
-      className={styles.orbitChar}
-      style={{
-        transform: `
-          rotate(${i * 7.5}deg)
-          translateY(-190px)
-        `,
-      }}
-    >
-      {char}
-    </span>
-  ))}
-</div>
-
-
-<div className={styles.brandOrbit}>
-  {Array.from(
-    "• TYPOGRAPHY •  ⬡  • TYPOGRAPHY • "
-  ).map((char, i) => (
-    <span
-      key={i}
-      className={styles.orbitChar}
-      style={{
-        transform: `
-          rotate(${i * 7.5}deg)
-          translateY(-230px)
-        `,
-      }}
-    >
-      {char}
-    </span>
-  ))}
-</div>
-
-
-  <div className={styles.brandOrbit}>
-  {Array.from(
-    "• COLOR SYSTEMS •  ⬡  • TYPOGRAPHY • "
-  ).map((char, i) => (
-    <span
-      key={i}
-      className={styles.orbitChar}
-      style={{
-        transform: `
-          rotate(${i * 7.5}deg)
-          translateY(-270px)
-        `,
-      }}
-    >
-      {char}
-    </span>
-  ))}
-</div>
-
- <div className={styles.brandOrbit}>
-  {Array.from(
-    "• VISUAL STRATEGY •  ⬡  • TYPOGRAPHY • "
-  ).map((char, i) => (
-    <span
-      key={i}
-      className={styles.orbitChar}
-      style={{
-        transform: `
-          rotate(${i * 7.5}deg)
-          translateY(-310px)
-        `,
-      }}
-    >
-      {char}
-    </span>
-  ))}
-</div>
-
-</div>
+            {/* duration 20s, start 0°  → delay 0s */}
+            <div className={styles.brandOrbit} style={{ color: 'var(--accent-green)', animationDuration: '20s', animationDelay: '0s' }}>
+              {makeOrbit(' BRANDING IDENTITY ', 4, 160).map(({ char, angle, isFill }, i) => (
+                <span key={i} className={styles.orbitChar} style={{ transform: `rotate(${angle}deg) translateY(-160px)`, opacity: isFill ? 0.25 : 1 }}>
+                  {char}
+                </span>
+              ))}
+            </div>
+            {/* duration 30s, start 90° → delay -(90/360)×30 = -7.5s */}
+            <div className={styles.brandOrbit} style={{ color: 'var(--accent-purple)', animationDuration: '30s', animationDelay: '-7.5s' }}>
+              {makeOrbit('TYPOGRAPHY ', 3, 200).map(({ char, angle, isFill }, i) => (
+                <span key={i} className={styles.orbitChar} style={{ transform: `rotate(${angle}deg) translateY(-200px)`, opacity: isFill ? 0.25 : 1 }}>
+                  {char}
+                </span>
+              ))}
+            </div>
+            {/* duration 45s, start 180° → delay -(180/360)×45 = -22.5s */}
+            <div className={styles.brandOrbit} style={{ color: 'var(--accent-pink)', animationDuration: '45s', animationDelay: '-22.5s' }}>
+              {makeOrbit('COLOR SYSTEMS ', 3, 240).map(({ char, angle, isFill }, i) => (
+                <span key={i} className={styles.orbitChar} style={{ transform: `rotate(${angle}deg) translateY(-240px)`, opacity: isFill ? 0.25 : 1 }}>
+                  {char}
+                </span>
+              ))}
+            </div>
+            {/* duration 65s, start 270° → delay -(270/360)×65 = -48.75s */}
+            <div className={styles.brandOrbit} style={{ color: 'var(--accent-cyan)', animationDuration: '65s', animationDelay: '-48.75s' }}>
+              {makeOrbit(' VISUAL STRATEGY ', 3, 280).map(({ char, angle, isFill }, i) => (
+                <span key={i} className={styles.orbitChar} style={{ transform: `rotate(${angle}deg) translateY(-280px)`, opacity: isFill ? 0.25 : 1 }}>
+                  {char}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -329,13 +266,32 @@ export default function GraphicDesignCapabilityContent() {
             {processSteps.map((step, i) => (
               <div
                 key={i}
-                className={`${styles.processStep} ${activeStep === i ? styles.active : ""}`}
-                onClick={() => setActiveStep(i)}
+                className={styles.processStep}
+                onMouseEnter={() => setHoveredStep(i)}
+                onMouseLeave={() => setHoveredStep(null)}
               >
-                <div className={styles.stepNum}>{step.num}</div>
+                <div
+                  className={styles.stepNum}
+                  style={{ color: hoveredStep === i ? 'var(--accent-green)' : undefined }}
+                >
+                  {step.num}
+                </div>
                 <div className={styles.stepContent}>
-                  <div className={styles.stepTitle}>{step.title}</div>
-                  <div className={styles.stepDesc}>{step.desc}</div>
+                  <div
+                    className={styles.stepTitle}
+                    style={{ transform: hoveredStep === i ? 'translateY(-4px)' : 'translateY(0)' }}
+                  >
+                    {step.title}
+                  </div>
+                  <div
+                    className={styles.stepDesc}
+                    style={{
+                      maxHeight: hoveredStep === i ? '200px' : '0',
+                      opacity: hoveredStep === i ? 1 : 0,
+                    }}
+                  >
+                    {step.desc}
+                  </div>
                 </div>
               </div>
             ))}

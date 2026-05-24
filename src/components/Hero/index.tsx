@@ -30,7 +30,7 @@ export default function Hero() {
         </h1>
 
         {/* Subheadline */}
-        <p className={styles.sub}>
+        <p className={`${styles.sub} mb-5`}>
           Specializing in digital motion, neon aesthetics, and immersive brand
           identities that break through the noise.
         </p>

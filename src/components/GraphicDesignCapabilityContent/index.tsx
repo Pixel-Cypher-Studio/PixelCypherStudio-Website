@@ -1,205 +1,422 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import styles from './graphicdesign.module.scss';
 
-const anatomyColumns = [
+const processSteps = [
   {
     num: '01',
-    title: 'DISCOVER',
-    colorKey: 'red' as const,
-    items: ['Brand Strategy & Research', 'Audience & Market Analysis', 'Competitor Benchmarking'],
+    title: 'Discovery & Strategy',
+    desc: 'We dig into your business, audience, and competitive landscape. We understand the cultural and market context before a single pixel is drawn.',
   },
   {
     num: '02',
-    title: 'DESIGN',
-    colorKey: 'green' as const,
-    items: ['Logo & Identity Design', 'Typography & Colour Systems', 'Visual Language Development'],
+    title: 'Concept Development',
+    desc: 'Multiple distinct directions — no lazy variations of the same idea. Each concept is a fully resolved strategic position, not just an aesthetic preference.',
   },
   {
     num: '03',
-    title: 'DELIVER',
-    colorKey: 'blue' as const,
-    items: ['Brand Guidelines Document', 'Print & Digital Assets', 'Packaging & Collateral'],
+    title: 'Refinement & Feedback',
+    desc: 'We iterate with purpose. Every round of feedback is an opportunity to sharpen — not just change. We push for the best version, not just approval.',
+  },
+  {
+    num: '04',
+    title: 'System Build & Delivery',
+    desc: 'Production files, brand guidelines, usage rules, and everything your team needs to deploy the identity confidently across every touchpoint.',
   },
 ];
 
-const artifacts = [
+const services = [
+  { num: '01 //', icon: '⬡', title: 'Brand Identity', desc: 'Logo design, brand mark systems, and visual identity frameworks that define how your brand lives across every surface.', tags: ['Logo Design', 'Brand Mark', 'Identity System'], color: 'sc-green' },
+  { num: '02 //', icon: 'Aa', title: 'Typography & Type', desc: 'Custom typeface selection, typographic hierarchy, and lettering that gives your brand an unmistakable voice.', tags: ['Type Systems', 'Lettering', 'Hierarchy'], color: 'sc-purple' },
+  { num: '03 //', icon: '◉', title: 'Color & Visual Language', desc: 'Systematic color palettes, icon families, and graphic vocabularies that keep every brand expression consistent.', tags: ['Color Palettes', 'Iconography', 'Visual System'], color: 'sc-pink' },
+  { num: '04 //', icon: '▦', title: 'Brand Guidelines', desc: 'Comprehensive brand bibles that document every rule, ratio, and spec so your identity stays sharp at scale.', tags: ['Style Guide', "Do's & Don'ts", 'Brand Bible'], color: 'sc-cyan' },
+  { num: '05 //', icon: '⬜', title: 'Print & Collateral', desc: 'Business cards, stationery, posters, and physical brand assets crafted to make a tactile statement.', tags: ['Print Design', 'Stationery', 'Posters'], color: 'sc-yellow' },
+  { num: '06 //', icon: '◧', title: 'Social & Digital Assets', desc: 'Template systems, social kits, and digital-first design that scales your brand across every platform.', tags: ['Social Kits', 'Templates', 'Digital Assets'], color: 'sc-orange' },
+];
+
+const portfolioItems = [
+  { bg: 'pb1', pattern: 'pat1', cat: 'Brand Identity · 2025', title: 'NovaMark Financial', deco: 'BRAND' },
+  { bg: 'pb2', pattern: 'pat2', cat: 'Typography · 2025', title: 'Verdia Organics', deco: 'TYPE' },
+  { bg: 'pb3', pattern: 'pat3', cat: 'Packaging · 2025', title: 'Blaze Spirits Co.', deco: 'PACK' },
+  { bg: 'pb4', pattern: 'pat4', cat: 'Brand System · 2024', title: 'Aether Studios', deco: 'SYS' },
+  { bg: 'pb5', pattern: 'pat5', cat: 'Logo Design · 2024', title: 'Lumen Coffee', deco: 'LOGO' },
+];
+
+const tools = [
+  { icon: '🅰', name: 'Illustrator' },
+  { icon: '🅿', name: 'Photoshop' },
+  { icon: '◻', name: 'InDesign' },
+  { icon: '◈', name: 'Figma' },
+  { icon: '▲', name: 'After Effects' },
+  { icon: '⬡', name: 'Blender' },
+  { icon: '◉', name: 'Procreate' },
+  { icon: '▦', name: 'Midjourney' },
+];
+
+const pricingPlans = [
   {
-    src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDyEvCZ3ku5kAnn_X2MyFFg33qhXhF98gVU4AJsNmfANzCuOXQP5jyYUbH1NQLAreknbrnoVe9xI9zL5Sh88YjgzAt4m7S18LOtLdljzsI5VcbyLW4yUd-4XfJmofchMOTPDf6qqV96WXLCUObyBkY6J1lSudHscPO4vdR5ODBt3RwqEyEqj7OZY7nITxrgJcZaMgXo3yKv03l20X-AOQVbXkJXu2K6_UcuhHyuwl7UPOJ-HNUTrigE8IiOV4DrFLPBJEJEHE4755V2',
-    alt: 'Brand Identity Example',
-    title: 'BRAND IDENTITY',
-    desc: 'Logos, colour palettes, and typography systems built to be instantly recognisable across every format and touchpoint.',
+    tier: 'Starter',
+    amount: '25K',
+    period: 'one-time project',
+    features: ['Logo Design (3 concepts)', 'Brand Color Palette', 'Primary Font Selection', 'Business Card Design', { text: 'Brand Guidelines Doc', dim: true }, { text: 'Social Media Kit', dim: true }, { text: 'Packaging Design', dim: true }],
+    featured: false,
   },
   {
-    src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD_buveR-FuH9HimVu7lJ4CKNU94riM2PVlHaklBD6ZlPB8fyCUo_rXcX2cm1wgiVoNSTTl42Ew3njZE1gACsNgC_yu6gNzEi9EqFxV-lqydFDMz70aiUuBXLPX0djkEFN0sPs-sHP0bzBf1ZfrdZ8bwCGfHgA3M3CbhSrVERoKNuhAeAahVcDe6GcpBwSdBmm1grjRbctEYN3OhB2jMk6VSjRrzzd99x8ThOMzm895rHqyMFMXSFY0xV8e-z8i_REEyTG5KX95PhG5',
-    alt: 'Print Design Example',
-    title: 'PRINT DESIGN',
-    desc: 'Brochures, posters, and packaging that carry your brand identity into the physical world with the same care as the digital.',
+    tier: 'Studio',
+    badge: 'Most Popular',
+    amount: '65K',
+    period: 'one-time project',
+    features: ['Logo Design (5 concepts)', 'Full Brand Identity System', 'Typography System', 'Complete Stationery Suite', 'Brand Guidelines (40+ pages)', 'Social Media Kit (10 templates)', { text: 'Packaging Design', dim: true }],
+    featured: true,
   },
   {
-    src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDPY0_I2jPGQlA2kgsuYPeLbPxOnzRzCXiJIjw_AEQWodKFyDk2defoLun6phycIgSEj6G-EojIZjYZxIGxvlNySGzlxu0235J3MhncZCGZoi0ig2JjbS4MMBzmhebIiwU-gmi4vrzmcYkdRhag-Mx64Kuu6CzRHnkKh3NlwWuikgo9GvWggwGo_SaXhnGVXvBMuy4BlVTqMfug98DUW8flBlSLIDQ3lPOt7U371hdUX9bVE3E3RXtARDIRpmM7piklkLFcUvcrS2qo',
-    alt: 'Visual Systems Example',
-    title: 'VISUAL SYSTEMS',
-    desc: 'Scalable design templates and guidelines so your brand looks consistent no matter who uses it or where it appears.',
+    tier: 'Enterprise',
+    amount: 'Custom',
+    period: 'tailored scope',
+    features: ['Full Brand Strategy Workshop', 'Complete Identity System', 'Packaging & Print Design', 'Brand Guidelines (80+ pages)', 'Motion Identity Elements', 'Ongoing Brand Retainer Option', 'Dedicated Art Director'],
+    featured: false,
   },
 ];
 
-const colorClassMap = {
-  red: styles.red,
-  green: styles.green,
-  blue: styles.blue,
-};
+const tickerItems = ['Brand Identity', 'Logo Design', 'Typography Systems', 'Brand Guidelines', 'Visual Communication', 'Packaging Design', 'Print & Digital', 'Brand Strategy', 'Art Direction'];
 
 export default function GraphicDesignCapabilityContent() {
+  const [activeStep, setActiveStep] = useState(0);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [ringPos, setRingPos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setCursorPos({ x: e.clientX, y: e.clientY });
+      setRingPos((prev) => ({
+        x: prev.x + (e.clientX - prev.x) * 0.15,
+        y: prev.y + (e.clientY - prev.y) * 0.15,
+      }));
+    };
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => document.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <div className={styles.page}>
+      <div className={styles.cursor} style={{ left: cursorPos.x, top: cursorPos.y }} />
+      <div className={styles.cursorRing} style={{ left: ringPos.x, top: ringPos.y }} />
 
-      {/* ── Hero ─────────────────────────────────────────────── */}
+      {/* <nav className={styles.nav}>
+        <a href="#" className={styles.navLogo}>
+          <div className={styles.logoDot} />
+          PixelCypher Studio
+        </a>
+        <ul className={styles.navLinks}>
+          <li><a href="#">Studio</a></li>
+          <li><a href="#" className={styles.active}>Graphic Design</a></li>
+          <li><a href="#">Motion</a></li>
+          <li><a href="#">Web Dev</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <a href="#" className={styles.navCta}>Hire Us</a>
+      </nav> */}
+
       <section className={styles.hero}>
-        <div className={styles.heroBg} aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNjhIf2dfJgujPsDazvv9OFrOYwIMXllE72-TEKsjknGP649f8L3tbamDxAGVSpvoUmAPP2fusfG71airCwuxXOehGpDLGDvRf2OT5msajseAusz0tUBCkwXVt9Q-Be-2Po6cYiKxQlasGrcbkrxxkM00yr54GJaiPJ7dyHkklaP7Xw5h-5plVKTrQHaBe1L6oIrMj1nXSOvSozn0E3FbyyVr48cD7z-QPtnHtaq8_SK7tvo6ndOyIQ_4KS7Ysd-J61JWB_9oDaU4_"
-            alt=""
-            className={styles.heroBgImg}
-          />
-        </div>
-
-        <div className={styles.heroContent}>
+        <div className={styles.heroBg} />
+        <div className={styles.heroNoise} />
+        <div className={styles.heroGridLines} />
+        <div className={styles.heroLeft}>
+          <div className={styles.heroLabel}>Graphic Design</div>
           <h1 className={styles.heroTitle}>
-            MAKE YOUR <br />
-            <span className={styles.gradientText}>MARK</span>
+            Visual<br />
+            <span className={styles.lineAccent}>Identity</span><br />
+            <span className={styles.lineOutline}>Systems</span>
           </h1>
-          <p className={styles.heroSub}>Brand identity and visual design built to last.</p>
-          <div className={styles.heroScroll} aria-hidden="true">
-            <svg
-              className={styles.scrollArrow}
-              xmlns="http://www.w3.org/2000/svg"
-              width="36"
-              height="36"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="7 10 12 15 17 10" />
-              <polyline points="7 15 12 20 17 15" />
-            </svg>
+          <p className={styles.heroDesc}>We build brand languages that are unmistakable — rooted in strategy, executed with obsessive precision, and built to cut through the noise.</p>
+          <div className={styles.heroActions}>
+            <a href="#" className={styles.btnPrimary}>Start a Project →</a>
+            <a href="#" className={styles.btnSecondary}>View Portfolio</a>
           </div>
         </div>
+        <div className={styles.heroRight}>
+          <div className={styles.heroVisual}>
+            <div className={`${styles.visualRing} ${styles.vr1}`} />
+            <div className={`${styles.visualRing} ${styles.vr2}`} />
+            <div className={`${styles.visualRing} ${styles.vr3}`} />
+            <div className={`${styles.orbitDot} ${styles.od1}`} />
+            <div className={`${styles.orbitDot} ${styles.od2}`} />
+            <div className={`${styles.orbitDot} ${styles.od3}`} />
+            <div className={styles.visualCenter}>
+              <div className={styles.visualCenterIcon}>◈</div>
+              <div className={styles.visualCenterLabel}>Design Core</div>
+            </div>
+            <div className={styles.floatTags}>
 
-        <div className={styles.heroFootnote} aria-hidden="true">
-          <div className={styles.footnoteLine} />
-          <span className={styles.footnoteText}>EST. 2026 / PIXELCYPHER</span>
+ <div className={styles.brandOrbit}>
+  {Array.from(
+    "• BRANDING IDENTITY •  ⬡  • BRANDING IDENTITY • "
+  ).map((char, i) => (
+    <span
+      key={i}
+      className={styles.orbitChar}
+      style={{
+        transform: `
+          rotate(${i * 7.5}deg)
+          translateY(-190px)
+        `,
+      }}
+    >
+      {char}
+    </span>
+  ))}
+</div>
+
+
+<div className={styles.brandOrbit}>
+  {Array.from(
+    "• TYPOGRAPHY •  ⬡  • TYPOGRAPHY • "
+  ).map((char, i) => (
+    <span
+      key={i}
+      className={styles.orbitChar}
+      style={{
+        transform: `
+          rotate(${i * 7.5}deg)
+          translateY(-230px)
+        `,
+      }}
+    >
+      {char}
+    </span>
+  ))}
+</div>
+
+
+  <div className={styles.brandOrbit}>
+  {Array.from(
+    "• COLOR SYSTEMS •  ⬡  • TYPOGRAPHY • "
+  ).map((char, i) => (
+    <span
+      key={i}
+      className={styles.orbitChar}
+      style={{
+        transform: `
+          rotate(${i * 7.5}deg)
+          translateY(-270px)
+        `,
+      }}
+    >
+      {char}
+    </span>
+  ))}
+</div>
+
+ <div className={styles.brandOrbit}>
+  {Array.from(
+    "• VISUAL STRATEGY •  ⬡  • TYPOGRAPHY • "
+  ).map((char, i) => (
+    <span
+      key={i}
+      className={styles.orbitChar}
+      style={{
+        transform: `
+          rotate(${i * 7.5}deg)
+          translateY(-310px)
+        `,
+      }}
+    >
+      {char}
+    </span>
+  ))}
+</div>
+
+</div>
+          </div>
         </div>
       </section>
 
-      {/* ── Anatomy of a Brand ───────────────────────────────── */}
-      <section className={styles.anatomy}>
-        <div className={styles.anatomyHeader}>
-          <h2 className={styles.anatomyHeadline}>
-            HOW WE BUILD <br />
-            <span className={styles.anatomyFaded}>YOUR BRAND</span>
-          </h2>
-          <p className={styles.anatomyDesc}>
-            Great design starts with understanding. We learn your business, your audience, and your goals —
-            then craft a visual identity that works across everything.
-          </p>
+      <div className={styles.tickerWrap}>
+        <div className={styles.tickerTrack}>
+          {[...tickerItems, ...tickerItems].map((item, i) => (
+            <div key={i} className={styles.tickerItem}>
+              <span className={styles.dot} />{item}
+            </div>
+          ))}
         </div>
+      </div>
 
-        <div className={styles.anatomyGrid}>
-          {anatomyColumns.map((col) => (
-            <div key={col.num} className={styles.anatomyColumn}>
-              <div className={`${styles.columnTitle} ${colorClassMap[col.colorKey]}`}>
-                {col.num} {col.title}
+
+          <section id="portfolio" className={styles.portfolioSection}>
+        <div className={styles.portfolioHeader}>
+          <div>
+            <div className={styles.sectionLabel}>Selected Work</div>
+            <h2 className={styles.sectionTitle}>Recent<br />Projects</h2>
+          </div>
+          <a href="#" className={styles.btnSecondary}>View All Work →</a>
+        </div>
+        <div className={styles.portfolioGrid}>
+          {portfolioItems.map((item, i) => (
+            <div key={i} className={styles.portItem}>
+              <div className={`${styles.portBg} ${styles[item.bg]}`}>
+                <div className={`${styles.portPattern} ${styles[item.pattern]}`} />
+                <div className={styles.portDeco}>{item.deco}</div>
               </div>
-              <ul className={styles.columnList}>
-                {col.items.map((item) => (
-                  <li key={item} className={styles.columnListItem}>
-                    <span className={`${styles.bullet} ${colorClassMap[col.colorKey]}`} aria-hidden="true" />
-                    {item}
+              <div className={styles.portOverlay} />
+              <div className={styles.portInfo}>
+                <div className={styles.portCat}>{item.cat}</div>
+                <div className={styles.portTitle}>{item.title}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+
+      <section id="services" className={styles.servicesSection}>
+        <div className={styles.servicesHeader}>
+          <div>
+            <div className={styles.sectionLabel}>Our Capabilities</div>
+            <h2 className={styles.sectionTitle}>What We<br />Design</h2>
+          </div>
+          <p className={styles.sectionSub}>Every visual touchpoint we create is a strategic act — built for clarity, cultural resonance, and lasting impact.</p>
+        </div>
+        <div className={styles.servicesGrid}>
+          {services.map((service, i) => (
+            <div key={i} className={`${styles.serviceCard} ${styles[service.color]}`}>
+              <div className={styles.cardNum}>{service.num}</div>
+              <span className={styles.cardIcon}>{service.icon}</span>
+              <div className={styles.cardTitle}>{service.title}</div>
+              <p className={styles.cardDesc}>{service.desc}</p>
+              <div className={styles.cardTags}>
+                {service.tags.map((tag, j) => (
+                  <span key={j} className={styles.tag}>{tag}</span>
+                ))}
+              </div>
+              <div className={styles.cardArrow}>↗</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* <div className={styles.statsSection}>
+        <div className={styles.statsGrid}>
+          <div className={styles.statItem}>
+            <div className={styles.statNum}>80<span className={styles.statSuffix}>+</span></div>
+            <div className={styles.statLabel}>Brands Built</div>
+          </div>
+          <div className={styles.statItem}>
+            <div className={styles.statNum}>6<span className={styles.statSuffix}>yr</span></div>
+            <div className={styles.statLabel}>In the Industry</div>
+          </div>
+          <div className={styles.statItem}>
+            <div className={styles.statNum}>100<span className={styles.statSuffix}>%</span></div>
+            <div className={styles.statLabel}>Client Retention</div>
+          </div>
+          <div className={styles.statItem}>
+            <div className={styles.statNum}>3<span className={styles.statSuffix}>×</span></div>
+            <div className={styles.statLabel}>Avg. Brand Impact</div>
+          </div>
+        </div>
+      </div> */}
+
+      
+
+      <section className={styles.processSection}>
+        <div className={styles.processInner}>
+          <div>
+            <div className={styles.sectionLabel}>How We Work</div>
+            <h2 className={styles.sectionTitle}>Our<br />Process</h2>
+            <p className={styles.sectionSub}>Every great brand starts with a rigorous process — not just taste.</p>
+          </div>
+          <div className={styles.processSteps}>
+            {processSteps.map((step, i) => (
+              <div
+                key={i}
+                className={`${styles.processStep} ${activeStep === i ? styles.active : ""}`}
+                onClick={() => setActiveStep(i)}
+              >
+                <div className={styles.stepNum}>{step.num}</div>
+                <div className={styles.stepContent}>
+                  <div className={styles.stepTitle}>{step.title}</div>
+                  <div className={styles.stepDesc}>{step.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.toolsSection}>
+        <div className={styles.toolsInner}>
+          <div>
+            <div className={styles.sectionLabel}>Our Toolkit</div>
+            <h2 className={styles.sectionTitle}>Tools<br />We Master</h2>
+            <p className={styles.sectionSub}>Industry-standard tools, wielded with precision. We don't just know the software — we push it to its limits.</p>
+            <a href="#" className={styles.btnPrimary} style={{ marginTop: 40, display: 'inline-flex' }}>See Our Work →</a>
+          </div>
+          <div className={styles.toolsGrid}>
+            {tools.map((tool, i) => (
+              <div key={i} className={styles.toolItem}>
+                <div className={styles.toolIcon}>{tool.icon}</div>
+                <div className={styles.toolName}>{tool.name}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* <section className={styles.pricingSection}>
+        <div className={styles.pricingHeader}>
+          <div className={styles.sectionLabel}>Investment</div>
+          <h2 className={styles.sectionTitle}>Transparent<br />Pricing</h2>
+          <p className={styles.sectionSub}>No hidden costs. No scope creep surprises. Just clear value for exceptional design.</p>
+        </div>
+        <div className={styles.pricingGrid}>
+          {pricingPlans.map((plan, i) => (
+            <div key={i} className={`${styles.priceCard} ${plan.featured ? styles.featured : ''}`}>
+              {plan.badge && <div className={styles.priceBadge}>{plan.badge}</div>}
+              <div className={styles.priceTier}>{plan.tier}</div>
+              <div className={styles.priceAmount}>
+                {plan.amount === 'Custom' ? (
+                  <span className={styles.priceCustom}>Custom</span>
+                ) : (
+                  <>
+                    <span className={styles.priceCurrency}>₹</span>{plan.amount}
+                  </>
+                )}
+              </div>
+              <div className={styles.pricePeriod}>{plan.period}</div>
+              <ul className={styles.priceFeatures}>
+                {plan.features.map((feature, j) => (
+                  <li key={j} className={(typeof feature === 'object' && feature.dim) ? styles.dim : ''}>
+                    {typeof feature === 'string' ? feature : feature.text}
                   </li>
                 ))}
               </ul>
+              <a href="#" className={`${styles.priceBtn} ${plan.featured ? styles.featuredBtn : ''}`}>Get Started</a>
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
-      {/* ── Iconic Artifacts ─────────────────────────────────── */}
-      <section className={styles.artifacts}>
-        <div className={styles.artifactsHeader}>
-          <h2 className={styles.artifactsTitle}>
-            <span className={styles.artifactsBar} aria-hidden="true" />
-            OUR WORK
-          </h2>
-        </div>
-        <div className={styles.artifactsGrid}>
-          {artifacts.map((a) => (
-            <div key={a.title} className={styles.artifactCard}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={a.src} alt={a.alt} className={styles.artifactImg} />
-              <div className={styles.artifactOverlay}>
-                <h3 className={styles.artifactOverlayTitle}>{a.title}</h3>
-                <p className={styles.artifactOverlayDesc}>{a.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Chromatic Tension ────────────────────────────────── */}
-      <section className={styles.chromatic}>
-        <div className={styles.chromaticGrid}>
-          <div className={styles.chromaticLeft}>
-            <h2 className={styles.chromaticTitle}>
-              CRAFT MEETS <br />
-              <span className={styles.chromaticAccent}>STRATEGY</span>
-            </h2>
-            <p className={styles.chromaticBody}>
-              Good design isn't decoration — it's communication. Every colour choice, typeface, and layout
-              is made with your audience in mind, so your brand doesn't just look good, it actually works.
-            </p>
-            <div className={styles.metricsStack}>
-              <div className={styles.metricRow}>
-                <div className={styles.metricLabels}>
-                  <span className={styles.metricLabel}>Brand Consistency</span>
-                  <span className={styles.metricValue}>98%</span>
-                </div>
-                <div className={styles.metricTrack}>
-                  <div className={`${styles.metricFill} ${styles.fillRed}`} style={{ width: '98%' }} />
-                </div>
-              </div>
-              <div className={styles.metricRow}>
-                <div className={styles.metricLabels}>
-                  <span className={styles.metricLabel}>Client Satisfaction</span>
-                  <span className={styles.metricValue}>96%</span>
-                </div>
-                <div className={styles.metricTrack}>
-                  <div className={`${styles.metricFill} ${styles.fillGreen}`} style={{ width: '96%' }} />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.chromaticRight}>
-            <div className={styles.glassPanel}>
-              <div className={styles.technicalVisual}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMPMQcma3ZVyWk_5Qd6j4DI2vk7JY-w7WBL9ri3TjXuXTM1CbiQKsoPFNbOQaHuZRmg26xt0dqvmxqxQySU_xSjsVU6p6ghmwkUv-3VTv17w84G-DkM0AxvhYjORKqRWUthnYGqr1Zk4j49Kb-udaBDzKGP6IsaFyvCtRRudgYA67stNRM40gVJxW60WKjhTIexk2D0LWpLm_QCkTSDnHDruAQue5pcVq_mZv4LefM4xirsVT6PuhRw4qlah8d0gOeAc0VN-LsaTDR"
-                  alt="Technical Grid"
-                  className={styles.technicalImg}
-                />
-                <div className={styles.technicalBadge} aria-hidden="true">
-                  DESIGN: PIXEL CYPHER STUDIO
-                </div>
-              </div>
-            </div>
+      <section className={styles.ctaSection}>
+        <div className={styles.ctaBg} />
+        <div className={styles.ctaInner}>
+          <div className={styles.ctaEyebrow}>Ready to build something iconic?</div>
+          <h2 className={styles.ctaTitle}>Your Brand.<br /><span>Unforgettable.</span></h2>
+          <p className={styles.ctaSub}>We're selective about who we work with — not because we're precious, but because great brands require genuine commitment from both sides.</p>
+          <div className={styles.ctaActions}>
+            <a href="#" className={styles.btnPrimary}>Start Your Project →</a>
+            {/* <a href="#" className={styles.btnSecondary}>See Case Studies</a> */}
           </div>
         </div>
       </section>
 
+{/* 
+      <footer className={styles.footer}>
+        <div className={styles.footerLeft}>©2026 PixelCypher Studio. All rights reserved.</div>
+        <div className={styles.footerStatus}>
+          <div className={styles.statusDot} />
+          Accepting New Projects
+        </div>
+      </footer> */}
     </div>
   );
 }

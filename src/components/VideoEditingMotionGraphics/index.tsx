@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 import styles from './videoeditingmotiongraphics.module.scss';
+import ComingSoonCard from './ComingSoonCard';
+
+// ── Configuration: Toggle between Coming Soon and Real Content ───────────────────────────────────────────
+const USE_COMING_SOON = true; // Set to false when you have real content from database
 
 // ── Data ───────────────────────────────────────────────────
 
@@ -13,9 +17,9 @@ const NAV_LINKS = [
 ];
 
 const STATS = [
-  { num: '150+', label: 'Projects Done' },
-  { num: '8', label: 'Years Experience' },
-  { num: '40M+', label: 'Views Generated' },
+  // { num: '150+', label: 'Projects Done' },
+  // { num: '8', label: 'Years Experience' },
+  // { num: '40M+', label: 'Views Generated' },
 ];
 
 const TICKER_ITEMS = [
@@ -41,41 +45,42 @@ interface PortraitCard {
   dur: string;
 }
 
+// Coming Soon placeholder cards - will be replaced by database content in future
 const LANDSCAPE_CARDS_ROW1: LandscapeCard[] = [
-  { colorClass: 'c1', textColor: '#3a3028', label: 'BRAND FILM',  genre: 'Commercial',  name: 'Nike Air Campaign',  dur: '3:45 · 4K · 2024' },
-  { colorClass: 'c2', textColor: '#1a2e30', label: 'DOCUMENTARY', genre: 'Documentary', name: 'Ocean Silence',      dur: '18:30 · 4K · 2024' },
-  { colorClass: 'c3', textColor: '#301a18', label: 'MUSIC VIDEO', genre: 'Music Video', name: 'Echoes of You',      dur: '4:12 · 6K · 2023' },
-  { colorClass: 'c4', textColor: '#1e2e18', label: 'SHORT FILM',  genre: 'Narrative',   name: 'The Last Train',     dur: '12:00 · 4K · 2023' },
-  { colorClass: 'c5', textColor: '#280e30', label: 'FASHION',     genre: 'Fashion Film', name: 'Couture SS24',      dur: '2:30 · 6K · 2024' },
-  { colorClass: 'c6', textColor: '#0f1e28', label: 'TRAVEL',      genre: 'Travel',      name: 'Patagonia Raw',      dur: '7:20 · 4K · 2023' },
+  { colorClass: 'c1', textColor: '#3a3028', label: 'BRAND FILM', genre: 'Commercial', name: 'Nike Air Campaign', dur: '3:45 · 4K · 2024' },
+  { colorClass: 'c2', textColor: '#1a2e30', label: 'DOCUMENTARY', genre: 'Documentary', name: 'Ocean Silence', dur: '18:30 · 4K · 2024' },
+  { colorClass: 'c3', textColor: '#301a18', label: 'MUSIC VIDEO', genre: 'Music Video', name: 'Echoes of You', dur: '4:12 · 6K · 2023' },
+  { colorClass: 'c4', textColor: '#1e2e18', label: 'SHORT FILM', genre: 'Narrative', name: 'The Last Train', dur: '12:00 · 4K · 2023' },
+  { colorClass: 'c5', textColor: '#280e30', label: 'FASHION', genre: 'Fashion Film', name: 'Couture SS24', dur: '2:30 · 6K · 2024' },
+  { colorClass: 'c6', textColor: '#0f1e28', label: 'TRAVEL', genre: 'Travel', name: 'Patagonia Raw', dur: '7:20 · 4K · 2023' },
 ];
 
 const LANDSCAPE_CARDS_ROW2: LandscapeCard[] = [
-  { colorClass: 'c7', textColor: '#2e1e1e', label: 'PRODUCT',   genre: 'Product',   name: 'Tesla Reveal',       dur: '1:30 · 8K · 2024' },
-  { colorClass: 'c8', textColor: '#232e18', label: 'SPORTS',    genre: 'Sports',    name: 'World Cup Recap',    dur: '5:00 · 4K · 2023' },
-  { colorClass: 'c1', textColor: '#3a3028', label: 'WEDDING',   genre: 'Wedding',   name: 'Amore in Tuscany',   dur: '8:45 · 4K · 2024' },
+  { colorClass: 'c7', textColor: '#2e1e1e', label: 'PRODUCT', genre: 'Product', name: 'Tesla Reveal', dur: '1:30 · 8K · 2024' },
+  { colorClass: 'c8', textColor: '#232e18', label: 'SPORTS', genre: 'Sports', name: 'World Cup Recap', dur: '5:00 · 4K · 2023' },
+  { colorClass: 'c1', textColor: '#3a3028', label: 'WEDDING', genre: 'Wedding', name: 'Amore in Tuscany', dur: '8:45 · 4K · 2024' },
   { colorClass: 'c5', textColor: '#280e30', label: 'CORPORATE', genre: 'Corporate', name: 'Goldman Sachs 2024', dur: '3:00 · 4K · 2024' },
-  { colorClass: 'c2', textColor: '#1a2e30', label: 'NATURE',    genre: 'Nature',    name: 'Arctic Drift',       dur: '22:00 · 6K · 2023' },
-  { colorClass: 'c4', textColor: '#1e2e18', label: 'ANIMATION', genre: 'Animation', name: 'Pixel Dreams',       dur: '2:00 · 4K · 2024' },
+  { colorClass: 'c2', textColor: '#1a2e30', label: 'NATURE', genre: 'Nature', name: 'Arctic Drift', dur: '22:00 · 6K · 2023' },
+  { colorClass: 'c4', textColor: '#1e2e18', label: 'ANIMATION', genre: 'Animation', name: 'Pixel Dreams', dur: '2:00 · 4K · 2024' },
 ];
 
 const PORTRAIT_CARDS: PortraitCard[] = [
-  { colorClass: 'c3', textColor: '#301a18', label: 'REEL',   genre: 'Instagram', name: 'Skincare Launch',  dur: '0:30' },
-  { colorClass: 'c5', textColor: '#280e30', label: 'TIKTOK', genre: 'TikTok',    name: 'Dance Trend',      dur: '0:15' },
-  { colorClass: 'c1', textColor: '#3a3028', label: 'SHORT',  genre: 'YT Shorts', name: "Chef's Special",   dur: '0:58' },
-  { colorClass: 'c2', textColor: '#1a2e30', label: 'REEL',   genre: 'Instagram', name: 'Fitness Journey',  dur: '0:45' },
-  { colorClass: 'c6', textColor: '#0f1e28', label: 'STORY',  genre: 'Stories',   name: 'Behind the Lens',  dur: '0:20' },
-  { colorClass: 'c8', textColor: '#232e18', label: 'TIKTOK', genre: 'TikTok',    name: 'Street Style NYC', dur: '0:30' },
-  { colorClass: 'c7', textColor: '#2e1e1e', label: 'SHORT',  genre: 'YT Shorts', name: 'Car Reveal',       dur: '0:52' },
-  { colorClass: 'c4', textColor: '#1e2e18', label: 'REEL',   genre: 'Instagram', name: 'Forest Walk',      dur: '0:30' },
+  { colorClass: 'c3', textColor: '#301a18', label: 'REEL', genre: 'Instagram', name: 'Skincare Launch', dur: '0:30' },
+  { colorClass: 'c5', textColor: '#280e30', label: 'TIKTOK', genre: 'TikTok', name: 'Dance Trend', dur: '0:15' },
+  { colorClass: 'c1', textColor: '#3a3028', label: 'SHORT', genre: 'YT Shorts', name: "Chef's Special", dur: '0:58' },
+  { colorClass: 'c2', textColor: '#1a2e30', label: 'REEL', genre: 'Instagram', name: 'Fitness Journey', dur: '0:45' },
+  { colorClass: 'c6', textColor: '#0f1e28', label: 'STORY', genre: 'Stories', name: 'Behind the Lens', dur: '0:20' },
+  { colorClass: 'c8', textColor: '#232e18', label: 'TIKTOK', genre: 'TikTok', name: 'Street Style NYC', dur: '0:30' },
+  { colorClass: 'c7', textColor: '#2e1e1e', label: 'SHORT', genre: 'YT Shorts', name: 'Car Reveal', dur: '0:52' },
+  { colorClass: 'c4', textColor: '#1e2e18', label: 'REEL', genre: 'Instagram', name: 'Forest Walk', dur: '0:30' },
 ];
 
 const SKILLS = [
-  { name: 'Premiere Pro',   width: '95%', delay: '0.1s' },
+  { name: 'Premiere Pro', width: '95%', delay: '0.1s' },
   { name: 'DaVinci Resolve',width: '90%', delay: '0.2s' },
-  { name: 'After Effects',  width: '85%', delay: '0.3s' },
-  // { name: 'Color Grading',  width: '92%', delay: '0.4s' },
-  // { name: 'Sound Design',   width: '78%', delay: '0.5s' },
+  { name: 'After Effects', width: '85%', delay: '0.3s' },
+  // { name: 'Color Grading', width: '92%', delay: '0.4s' },
+  // { name: 'Sound Design', width: '78%', delay: '0.5s' },
   // { name: 'Motion Graphics',width: '80%', delay: '0.6s' },
 ];
 
@@ -131,16 +136,16 @@ const SERVICES: ServiceItem[] = [
     name: 'Social Reels',
     text: 'High-retention short-form content for Instagram, TikTok, and YouTube Shorts. Hook-first editing strategy that converts.',
   },
-  // {
-  //   num: '05',
-  //   icon: (
-  //     <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-  //       <path d="M3 10h3l3-6 4 12 3-6h1" stroke="#d4401a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  //     </svg>
-  //   ),
-  //   name: 'Sound Design',
-  //   text: 'SFX layering, music supervision, audio mix and master. Sound that reinforces every visual decision.',
-  // },
+  {
+    num: '05',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M3 10h3l3-6 4 12 3-6h1" stroke="#d4401a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    name: 'Sound Design',
+    text: 'SFX layering, music supervision, audio mix and master. Sound that reinforces every visual decision.',
+  },
   {
     num: '06',
     icon: (
@@ -156,7 +161,7 @@ const SERVICES: ServiceItem[] = [
   },
 ];
 
-const SOCIAL_LINKS = ['Instagram', 'Vimeo', 'LinkedIn', 'YouTube'];
+const SOCIAL_LINKS = ['Instagram', 'YouTube'];
 const FOOTER_SOCIALS = ['Instagram', 'Vimeo', 'LinkedIn'];
 
 // ── Sub-components ─────────────────────────────────────────
@@ -301,20 +306,6 @@ const VideoEditingMotionGraphics = () => {
       {/* Custom cursor */}
       <div className={styles.cursorDot} ref={cursorRef} />
 
-      {/* NAV */}
-      {/* <nav className={styles.nav}>
-        <div className={styles.logo}>FRAME</div>
-        <ul className={styles.navList}>
-          {NAV_LINKS.map((l) => (
-            <li key={l.href}>
-              <a href={l.href} className={styles.navLink}>
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav> */}
-
       {/* HERO */}
       <section className={styles.hero}>
         <div className={styles.heroLeft}>
@@ -326,7 +317,7 @@ const VideoEditingMotionGraphics = () => {
             RIGHT
           </h1>
           <p className={styles.heroSub}>
-            Award-winning video editor crafting cinematic narratives for brands, artists, and agencies worldwide.
+            Award-winning video editing crafting cinematic narratives for brands, artists, and agencies worldwide.
           </p>
           <div className={styles.heroCta}>
             <a href="#work" className={styles.btnPrimary}>View Reel</a>
@@ -370,12 +361,12 @@ const VideoEditingMotionGraphics = () => {
         </div>
 
         <div className={styles.heroStats}>
-          {STATS.map((s) => (
+          {/* {STATS.map((s) => (
             <div key={s.label}>
               <div className={styles.statNum}>{s.num}</div>
               <div className={styles.statLabel}>{s.label}</div>
             </div>
-          ))}
+          ))} */}
         </div>
       </section>
 
@@ -384,17 +375,17 @@ const VideoEditingMotionGraphics = () => {
         <div className={styles.tickerInner}>
           {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
             <>
-            <span  key={i}>
-              {item}
-              <span className={styles.accent}> ✦ </span>
-            </span>
-            
+              <span key={i}>
+                {item}
+                <span className={styles.accent}> ✦ </span>
+              </span>
+
             </>
           ))}
         </div>
       </div>
 
-      {/* LANDSCAPE REEL */}
+      {/* LANDSCAPE REEL - Using Coming Soon Cards */}
       <section className={styles.reelSection} id="work">
         <div className={styles.reelHeader}>
           <div>
@@ -406,30 +397,40 @@ const VideoEditingMotionGraphics = () => {
           </p>
         </div>
 
-        {/* Rail 1 — scroll left */}
+        {/* Rail 1 — Coming Soon Cards */}
         <div className={styles.railWrap}>
           <div className={styles.rail}>
-            {[...LANDSCAPE_CARDS_ROW1, ...LANDSCAPE_CARDS_ROW1].map((card, i) => (
-              <LandscapeCardItem key={i} card={card} />
-            ))}
+            {USE_COMING_SOON 
+              ? LANDSCAPE_CARDS_ROW1.map((card, i) => (
+                  <ComingSoonCard key={i} {...card} index={i} />
+                ))
+              : [...LANDSCAPE_CARDS_ROW1, ...LANDSCAPE_CARDS_ROW1].map((card, i) => (
+                  <LandscapeCardItem key={i} card={card} />
+                ))
+            }
           </div>
         </div>
 
         <div className={styles.railSpacer} />
 
-        {/* Rail 2 — scroll right */}
+        {/* Rail 2 — Coming Soon Cards */}
         <div className={styles.railWrap}>
           <div className={`${styles.rail} ${styles.reverse}`}>
-            {[...LANDSCAPE_CARDS_ROW2, ...LANDSCAPE_CARDS_ROW2].map((card, i) => (
-              <LandscapeCardItem key={i} card={card} />
-            ))}
+            {USE_COMING_SOON
+              ? LANDSCAPE_CARDS_ROW2.map((card, i) => (
+                  <ComingSoonCard key={i} {...card} index={i} />
+                ))
+              : [...LANDSCAPE_CARDS_ROW2, ...LANDSCAPE_CARDS_ROW2].map((card, i) => (
+                  <LandscapeCardItem key={i} card={card} />
+                ))
+            }
           </div>
         </div>
       </section>
 
       <div className={styles.divider} />
 
-      {/* PORTRAIT REEL */}
+      {/* PORTRAIT REEL - Using Coming Soon Cards */}
       <section className={styles.reelSection}>
         <div className={styles.reelHeader}>
           <div>
@@ -443,9 +444,14 @@ const VideoEditingMotionGraphics = () => {
 
         <div className={styles.railWrap}>
           <div className={styles.rail} style={{ animationDuration: '30s' }}>
-            {[...PORTRAIT_CARDS, ...PORTRAIT_CARDS].map((card, i) => (
-              <PortraitCardItem key={i} card={card} />
-            ))}
+            {USE_COMING_SOON
+              ? PORTRAIT_CARDS.map((card, i) => (
+                  <ComingSoonCard key={i} {...card} index={i} />
+                ))
+              : [...PORTRAIT_CARDS, ...PORTRAIT_CARDS].map((card, i) => (
+                  <PortraitCardItem key={i} card={card} />
+                ))
+            }
           </div>
         </div>
       </section>
@@ -524,10 +530,10 @@ const VideoEditingMotionGraphics = () => {
           GOT A<br />PROJECT<br />IN MIND?
         </h2>
         <p className={styles.contactSub}>
-          I'm open for freelance work. Drop me a message and let's create something extraordinary.
+          We are open for freelance work. Drop us a message and let's create something extraordinary.
         </p>
         <a href="mailto:pixcelcypher@gmail.com" className={styles.emailLink}>
-         pixcelcypher@gmail.com
+          pixcelcypher@gmail.com
         </a>
 
         <div className={styles.socialLinks}>
@@ -536,16 +542,6 @@ const VideoEditingMotionGraphics = () => {
           ))}
         </div>
       </section>
-
-      {/* FOOTER
-      <footer className={styles.footer}>
-        <div className={styles.footerCopy}>© 2025 Alex Mercer — FRAME. All rights reserved.</div>
-        <div className={styles.footerSocials}>
-          {FOOTER_SOCIALS.map((s) => (
-            <a key={s} href="#">{s}</a>
-          ))}
-        </div>
-      </footer> */}
     </>
   );
 };

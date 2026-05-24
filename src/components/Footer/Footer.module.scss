@@ -9,10 +9,6 @@
   margin-top: 6rem;
 }
 
-.inner {
-  padding-block: 4rem 2rem;
-}
-
 // ── Top section ────────────────────────────────────────────────────────────────
 .top {
   display: grid;
@@ -32,20 +28,6 @@
 }
 
 // ── Brand ──────────────────────────────────────────────────────────────────────
-.brand {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  max-width: 320px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  text-decoration: none;
-}
-
 .logoMark {
   position: relative;
   display: block;
@@ -72,7 +54,7 @@
 }
 
 .logoName {
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-family: var(--font-stack-display);
   font-size: var(--text-label-md);
   font-weight: 600;
   letter-spacing: var(--tracking-label);
@@ -105,18 +87,6 @@
 }
 
 // ── Nav columns ───────────────────────────────────────────────────────────────
-.navCol {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.linkList {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
 .inactiveLink {
   display: inline-block;
   cursor: default;
@@ -172,13 +142,6 @@
   font-size: var(--text-label-md);
   color: var(--on-surface-variant);
   opacity: 0.6;
-}
-
-.legal {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
 }
 
 .legalLink {

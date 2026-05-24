@@ -43,16 +43,16 @@ export default function WorkGrid() {
   return (
     <section className={`section ${styles.section}`}>
       <div className="container">
-        <div className={styles.header}>
+        <div className="section-header mb-12">
           <span className="label-caps">All Projects</span>
-          <h2 className={styles.title}>Selected Work</h2>
+          <h2 className="section-heading">Selected Work</h2>
         </div>
 
         <div className={styles.grid}>
           {projects.map(({ id, title, category, year, accent, size, description }) => (
             <article
               key={id}
-              className={`${styles.card} ${styles[`card--${size}`]} ${styles[`card--${accent}`]}`}
+              className={`card-base ${styles.card} ${styles[`card--${size}`]} ${styles[`card--${accent}`]}`}
             >
               {/* Placeholder image area */}
               <div className={`${styles.visual} ${styles[`visual--${accent}`]}`}>

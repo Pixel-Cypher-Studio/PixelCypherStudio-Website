@@ -23,25 +23,5 @@
 }
 
 .heroInner {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  max-width: 760px;
-}
-
-.headline {
-  font-size: var(--text-display-lg);
-  font-weight: 700;
-  letter-spacing: var(--tracking-display);
-  line-height: var(--leading-tight);
-  color: var(--on-surface);
-}
-
-.sub {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  color: var(--on-surface-variant);
-  line-height: var(--leading-relaxed);
-  max-width: 520px;
+  gap: 1.5rem; // overrides page-hero-inner's default 1.75rem
 }

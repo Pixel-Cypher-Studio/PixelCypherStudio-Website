@@ -37,21 +37,21 @@ export default function ContactPage() {
   return (
     <>
       <section className={styles.hero}>
-        <div className={`container ${styles.heroInner}`}>
+        <div className="container page-hero-inner max-w-[820px]">
           <div className={styles.bgOrbs} aria-hidden="true">
-            <div className={`${styles.orb} ${styles.orbBlue}`} />
-            <div className={`${styles.orb} ${styles.orbRed}`} />
+            <div className={`orb-base ${styles.orbBlue}`} />
+            <div className={`orb-base ${styles.orbRed}`} />
           </div>
 
           <span className="label-caps">Contact</span>
 
-          <h1 className={styles.headline}>
+          <h1 className="page-headline">
             Let&apos;s Build
             <br />
             <span className="kinetic-text">Something Precise.</span>
           </h1>
 
-          <p className={styles.sub}>
+          <p className="page-sub max-w-[620px]">
             If you need a sharper visual identity, stronger motion content, or a
             high-performance website, send us the brief and we&apos;ll take it from
             there.

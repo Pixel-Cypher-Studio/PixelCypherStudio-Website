@@ -5,6 +5,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Stars } from '@react-three/drei';
 import * as THREE from 'three';
 import { easing } from 'maath';
+import styles from './InteractiveBackground.module.scss';
 
 const COLORS = {
   primary: '#d1bcff',
@@ -125,18 +126,7 @@ function AnimatedStars() {
 
 export default function InteractiveBackground() {
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-        pointerEvents: 'none',
-        opacity: 0.4,
-      }}
-    >
+    <div className={styles.wrapper}>
       <Canvas
         gl={{ antialias: false, alpha: true }}
         camera={{ position: [0, 0, 5], fov: 50 }}

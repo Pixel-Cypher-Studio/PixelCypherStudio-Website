@@ -38,10 +38,10 @@ function FooterItem({ label, href, className }: { label: string; href: string; c
 export default function Footer() {
   return (
     <footer className={styles.footer} id="contact">
-      <div className={`container ${styles.inner}`}>
+      <div className="container pt-16 pb-8">
         <div className={styles.top}>
-          <div className={styles.brand}>
-            <Link href="/" className={styles.logo}>
+          <div className="flex flex-col gap-5 max-w-80">
+            <Link href="/" className="flex items-center gap-2.5 no-underline">
               <span className={styles.logoMark}>
                 <Image
                   src="/images/logo/pixelcypherstudio.webp"
@@ -65,9 +65,9 @@ export default function Footer() {
             </div>
           </div>
 
-          <nav className={styles.navCol}>
+          <nav className="flex flex-col gap-5">
             <span className="label-caps">Navigation</span>
-            <ul className={styles.linkList}>
+            <ul className="flex flex-col gap-3">
               {navLinks.map(({ label, href }) => (
                 <li key={label}>
                   <FooterItem label={label} href={href} className={styles.footerLink} />
@@ -76,9 +76,9 @@ export default function Footer() {
             </ul>
           </nav>
 
-          <nav className={styles.navCol}>
+          <nav className="flex flex-col gap-5">
             <span className="label-caps">Find Us</span>
-            <ul className={styles.linkList}>
+            <ul className="flex flex-col gap-3">
               {socialLinks.map(({ label, href }) => (
                 <li key={label}>
                   <FooterItem label={label} href={href} className={styles.footerLink} />

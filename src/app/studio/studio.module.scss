@@ -11,12 +11,7 @@
   pointer-events: none;
 }
 
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: var(--orb-opacity);
-}
+// orb base styles come from global .orb-base
 
 .orbRed {
   background: var(--accent-red);
@@ -38,30 +33,6 @@
   left: 10%;
 }
 
-.heroInner {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-  max-width: 800px;
-}
-
-.headline {
-  font-size: var(--text-display-lg);
-  font-weight: 700;
-  letter-spacing: var(--tracking-display);
-  line-height: var(--leading-tight);
-  color: var(--on-surface);
-}
-
-.sub {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  color: var(--on-surface-variant);
-  line-height: var(--leading-relaxed);
-  max-width: 560px;
-}
-
 // ── Pills ─────────────────────────────────────────────────────────────────────
 .pills {
   display: flex;
@@ -70,15 +41,4 @@
   padding-top: 0.5rem;
 }
 
-.pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.375rem 1rem;
-  background: var(--surface-container);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  font-size: var(--text-label-sm);
-  font-weight: 500;
-  color: var(--on-surface-variant);
-  letter-spacing: 0.02em;
-}
+// pill uses global .pill

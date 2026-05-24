@@ -50,9 +50,9 @@ export default function Services() {
   return (
     <section className={`section ${styles.section}`}>
       <div className="container">
-        <div className={styles.header}>
+        <div className="section-header mb-16">
           <span className="label-caps">What We Do</span>
-          <h2 className={styles.title}>
+          <h2 className="section-heading max-w-[400px]">
             Three Pillars.
             <br />
             One Vision.
@@ -89,7 +89,7 @@ export default function Services() {
                 <Link
                   key={id}
                   href={href}
-                  className={`${styles.card} ${styles[`card--${accent}`]}`}
+                  className={`card-base py-9 px-8 flex flex-col gap-6 ${styles[`card--${accent}`]}`}
                   aria-label={`Open ${subtitle} capability page`}
                 >
                   {content}
@@ -98,7 +98,7 @@ export default function Services() {
             }
 
             return (
-              <article key={id} className={`${styles.card} ${styles[`card--${accent}`]}`}>
+              <article key={id} className={`card-base py-9 px-8 flex flex-col gap-6 ${styles[`card--${accent}`]}`}>
                 {content}
               </article>
             );

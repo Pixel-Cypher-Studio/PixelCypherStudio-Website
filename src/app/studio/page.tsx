@@ -23,28 +23,28 @@ export default function StudioPage() {
     <>
       {/* Page hero */}
       <section className={styles.hero}>
-        <div className={`container ${styles.heroInner}`}>
+        <div className="container page-hero-inner max-w-[800px]">
           {/* Background decoration */}
           <div className={styles.bgOrbs} aria-hidden="true">
-            <div className={`${styles.orb} ${styles.orbRed}`}  />
-            <div className={`${styles.orb} ${styles.orbGreen}`} />
+            <div className={`orb-base ${styles.orbRed}`}  />
+            <div className={`orb-base ${styles.orbGreen}`} />
           </div>
 
           <span className="label-caps">Our Studio</span>
-          <h1 className={styles.headline}>
+          <h1 className="page-headline">
             A High-Fidelity<br />
             <span className="kinetic-text">Digital Craft House.</span>
           </h1>
-        <p className={styles.sub}>
-  We shape visual identity, motion content, and modern web experiences through
-  a studio process that balances creative direction with production-grade execution.
-</p>
+          <p className="page-sub max-w-[560px]">
+            We shape visual identity, motion content, and modern web experiences through
+            a studio process that balances creative direction with production-grade execution.
+          </p>
 
           {/* Studio philosophy pills */}
           <div className={styles.pills}>
             {['Established 2017', 'Remote-First', 'Independent Studio', 'Open to Collabs'].map(
               (pill) => (
-                <span key={pill} className={styles.pill}>
+                <span key={pill} className="pill">
                   {pill}
                 </span>
               )

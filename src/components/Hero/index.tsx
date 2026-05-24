@@ -4,14 +4,14 @@ import styles from './Hero.module.scss';
 
 export default function Hero() {
   return (
-    <section className={styles.hero}>
+    <section className="relative min-h-dvh flex items-center overflow-hidden">
       {/* <HeroScene /> */}
 
       {/* RGB ambient orbs */}
-      <div className={styles.orbs} aria-hidden="true">
-        <div className={`${styles.orb} ${styles.orbRed}`}    />
-        <div className={`${styles.orb} ${styles.orbGreen}`}  />
-        <div className={`${styles.orb} ${styles.orbBlue}`}   />
+      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
+        <div className={`orb-base ${styles.orb} ${styles.orbRed}`}    />
+        <div className={`orb-base ${styles.orb} ${styles.orbGreen}`}  />
+        <div className={`orb-base ${styles.orb} ${styles.orbBlue}`}   />
       </div>
 
       <div className={`container ${styles.content}`}>
@@ -53,7 +53,7 @@ export default function Hero() {
             // { value: '120', label: 'Projects' },
             // { value: '40+', label: 'Clients'  },
           ].map(({ value, label }) => (
-            <div key={label} className={styles.stat}>
+            <div key={label} className="flex flex-col gap-1">
               <span className={styles.statValue}>{value}</span>
               <span className={styles.statLabel}>{label}</span>
             </div>

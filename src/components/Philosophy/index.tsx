@@ -18,14 +18,14 @@ const services = [
     number: '02',
     title: 'PACKAGING',
     description: 'Packaging that embodies the product and elevates the experience.',
-    href: '/services/packaging',
+    href: '/packaging',
     image: mediaUrl('home.philosophy.packaging'),
   },
   {
     number: '03',
     title: 'MOTION GRAPHICS',
     description: 'Bringing brands to life through movement, typography and rhythm.',
-    href: '/capabilities/motion-graphics',
+    href: '/capabilities/graphic-design',
     image: mediaUrl('home.philosophy.motionGraphics'),
   },
   {
@@ -50,7 +50,7 @@ export default function Philosophy() {
   return (
     <section className={`section ${styles.section}`}>
       <div className="container">
-        <div className={styles.header}>
+        <div className={`section-header ${styles.header}`}>
           <span className="label-caps">Studio Philosophy</span>
           <h2 className={styles.title}>
             We Don't Just Build Websites;<br />
@@ -58,7 +58,7 @@ export default function Philosophy() {
           </h2>
         </div>
 
-        <div className={styles.grid}>
+        <div className="flex flex-col gap-4">
           {/* Top Row - 2 cards */}
           <div className={styles.topRow}>
             {services.slice(0, 2).map((service, index) => {
@@ -72,7 +72,7 @@ export default function Philosophy() {
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <div className={styles.backgroundImage}>
+                  <div className="absolute inset-0 w-full h-full">
                     <Image
                       src={service.image}
                       alt={service.title}
@@ -112,7 +112,7 @@ export default function Philosophy() {
                   onMouseEnter={() => setHoveredIndex(actualIndex)}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
-                  <div className={styles.backgroundImage}>
+                  <div className="absolute inset-0 w-full h-full">
                     <Image
                       src={service.image}
                       alt={service.title}
@@ -125,7 +125,7 @@ export default function Philosophy() {
                   <div className={styles.content}>
                     <div className={styles.number}>{service.number}</div>
                     <h3 className={styles.cardTitle}>{service.title}</h3>
-                    <p className={styles.cardDescriptionToSmallTabs}>{service.description}</p>
+                    <p className={styles.cardDescription}>{service.description}</p>
                   </div>
                   
                   <div className={styles.arrowContainer}>

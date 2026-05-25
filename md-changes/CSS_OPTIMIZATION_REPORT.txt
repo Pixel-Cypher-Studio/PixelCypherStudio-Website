@@ -1,0 +1,321 @@
+CSS OPTIMIZATION REPORT
+PixelCypher Studio — pixelcypher-website
+Date: 2026-05-24
+Branch: shubh
+================================================================================
+
+OVERVIEW
+--------
+Audited all 24 SCSS module files + 3 global partials. Identified 10 categories
+of repetition and executed all P0/P1 optimizations. Estimated ~200+ lines of
+duplicate CSS removed across the codebase.
+
+
+PARTS COMPLETED
+---------------
+
+PART 1 — Keyframe cleanup (Hero.module.scss + _animations.scss)
+  - Attempted to remove duplicate @keyframes fadeUp and pulse-glow from
+    Hero.module.scss (both existed identically in _animations.scss).
+  - DISCOVERED: Turbopack/CSS-Modules scopes animation-name references to the
+    local module file. Global @keyframes from globals.scss are invisible inside
+    .module.scss files and the animation silently does nothing.
+  - RESTORED: Both keyframes back into Hero.module.scss with an explanatory
+    comment explaining why they must be local.
+  - ADDED: @keyframes pulse (opacity 1 → 0.4, used for dot indicators) to
+    _animations.scss — this was missing from globals and duplicated in
+    packages.scss and graphicdesign.module.scss.
+  - ADDED: Turbopack scoping warning note to _animations.scss so future devs
+    know not to rely on global keyframes from module files.
+
+  Files changed:
+    src/components/Hero/Hero.module.scss
+    src/styles/_animations.scss
+
+
+PART 2 — Font-stack SCSS variables + CSS custom properties (_variables.scss)
+  - Added SCSS variables for convenient use when explicitly @using the partial:
+      $font-display: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+      $font-body:    var(--font-inter), 'Inter', sans-serif;
+      $font-mono:    var(--font-dm-mono), 'DM Mono', monospace;
+  - Added CSS custom properties usable anywhere without @use imports:
+      --font-stack-display: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+      --font-stack-body:    var(--font-inter), 'Inter', sans-serif;
+      --font-stack-mono:    var(--font-dm-mono), 'DM Mono', monospace;
+
+  Files changed:
+    src/styles/_variables.scss
+
+
+PART 3 — Shared utility classes added to globals.scss
+  Nine new composable utility classes added to the bottom of globals.scss:
+
+    .orb-base         — ambient decoration blob base (position:absolute,
+                        border-radius:50%, filter:blur(100px), opacity:var(--orb-opacity))
+    .section-header   — flex column stack for section label + heading
+    .section-heading  — headline-lg font/weight/color/line-height for section titles
+    .card-base        — surface card with border, border-radius, overflow:hidden,
+                        and the standard translateY(-4px) hover lift transition
+    .page-hero-inner  — page hero content column (position:relative, z-index:1,
+                        flex column, gap:1.75rem)
+    .page-headline    — display-lg headline for page heroes
+    .page-sub         — clamp(1rem, 2vw, 1.2rem) sub text beneath page headline
+    .pill             — inline-flex chip/tag with surface-container background
+    .status-dot       — 7px green glowing status indicator dot
+
+  Files changed:
+    src/styles/globals.scss
+
+
+PART 4 — Deleted cardDescriptionToSmallTabs (Philosophy.module.scss)
+  - cardDescriptionToSmallTabs was a near-duplicate of cardDescription with only
+    max-width differing (80% vs 30%).
+  - Consolidated into cardDescription using a .cardLarge & context selector:
+      .cardDescription {
+        max-width: 80%;         // default for smaller cards
+        .cardLarge & { max-width: 30%; }  // large card override
+      }
+  - Updated Philosophy/index.tsx bottom row to use styles.cardDescription
+    instead of the now-deleted styles.cardDescriptionToSmallTabs.
+  - Removed redundant padding-block: var(--section-py) from Philosophy's .section
+    (the global .section class already provides this via the JSX className="section").
+
+  Lines saved: ~18
+  Files changed:
+    src/components/Philosophy/Philosophy.module.scss
+    src/components/Philosophy/index.tsx
+
+
+PART 5 — Services component refactored to use global utilities
+  JSX changes (Services/index.tsx):
+    - .header  → section-header + styles.header
+    - .title   → section-heading + styles.title
+    - .card    → card-base + styles.card + styles.card--{accent} (both Link and article)
+
+  Module changes (Services.module.scss):
+    - .header: removed display/flex-direction/gap (now from section-header),
+               kept only margin-bottom: 4rem
+    - .title:  removed font-size/font-weight/color (now from section-heading),
+               kept only max-width: 400px
+    - .card:   removed position/background/border-radius/border/overflow/transition
+               and the entire &:hover block (now from card-base),
+               kept only padding/display/flex-direction/gap
+
+  Lines saved: ~25
+  Files changed:
+    src/components/Services/Services.module.scss
+    src/components/Services/index.tsx
+
+
+PART 6 — Capabilities component refactored to use global utilities
+  JSX changes (Capabilities/index.tsx):
+    - .header  → section-header + styles.header
+    - .title   → section-heading + styles.title
+    - .card    → card-base + styles.card + styles.card--{accent} (all 4 occurrences)
+
+  Module changes (Capabilities.module.scss):
+    - .header: removed display/flex-direction/gap, kept only margin-bottom: 3.5rem
+    - .title:  removed font-size/font-weight/color, kept only max-width: 360px
+    - .card:   removed position/background/border-radius/border/overflow/transition
+               and base hover properties (transform/background/border-color).
+               KEPT the unique ::before accent glow line and &:hover::before
+               expansion — these are specific to Capabilities cards.
+
+  Lines saved: ~22
+  Files changed:
+    src/components/Capabilities/Capabilities.module.scss
+    src/components/Capabilities/index.tsx
+
+
+PART 7 — Philosophy section header refactored
+  JSX changes (Philosophy/index.tsx):
+    - .header → section-header + styles.header
+    - .title stays as styles.title only (uses --text-display-md, larger than
+      section-heading's --text-headline-lg, so the utility class is not used here)
+
+  Module changes (Philosophy.module.scss):
+    - .header: removed display/flex-direction (now from section-header),
+               kept gap:1.5rem (differs from section-header default of 1rem)
+               and margin-bottom: 3rem
+    - .section: removed padding-block:var(--section-py) (duplicate of global .section)
+
+  Lines saved: ~5
+  Files changed:
+    src/components/Philosophy/Philosophy.module.scss
+    src/components/Philosophy/index.tsx
+
+
+PART 8 — Studio and Contact page heroes refactored
+  Studio (page.tsx + studio.module.scss):
+    JSX:
+      - container + heroInner → container + page-hero-inner + styles.heroInner
+      - styles.orb + styles.orbRed/Green → orb-base + styles.orbRed/Green
+      - styles.headline → "page-headline" (global class only, no module class)
+      - styles.sub → page-sub + styles.sub
+      - styles.pill → "pill" (global class only)
+    Module:
+      - Deleted .orb block (4 properties, now from orb-base)
+      - .heroInner: kept only max-width: 800px
+      - Deleted .headline entirely (identical to page-headline)
+      - .sub: kept only max-width: 560px
+      - Deleted .pill entirely (identical to global .pill)
+
+  Contact (page.tsx + contact.module.scss):
+    JSX:
+      - container + heroInner → container + page-hero-inner + styles.heroInner
+      - styles.orb + styles.orbBlue/Red → orb-base + styles.orbBlue/Red
+      - styles.headline → "page-headline" (global class only)
+      - styles.sub → page-sub + styles.sub
+    Module:
+      - Deleted .orb block (4 properties, now from orb-base)
+      - .heroInner: kept only max-width: 820px
+      - Deleted .headline entirely (identical to page-headline)
+      - .sub: kept only max-width: 620px
+
+  Lines saved: ~40 (combined)
+  Files changed:
+    src/app/studio/studio.module.scss
+    src/app/studio/page.tsx
+    src/app/contact/contact.module.scss
+    src/app/contact/page.tsx
+
+
+PART 9 — Hero component orb pattern refactored
+  JSX changes (Hero/index.tsx):
+    - styles.orb + styles.orbRed/Green/Blue → orb-base + styles.orb + styles.orb{Color}
+
+  Module changes (Hero.module.scss):
+    - .orb: removed position/border-radius/filter/opacity (now from orb-base),
+            kept only animation: pulse-glow 6s ease-in-out infinite
+
+  Lines saved: ~4
+  Files changed:
+    src/components/Hero/Hero.module.scss
+    src/components/Hero/index.tsx
+
+
+PART 10 — Font-family string replaced across 11 files (24 occurrences)
+  Replaced the verbose hardcoded fallback string:
+    var(--font-space-grotesk), 'Space Grotesk', sans-serif
+  With the CSS custom property:
+    var(--font-stack-display)
+
+  Also replaced in globals.scss:
+    var(--font-inter), 'Inter', sans-serif  →  var(--font-stack-body)
+
+  NOTE: The rename from section-title → section-heading was required here.
+  packages.scss already defined its own .section-title with Bebas Neue styling
+  for the packages page. Adding a global .section-title would create a CSS
+  cascade conflict. Renamed the global utility to .section-heading to avoid
+  the ambiguity entirely. All 3 component files using the utility were updated.
+
+  Files changed (font-family replacement):
+    src/styles/globals.scss
+    src/components/Hero/Hero.module.scss
+    src/components/Navbar/Navbar.module.scss          (6 occurrences)
+    src/components/Footer/Footer.module.scss
+    src/components/Services/Services.module.scss      (2 occurrences)
+    src/components/Capabilities/Capabilities.module.scss
+    src/components/Philosophy/Philosophy.module.scss  (2 occurrences)
+    src/components/WorkGrid/WorkGrid.module.scss
+    src/components/Marquee/Marquee.module.scss
+    src/components/NotFoundPage/NotFoundPage.module.scss
+    src/components/WebDevelopmentScene/WebDevelopmentScene.module.scss (2 occurrences)
+    src/app/contact/contact.module.scss               (3 occurrences)
+
+  Files changed (section-title → section-heading rename):
+    src/styles/globals.scss
+    src/components/Services/index.tsx
+    src/components/Capabilities/index.tsx
+    src/components/WorkGrid/index.tsx
+    src/components/WorkGrid/WorkGrid.module.scss      (comment only)
+
+
+PART 11 — WorkGrid component refactored to use global utilities
+  JSX changes (WorkGrid/index.tsx):
+    - .header → section-header + styles.header
+    - .title  → "section-heading" (global class only, module class removed)
+    - .card   → card-base + styles.card + styles.card--{size} + styles.card--{accent}
+
+  Module changes (WorkGrid.module.scss):
+    - .header: removed display/flex-direction/gap, kept only margin-bottom: 3rem
+    - .title:  removed entirely (fully covered by section-heading)
+    - .card:   removed background/border-radius/border/overflow/transition and base
+               hover (transform/background/border-color). KEPT cursor:pointer,
+               display:flex/flex-direction/gap, and the full &:hover block with
+               translateY(-6px) override + nested .arrowIcon and .visual effects.
+
+  Lines saved: ~14
+  Files changed:
+    src/components/WorkGrid/WorkGrid.module.scss
+    src/components/WorkGrid/index.tsx
+
+
+KNOWN LIMITATIONS / DEFERRED WORK (P3/P4)
+------------------------------------------
+The following files have their own self-contained design systems that are
+completely disconnected from the global design tokens. They define their own
+:root variables, use different fonts (Bebas Neue, DM Mono, Space Mono), and
+have separate color schemes. Aligning them to the global system is a larger
+design decision requiring stakeholder input:
+
+  src/app/packages/packages.scss
+    - 1839 lines, defines own --bg, --text, --muted, --accent-* variables
+    - Uses Bebas Neue, DM Mono, Syne fonts
+    - Has its own .nav-packages, .hero, footer — bypasses global Navbar/Footer
+
+  src/components/GraphicDesignCapabilityContent/graphicdesign.module.scss
+    - Defines own :root with different accent colors (#b8ff57, #9b5cff, #ff3d7f)
+    - Has its own cursor, nav, and hero styles
+    - Uses @import for Google Fonts (deprecated in Sass)
+
+  src/components/VideoEditingMotionGraphics/videoeditingmotiongraphics.module.scss
+    - Uses --ink/#0a0a0a and --paper/#f4f1eb color scheme
+    - Separate design language from the rest of the site
+
+These are tracked as P3/P4 in CSS_OPTIMIZATION_PLAN.md.
+
+
+IMPORTANT TECHNICAL NOTE — TURBOPACK KEYFRAME SCOPING
+------------------------------------------------------
+CSS Modules with Turbopack (Next.js default bundler) scopes @keyframes
+animation-name references to the local module file. A @keyframes defined in
+globals.scss is INVISIBLE from inside a .module.scss file — the animation will
+silently do nothing.
+
+Rule: Any .module.scss file that uses an animation: property MUST define the
+corresponding @keyframes locally in that same file.
+
+Files that currently have local keyframe definitions (correct):
+  - Hero.module.scss         → pulse-glow, fadeUp
+  - Navbar.module.scss       → pulse-glow (dot indicator version), overlayItemIn
+  - Footer.module.scss       → pulse-glow (dot indicator version)
+  - Marquee.module.scss      → marquee
+
+Note: The Navbar/Footer pulse-glow is intentionally different from the global
+one (opacity 1→0.4 for dots, vs var(--orb-opacity) for background blobs).
+CSS Modules scoping ensures they don't conflict despite sharing a name.
+
+
+SUMMARY OF NEW GLOBAL UTILITIES
+---------------------------------
+Add these class names to JSX elements to get the shared styles:
+
+  className="orb-base"           → ambient decoration blob base
+  className="section-header"    → flex column gap for label + title stack
+  className="section-heading"   → headline-lg font for section titles
+  className="card-base"         → surface card with hover-lift
+  className="page-hero-inner"   → hero content column (flex, z-index, gap)
+  className="page-headline"     → display-lg hero heading
+  className="page-sub"          → clamp sub text beneath hero heading
+  className="pill"              → inline chip/tag
+  className="status-dot"        → 7px green pulsing indicator dot
+
+  (These are in addition to the pre-existing globals:)
+  className="container"         → max-width centered layout column
+  className="section"           → section padding-block
+  className="kinetic-text"      → RGB gradient animated text
+  className="label-caps"        → uppercase spaced label text
+
+================================================================================
+END OF REPORT

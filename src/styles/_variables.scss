@@ -145,3 +145,18 @@
   --duration-base: 280ms;
   --duration-slow: 500ms;
 }
+
+// ── SCSS font-stack shortcuts (use in module files via #{$font-display} etc.) ─
+$font-display: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+$font-body:    var(--font-inter), 'Inter', sans-serif;
+$font-mono:    var(--font-dm-mono), 'DM Mono', monospace;
+$font-accent:  var(--font-bebas), 'Bebas Neue', sans-serif;
+
+// ── CSS font-stack custom properties (use anywhere as var(--font-stack-display)) ─
+// These allow modules to reference font stacks without @use imports.
+:root {
+  --font-stack-display: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  --font-stack-body:    var(--font-inter), 'Inter', sans-serif;
+  --font-stack-mono:    var(--font-dm-mono), 'DM Mono', monospace;
+  --font-stack-accent:  var(--font-bebas), 'Bebas Neue', sans-serif;
+}

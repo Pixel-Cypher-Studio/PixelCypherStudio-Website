@@ -2,9 +2,10 @@
 
 import { useRef, useState, useMemo } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Float, Stars } from '@react-three/drei';
+import { Stars } from '@react-three/drei';
 import * as THREE from 'three';
 import { easing } from 'maath';
+import styles from './InteractiveBackground.module.scss';
 
 const COLORS = {
   primary: '#d1bcff',
@@ -89,7 +90,7 @@ function ParticleField({ count = 200 }: { count?: number }) {
         size={0.15}
         vertexColors
         transparent
-        opacity={0.8}
+        opacity={0.2}
         sizeAttenuation
         depthWrite={false}
         blending={THREE.AdditiveBlending}
@@ -122,58 +123,10 @@ function AnimatedStars() {
   );
 }
 
-function FloatingOrbs() {
-  const orbs = useRef<THREE.Mesh[]>([]);
-  
-  useFrame((state, delta) => {
-    orbs.current.forEach((orb, i) => {
-      if (orb) {
-        orb.position.y += Math.sin(state.clock.elapsedTime + i) * 0.005;
-        orb.position.x += Math.cos(state.clock.elapsedTime * 0.5 + i * 2) * 0.003;
-        orb.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 2 + i) * 0.1);
-      }
-    });
-  });
-
-  return (
-    <>
-      {[...Array(5)].map((_, i) => (
-        <Float
-          key={i}
-          speed={2 + i * 0.5}
-          rotationIntensity={1 + i * 0.2}
-          floatIntensity={2 + i * 0.5}
-        >
-          <mesh ref={(el) => el && (orbs.current[i] = el)}>
-            <sphereGeometry args={[0.3 + i * 0.1, 32, 32]} />
-            <meshStandardMaterial
-              color={i % 3 === 0 ? COLORS.accent1 : i % 3 === 1 ? COLORS.accent2 : COLORS.accent3}
-              emissive={i % 3 === 0 ? COLORS.accent1 : i % 3 === 1 ? COLORS.accent2 : COLORS.accent3}
-              emissiveIntensity={0.5}
-              transparent
-              opacity={0.15}
-            />
-          </mesh>
-        </Float>
-      ))}
-    </>
-  );
-}
 
 export default function InteractiveBackground() {
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 0,
-        pointerEvents: 'none',
-        opacity: 0.4,
-      }}
-    >
+    <div className={styles.wrapper}>
       <Canvas
         gl={{ antialias: false, alpha: true }}
         camera={{ position: [0, 0, 5], fov: 50 }}
@@ -183,7 +136,6 @@ export default function InteractiveBackground() {
         <pointLight position={[10, 10, 10]} intensity={1} />
         <ParticleField count={150} />
         <AnimatedStars />
-        <FloatingOrbs />
       </Canvas>
     </div>
   );

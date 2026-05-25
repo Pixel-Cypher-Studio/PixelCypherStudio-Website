@@ -79,7 +79,7 @@ export default function Navbar() {
             <span className={styles.logoText}>PIXELCYPHER STUDIO</span>
           </Link>
 
-          <ul className={styles.links}>
+          <ul className="flex items-center gap-1">
             {navLinks.map(({ href, label }) => (
               <li key={href}>
                 <Link
@@ -92,7 +92,7 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div className={styles.actions}>
+          <div className="flex items-center gap-2 shrink-0">
             <ThemeToggle />
             {/* <Link href="/contact" className={styles.cta}>
               Hire Us
@@ -121,7 +121,7 @@ export default function Navbar() {
         className={`${styles.overlay} ${menuOpen ? styles.overlayOpen : ''}`}
         onClick={close}
       >
-        <div className={styles.overlayInner}>
+        <div className="relative w-full h-full flex flex-col p-5">
           <button
             ref={closeBtnRef}
             className={styles.closeBtn}
@@ -142,7 +142,7 @@ export default function Navbar() {
             </svg>
           </button>
 
-          <div className={styles.overlayTheme} onClick={(e) => e.stopPropagation()}>
+          <div className="absolute top-5 right-5" onClick={(e) => e.stopPropagation()}>
             <ThemeToggle />
           </div>
 
@@ -159,8 +159,8 @@ export default function Navbar() {
             <span className={styles.overlayBrandText}>PIXELCYPHER STUDIO</span>
           </Link>
 
-          <nav className={styles.overlayNav}>
-            <ul className={styles.overlayList}>
+          <nav className="flex flex-1 items-center pt-24">
+            <ul className="flex flex-col gap-1 w-full">
               {navLinks.map(({ href, label }, i) => (
                 <li
                   key={href}

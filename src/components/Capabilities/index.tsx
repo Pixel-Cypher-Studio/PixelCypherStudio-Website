@@ -32,9 +32,9 @@ export default function Capabilities() {
   return (
     <section className={`section ${styles.section}`}>
       <div className="container">
-        <div className={styles.header}>
+        <div className="section-header mb-14">
           <span className="label-caps">Our Capabilities</span>
-          <h2 className={styles.title}>
+          <h2 className="section-heading max-w-[360px]">
             What We<br />
             Bring to the Table
           </h2>
@@ -63,7 +63,7 @@ export default function Capabilities() {
       <Link
         key={number}
         href="/capabilities/graphic-design"
-        className={`${styles.card} ${styles[`card--${accent}`]}`}
+        className={`card-base ${styles.card} ${styles[`card--${accent}`]}`}
         aria-label="Open Graphic Design capability page"
       >
         {cardContent}
@@ -76,7 +76,7 @@ export default function Capabilities() {
       <Link
         key={number}
         href="/capabilities/web-development"
-        className={`${styles.card} ${styles[`card--${accent}`]}`}
+        className={`card-base ${styles.card} ${styles[`card--${accent}`]}`}
         aria-label="Open Web Development capability page"
       >
         {cardContent}
@@ -88,7 +88,7 @@ else if (title === 'Motion Graphics / Video Editing') {
           <Link
             key={number}
             href="/capabilities/video-editing-motion-graphics"
-            className={`${styles.card} ${styles[`card--${accent}`]}`}
+            className={`card-base ${styles.card} ${styles[`card--${accent}`]}`}
             aria-label="Open Motion Graphics / Video Editing capability page"
           >
             {cardContent}
@@ -97,7 +97,7 @@ else if (title === 'Motion Graphics / Video Editing') {
       }
 
   return (
-    <article key={number} className={`${styles.card} ${styles[`card--${accent}`]}`}>
+    <article key={number} className={`card-base ${styles.card} ${styles[`card--${accent}`]}`}>
       {cardContent}
     </article>
   );

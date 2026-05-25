@@ -22,13 +22,13 @@ export default function WorkPage() {
     <>
       {/* Page hero */}
       <section className={styles.hero}>
-        <div className={`container ${styles.heroInner}`}>
+        <div className={`container page-hero-inner max-w-[760px] ${styles.heroInner}`}>
           <span className="label-caps">Selected Projects</span>
-          <h1 className={styles.headline}>
+          <h1 className="page-headline">
             Work That<br />
             <span className="kinetic-text">Speaks First.</span>
           </h1>
-          <p className={styles.sub}>
+          <p className="page-sub max-w-[520px]">
             A curated archive of brand identities, motion campaigns, interactive
             experiences, and digital systems built for the relentless.
           </p>

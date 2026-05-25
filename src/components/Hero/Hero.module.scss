@@ -1,3 +1,6 @@
+// These keyframes must be defined locally — Turbopack/CSS-Modules scopes
+// animation-name references to the local file, so globals.scss keyframes
+// are invisible here and the animation silently does nothing.
 @keyframes pulse-glow {
   0%, 100% { opacity: var(--orb-opacity); }
   50%       { opacity: calc(var(--orb-opacity) * 1.6); }
@@ -8,27 +11,9 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.hero {
-  position: relative;
-  min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
 // ── RGB Orbs ───────────────────────────────────────────────────────────────────
-.orbs {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
+// orb base styles (position, border-radius, filter, opacity) come from global .orb-base
 .orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: var(--orb-opacity);
   animation: pulse-glow 6s ease-in-out infinite;
 }
 
@@ -132,7 +117,7 @@
 
 // ── Subheadline ───────────────────────────────────────────────────────────────
 .sub {
-  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
   color: var(--on-surface-variant);
   max-width: 520px;
   line-height: var(--leading-relaxed);
@@ -160,7 +145,7 @@
   background: var(--primary-container);
   color: var(--on-primary-container);
   border-radius: var(--radius-sm);
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-family: var(--font-stack-display);
   font-size: var(--text-body-lg);
   font-weight: 600;
   transition:
@@ -189,7 +174,7 @@
   padding: 0.875rem 1.75rem;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-family: var(--font-stack-display);
   font-size: var(--text-body-lg);
   font-weight: 500;
   color: var(--on-surface-variant);
@@ -218,14 +203,8 @@
   }
 }
 
-.stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
 .statValue {
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
+  font-family: var(--font-stack-display);
   font-size: var(--text-headline-lg);
   font-weight: 700;
   color: var(--on-surface);

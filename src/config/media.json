@@ -2,7 +2,8 @@
   "slots": {
     "home.philosophy.branding": {"path": "home/philosophy/branding.png", "label": "Branding", "type": "image/png"},
     "home.philosophy.packaging": {"path": "home/philosophy/package.png", "label": "Packaging", "type": "image/png"},
-        "home.philosophy.motionGraphics": {"path": "home/philosophy/motionGraphics.png", "label": "MotionGraphics", "type": "image/png"}
-
+        "home.philosophy.motionGraphics": {"path": "home/philosophy/motionGraphics.png", "label": "MotionGraphics", "type": "image/png"},
+        "miscellaneous.videoediting.vertical01" : {"path": "miscellaneous/videoediting/temp_vertical.mp4", "label": "testVerticalVideo01", "type": "video/mp4"},
+        "miscellaneous.videoediting.vertical02" : {"path": "miscellaneous/videoediting/temp_vertical_02.mp4", "label": "testVerticalVideo02", "type": "video/mp4"}
   }
 }

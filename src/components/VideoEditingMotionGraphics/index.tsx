@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './videoeditingmotiongraphics.module.scss';
 import ComingSoonCard from './ComingSoonCard';
+import { mediaUrl } from '@/utils/media';
+
+
 
 // ── Configuration: Global toggle (overrides individual links) ───────────────────────────────────────────
 const USE_COMING_SOON = false; // Set to true to force Coming Soon on ALL cards regardless of links
@@ -69,11 +72,11 @@ const LANDSCAPE_CARDS_ROW2: LandscapeCard[] = [
 ];
 
 const PORTRAIT_CARDS: PortraitCard[] = [
-  { colorClass: 'c3', textColor: '#301a18', label: 'REEL', genre: 'Instagram', name: 'Skincare Launch', dur: '0:30', link: '#', videoSrc: '' },
+  { colorClass: 'c3', textColor: '#301a18', label: 'REEL', genre: 'Instagram', name: 'Skincare Launch', dur: '0:30', link: '', videoSrc: mediaUrl('miscellaneous.videoediting.vertical01') },
   { colorClass: 'c5', textColor: '#280e30', label: 'TIKTOK', genre: 'TikTok', name: 'Dance Trend', dur: '0:15' , link: '#' },
   { colorClass: 'c1', textColor: '#3a3028', label: 'SHORT', genre: 'YT Shorts', name: "Chef's Special", dur: '0:58' , link: '#' },
   { colorClass: 'c2', textColor: '#1a2e30', label: 'REEL', genre: 'Instagram', name: 'Fitness Journey', dur: '0:45', link: '#' },
-  { colorClass: 'c6', textColor: '#0f1e28', label: 'STORY', genre: 'Stories', name: 'Behind the Lens', dur: '0:20', link: '#'  },
+  { colorClass: 'c6', textColor: '#0f1e28', label: 'STORY', genre: 'Stories', name: 'Behind the Lens', dur: '0:20', link: '' , videoSrc: mediaUrl('miscellaneous.videoediting.vertical02') },
   { colorClass: 'c8', textColor: '#232e18', label: 'TIKTOK', genre: 'TikTok', name: 'Street Style NYC', dur: '0:30', link: '#' },
   { colorClass: 'c7', textColor: '#2e1e1e', label: 'SHORT', genre: 'YT Shorts', name: 'Car Reveal', dur: '0:52', link: '#'  },
   { colorClass: 'c4', textColor: '#1e2e18', label: 'REEL', genre: 'Instagram', name: 'Forest Walk', dur: '0:30', link: '#' },

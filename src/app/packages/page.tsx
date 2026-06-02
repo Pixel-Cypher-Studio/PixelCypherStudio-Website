@@ -11,7 +11,7 @@ const masterBundle = {
   title: 'Master Bundle',
   subtitle: 'The Full Stack',
   description: 'Everything your brand needs under one roof.',
-  price: '79K',
+  price: 'NA',
   timeline: 'One-time · 4-6 weeks',
   includes: [
     { icon: '🎨', color: 'purple', title: 'Graphic Design', description: 'Full brand identity.' },
@@ -30,28 +30,28 @@ const masterBundle = {
     { label: 'E-Commerce', tag: 'Add-on', type: 'optional' },
     { label: 'Monthly Retainer', tag: 'Custom', type: 'custom' },
   ],
-  individualValue: '₹1,20,000+',
+  individualValue: 'NA',
   saving: 'Up to 35% off',
-  total: '₹79K+',
+  total: 'NA',
 };
 
 const plans = [
-  { number: '01', name: 'Brand Starter', description: 'For new businesses.', price: '18K', color: 'purple', billing: 'One-time · 1-2 weeks', features: [{ text: 'Logo system', active: true }, { text: 'Colour guide', active: true }, { text: 'Business cards', active: true }, { text: 'Social templates', active: true }, { text: 'Brand board', active: true }, { text: 'Video/Motion', active: false }, { text: 'Web', active: false }] },
-  { number: '02', name: 'Motion Studio', description: 'Storytelling in motion.', price: '28K', color: 'green', featured: true, billing: 'One-time · 2-3 weeks', features: [{ text: '2× Motion videos', active: true }, { text: '1× Promo reel', active: true }, { text: '3× Short edits', active: true }, { text: 'Colour grade', active: true }, { text: 'Subtitles', active: true }, { text: 'Brand kit', active: true }, { text: 'Web', active: false }] },
-  { number: '03', name: 'Web Launch', description: 'Performance-first website.', price: '35K', color: 'orange', billing: 'One-time · 3-4 weeks', features: [{ text: '5-page website', active: true }, { text: 'Animations', active: true }, { text: 'Responsive', active: true }, { text: 'CMS panel', active: true }, { text: 'SEO', active: true }, { text: '1 month support', active: true }, { text: 'Motion/Video', active: false }] },
-  { number: '04', name: 'Brand + Motion', description: 'Identity with motion.', price: '42K', color: 'blue', billing: 'One-time · 3-4 weeks', features: [{ text: 'Full logo system', active: true }, { text: 'Guidelines', active: true }, { text: '2× Motion pieces', active: true }, { text: '2× Video edits', active: true }, { text: 'Social kit', active: true }, { text: 'Logo sting', active: true }, { text: 'Web', active: false }] },
-  { number: '05', name: 'Motion + Web', description: 'Website with video.', price: '55K', color: 'purple', billing: 'One-time · 4-5 weeks', features: [{ text: '5-page website', active: true }, { text: '2× Motion graphics', active: true }, { text: '3× Short edits', active: true }, { text: 'Video integration', active: true }, { text: 'CMS setup', active: true }, { text: '1 month support', active: true }, { text: 'Brand identity', active: false }] },
-  { number: '06', name: 'Monthly Retainer', description: 'Dedicated hours monthly.', price: '20K', color: 'green', billing: 'Monthly · Cancel anytime', isMonthly: true, features: [{ text: '40 hours/month', active: true }, { text: 'Graphic design', active: true }, { text: '8-12 posts', active: true }, { text: '1× Short video', active: true }, { text: 'Priority', active: true }, { text: 'Slack channel', active: true }, { text: 'Monthly call', active: true }] },
+  { number: '01', name: 'Brand Starter', description: 'For new businesses.', price: 'NA', color: 'purple', billing: 'One-time · 1-2 weeks', features: [{ text: 'Logo system', active: true }, { text: 'Colour guide', active: true }, { text: 'Business cards', active: true }, { text: 'Social templates', active: true }, { text: 'Brand board', active: true }, { text: 'Video/Motion', active: false }, { text: 'Web', active: false }] },
+  { number: '02', name: 'Motion Studio', description: 'Storytelling in motion.', price: 'NA', color: 'green', featured: true, billing: 'One-time · 2-3 weeks', features: [{ text: '2× Motion videos', active: true }, { text: '1× Promo reel', active: true }, { text: '3× Short edits', active: true }, { text: 'Colour grade', active: true }, { text: 'Subtitles', active: true }, { text: 'Brand kit', active: true }, { text: 'Web', active: false }] },
+  { number: '03', name: 'Web Launch', description: 'Performance-first website.', price: 'NA', color: 'orange', billing: 'One-time · 3-4 weeks', features: [{ text: '5-page website', active: true }, { text: 'Animations', active: true }, { text: 'Responsive', active: true }, { text: 'CMS panel', active: true }, { text: 'SEO', active: true }, { text: '1 month support', active: true }, { text: 'Motion/Video', active: false }] },
+  { number: '04', name: 'Brand + Motion', description: 'Identity with motion.', price: 'NA', color: 'blue', billing: 'One-time · 3-4 weeks', features: [{ text: 'Full logo system', active: true }, { text: 'Guidelines', active: true }, { text: '2× Motion pieces', active: true }, { text: '2× Video edits', active: true }, { text: 'Social kit', active: true }, { text: 'Logo sting', active: true }, { text: 'Web', active: false }] },
+  { number: '05', name: 'Motion + Web', description: 'Website with video.', price: 'NA', color: 'purple', billing: 'One-time · 4-5 weeks', features: [{ text: '5-page website', active: true }, { text: '2× Motion graphics', active: true }, { text: '3× Short edits', active: true }, { text: 'Video integration', active: true }, { text: 'CMS setup', active: true }, { text: '1 month support', active: true }, { text: 'Brand identity', active: false }] },
+  { number: '06', name: 'Monthly Retainer', description: 'Dedicated hours monthly.', price: 'NA', color: 'green', billing: 'Monthly · Cancel anytime', isMonthly: true, features: [{ text: '40 hours/month', active: true }, { text: 'Graphic design', active: true }, { text: '8-12 posts', active: true }, { text: '1× Short video', active: true }, { text: 'Priority', active: true }, { text: 'Slack channel', active: true }, { text: 'Monthly call', active: true }] },
 ];
 
 const addons = [
-  { icon: '📦', color: 'purple', name: 'Product Packaging', description: 'Custom packaging design.', price: '₹8,000+' },
-  { icon: '⚡', color: 'green', name: 'Rush Delivery', description: 'Prioritise your project.', price: '+25% of fee' },
-  { icon: '🛒', color: 'orange', name: 'E-Commerce Store', description: 'Full online store.', price: '₹18,000+' },
-  { icon: '📱', color: 'blue', name: 'Social Media Kit', description: 'Template pack.', price: '₹5,000+' },
-  { icon: '📊', color: 'red', name: 'Pitch Deck Design', description: 'Investor-ready pitch decks that look as sharp as the idea they are presenting.', price: '₹5,000+' },
-    { icon: '🗣', color: 'blue', name: 'Brand Strategy Session', description: '2-hour guided strategy workshop — positioning, audience, tone, and market fit.', price: '₹3,500+' },
-    { icon: '🌐', color: 'blue', name: 'Domain + Hosting Setup', description: 'End-to-end domain registration, hosting configuration, and SSL certificate setup.', price: '₹4,000' },
+  { icon: '📦', color: 'purple', name: 'Product Packaging', description: 'Custom packaging design.', price: 'NA' },
+  { icon: '⚡', color: 'green', name: 'Rush Delivery', description: 'Prioritise your project.', price: 'NA' },
+  { icon: '🛒', color: 'orange', name: 'E-Commerce Store', description: 'Full online store.', price: 'NA' },
+  { icon: '📱', color: 'blue', name: 'Social Media Kit', description: 'Template pack.', price: 'NA' },
+  { icon: '📊', color: 'red', name: 'Pitch Deck Design', description: 'Investor-ready pitch decks that look as sharp as the idea they are presenting.', price: 'NA' },
+    { icon: '🗣', color: 'blue', name: 'Brand Strategy Session', description: '2-hour guided strategy workshop — positioning, audience, tone, and market fit.', price: 'NA' },
+    { icon: '🌐', color: 'blue', name: 'Domain + Hosting Setup', description: 'End-to-end domain registration, hosting configuration, and SSL certificate setup.', price: 'NA' },
 
 ];
 

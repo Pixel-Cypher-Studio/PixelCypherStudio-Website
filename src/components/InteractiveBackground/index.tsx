@@ -12,7 +12,7 @@ const COLORS = {
   accent1: '#ff8d8d',
   accent2: '#00fc40',
   accent3: '#8297ff',
-  bg: '#131318',
+  bg: '#000000',
 };
 
 function ParticleField({ count = 200 }: { count?: number }) {

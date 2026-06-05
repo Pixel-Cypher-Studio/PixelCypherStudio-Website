@@ -3,9 +3,12 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './videoeditingmotiongraphics.module.scss';
 import ComingSoonCard from './ComingSoonCard';
+import { mediaUrl } from '@/utils/media';
 
-// ── Configuration: Toggle between Coming Soon and Real Content ───────────────────────────────────────────
-const USE_COMING_SOON = true; // Set to false when you have real content from database
+
+
+// ── Configuration: Global toggle (overrides individual links) ───────────────────────────────────────────
+const USE_COMING_SOON = false; // Set to true to force Coming Soon on ALL cards regardless of links
 
 // ── Data ───────────────────────────────────────────────────
 
@@ -34,6 +37,8 @@ interface LandscapeCard {
   genre: string;
   name: string;
   dur: string;
+  link?: string; // optional video link — if absent, Coming Soon card is shown
+  videoSrc?: string; // optional local video source for preview
 }
 
 interface PortraitCard {
@@ -43,36 +48,38 @@ interface PortraitCard {
   genre: string;
   name: string;
   dur: string;
+  link?: string; // optional video link — if absent, Coming Soon card is shown
+  videoSrc?: string; // optional local video source for preview
 }
 
 // Coming Soon placeholder cards - will be replaced by database content in future
 const LANDSCAPE_CARDS_ROW1: LandscapeCard[] = [
-  { colorClass: 'c1', textColor: '#3a3028', label: 'BRAND FILM', genre: 'Commercial', name: 'Nike Air Campaign', dur: '3:45 · 4K · 2024' },
-  { colorClass: 'c2', textColor: '#1a2e30', label: 'DOCUMENTARY', genre: 'Documentary', name: 'Ocean Silence', dur: '18:30 · 4K · 2024' },
-  { colorClass: 'c3', textColor: '#301a18', label: 'MUSIC VIDEO', genre: 'Music Video', name: 'Echoes of You', dur: '4:12 · 6K · 2023' },
-  { colorClass: 'c4', textColor: '#1e2e18', label: 'SHORT FILM', genre: 'Narrative', name: 'The Last Train', dur: '12:00 · 4K · 2023' },
-  { colorClass: 'c5', textColor: '#280e30', label: 'FASHION', genre: 'Fashion Film', name: 'Couture SS24', dur: '2:30 · 6K · 2024' },
-  { colorClass: 'c6', textColor: '#0f1e28', label: 'TRAVEL', genre: 'Travel', name: 'Patagonia Raw', dur: '7:20 · 4K · 2023' },
+  { colorClass: 'c1', textColor: '#3a3028', label: 'BRAND FILM', genre: 'Commercial', name: 'Nike Air Campaign', dur: '3:45 · 4K · 2024', link: '#', videoSrc: '/videos/sample1.mp4' },
+  { colorClass: 'c2', textColor: '#1a2e30', label: 'DOCUMENTARY', genre: 'Documentary', name: 'Ocean Silence', dur: '18:30 · 4K · 2024', link: '#', videoSrc: '/videos/sample2.mp4' },
+  { colorClass: 'c3', textColor: '#301a18', label: 'MUSIC VIDEO', genre: 'Music Video', name: 'Echoes of You', dur: '4:12 · 6K · 2023', link: '#', videoSrc: '/videos/sample3.mp4'  },
+  { colorClass: 'c4', textColor: '#1e2e18', label: 'SHORT FILM', genre: 'Narrative', name: 'The Last Train', dur: '12:00 · 4K · 2023', link: '#', videoSrc: '/videos/sample4.mp4'  },
+  { colorClass: 'c5', textColor: '#280e30', label: 'FASHION', genre: 'Fashion Film', name: 'Couture SS24', dur: '2:30 · 6K · 2024', link: '#', videoSrc: '/videos/sample5.mp4' },
+  { colorClass: 'c6', textColor: '#0f1e28', label: 'TRAVEL', genre: 'Travel', name: 'Patagonia Raw', dur: '7:20 · 4K · 2023', link: '#', videoSrc: '/videos/sample6.mp4'  },
 ];
 
 const LANDSCAPE_CARDS_ROW2: LandscapeCard[] = [
-  { colorClass: 'c7', textColor: '#2e1e1e', label: 'PRODUCT', genre: 'Product', name: 'Tesla Reveal', dur: '1:30 · 8K · 2024' },
-  { colorClass: 'c8', textColor: '#232e18', label: 'SPORTS', genre: 'Sports', name: 'World Cup Recap', dur: '5:00 · 4K · 2023' },
-  { colorClass: 'c1', textColor: '#3a3028', label: 'WEDDING', genre: 'Wedding', name: 'Amore in Tuscany', dur: '8:45 · 4K · 2024' },
-  { colorClass: 'c5', textColor: '#280e30', label: 'CORPORATE', genre: 'Corporate', name: 'Goldman Sachs 2024', dur: '3:00 · 4K · 2024' },
-  { colorClass: 'c2', textColor: '#1a2e30', label: 'NATURE', genre: 'Nature', name: 'Arctic Drift', dur: '22:00 · 6K · 2023' },
-  { colorClass: 'c4', textColor: '#1e2e18', label: 'ANIMATION', genre: 'Animation', name: 'Pixel Dreams', dur: '2:00 · 4K · 2024' },
+  { colorClass: 'c7', textColor: '#2e1e1e', label: 'PRODUCT', genre: 'Product', name: 'Tesla Reveal', dur: '1:30 · 8K · 2024', link: '#', videoSrc: '/videos/sample7.mp4' },
+  { colorClass: 'c8', textColor: '#232e18', label: 'SPORTS', genre: 'Sports', name: 'World Cup Recap', dur: '5:00 · 4K · 2023' , link: '#', videoSrc: '/videos/sample8.mp4' },
+  { colorClass: 'c1', textColor: '#3a3028', label: 'WEDDING', genre: 'Wedding', name: 'Amore in Tuscany', dur: '8:45 · 4K · 2024', link: '#' , videoSrc: '/videos/sample9.mp4' },
+  { colorClass: 'c5', textColor: '#280e30', label: 'CORPORATE', genre: 'Corporate', name: 'Goldman Sachs 2024', dur: '3:00 · 4K · 2024', link: '#', videoSrc: '/videos/sample10.mp4' },
+  { colorClass: 'c2', textColor: '#1a2e30', label: 'NATURE', genre: 'Nature', name: 'Arctic Drift', dur: '22:00 · 6K · 2023', link: '#', videoSrc: '/videos/sample11.mp4' },
+  { colorClass: 'c4', textColor: '#1e2e18', label: 'ANIMATION', genre: 'Animation', name: 'Pixel Dreams', dur: '2:00 · 4K · 2024', link: '#' , videoSrc: '/videos/sample12.mp4' },
 ];
 
 const PORTRAIT_CARDS: PortraitCard[] = [
-  { colorClass: 'c3', textColor: '#301a18', label: 'REEL', genre: 'Instagram', name: 'Skincare Launch', dur: '0:30' },
-  { colorClass: 'c5', textColor: '#280e30', label: 'TIKTOK', genre: 'TikTok', name: 'Dance Trend', dur: '0:15' },
-  { colorClass: 'c1', textColor: '#3a3028', label: 'SHORT', genre: 'YT Shorts', name: "Chef's Special", dur: '0:58' },
-  { colorClass: 'c2', textColor: '#1a2e30', label: 'REEL', genre: 'Instagram', name: 'Fitness Journey', dur: '0:45' },
-  { colorClass: 'c6', textColor: '#0f1e28', label: 'STORY', genre: 'Stories', name: 'Behind the Lens', dur: '0:20' },
-  { colorClass: 'c8', textColor: '#232e18', label: 'TIKTOK', genre: 'TikTok', name: 'Street Style NYC', dur: '0:30' },
-  { colorClass: 'c7', textColor: '#2e1e1e', label: 'SHORT', genre: 'YT Shorts', name: 'Car Reveal', dur: '0:52' },
-  { colorClass: 'c4', textColor: '#1e2e18', label: 'REEL', genre: 'Instagram', name: 'Forest Walk', dur: '0:30' },
+  { colorClass: 'c3', textColor: '#301a18', label: 'REEL', genre: 'Instagram', name: 'Skincare Launch', dur: '0:30', link: '', videoSrc: mediaUrl('miscellaneous.videoediting.vertical01') },
+  { colorClass: 'c5', textColor: '#280e30', label: 'TIKTOK', genre: 'TikTok', name: 'Dance Trend', dur: '0:15' , link: '#' },
+  { colorClass: 'c1', textColor: '#3a3028', label: 'SHORT', genre: 'YT Shorts', name: "Chef's Special", dur: '0:58' , link: '#' },
+  { colorClass: 'c2', textColor: '#1a2e30', label: 'REEL', genre: 'Instagram', name: 'Fitness Journey', dur: '0:45', link: '#' },
+  { colorClass: 'c6', textColor: '#0f1e28', label: 'STORY', genre: 'Stories', name: 'Behind the Lens', dur: '0:20', link: '' , videoSrc: mediaUrl('miscellaneous.videoediting.vertical02') },
+  { colorClass: 'c8', textColor: '#232e18', label: 'TIKTOK', genre: 'TikTok', name: 'Street Style NYC', dur: '0:30', link: '#' },
+  { colorClass: 'c7', textColor: '#2e1e1e', label: 'SHORT', genre: 'YT Shorts', name: 'Car Reveal', dur: '0:52', link: '#'  },
+  { colorClass: 'c4', textColor: '#1e2e18', label: 'REEL', genre: 'Instagram', name: 'Forest Walk', dur: '0:30', link: '#' },
 ];
 
 const SKILLS = [
@@ -174,75 +181,220 @@ const PlayIcon = () => (
 
 interface LandscapeCardProps {
   card: LandscapeCard;
+  onHover: (isHovering: boolean, videoRef: React.RefObject<HTMLVideoElement | null>) => void;
+  registerVideo: (videoRef: React.RefObject<HTMLVideoElement | null>) => void;
 }
-const LandscapeCardItem = ({ card }: LandscapeCardProps) => (
-  <div className={styles.cardLandscape}>
-    <div
-      className={`${styles.cardInner} ${styles[card.colorClass as keyof typeof styles]}`}
-      style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+const LandscapeCardItem = ({ card, onHover, registerVideo }: LandscapeCardProps) => {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Register video on mount
+  useEffect(() => {
+    if (videoRef.current && card.videoSrc) {
+      registerVideo(videoRef);
+    }
+  }, [card.videoSrc, registerVideo]);
+
+  const handleMouseEnter = () => {
+    onHover(true, videoRef);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+    }
+  };
+
+  const handleMouseLeave = () => {
+    onHover(false, videoRef);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
+  return (
+    <div 
+      className={styles.cardLandscape}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      <div className={styles.grain} />
-      <span
-        style={{
-          fontFamily: "'Bebas Neue', sans-serif",
-          color: card.textColor,
-          fontSize: '1.1rem',
-          letterSpacing: '.12em',
-          position: 'relative',
-          zIndex: 2,
-        }}
+      <div
+        className={`${styles.cardInner} ${styles[card.colorClass as keyof typeof styles]}`}
+        style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >
-        {card.label}
-      </span>
+        {card.videoSrc ? (
+          <video
+            ref={videoRef}
+            src={card.videoSrc}
+            loop
+            muted
+            playsInline
+            className={styles.cardVideo}
+          />
+        ) : (
+          <>
+            <div className={styles.grain} />
+            <span
+              style={{
+                fontFamily: "'Bebas Neue', sans-serif",
+                color: card.textColor,
+                fontSize: '1.1rem',
+                letterSpacing: '.12em',
+                position: 'relative',
+                zIndex: 2,
+              }}
+            >
+              {card.label}
+            </span>
+          </>
+        )}
+      </div>
+      <div className={styles.cardOverlay}>
+        <div className={styles.cardGenre}>{card.genre}</div>
+        <div className={styles.cardName}>{card.name}</div>
+        <div className={styles.cardDur}>{card.dur}</div>
+      </div>
+      <div className={styles.playBtn}>
+        <PlayIcon />
+      </div>
     </div>
-    <div className={styles.cardOverlay}>
-      <div className={styles.cardGenre}>{card.genre}</div>
-      <div className={styles.cardName}>{card.name}</div>
-      <div className={styles.cardDur}>{card.dur}</div>
-    </div>
-    <div className={styles.playBtn}>
-      <PlayIcon />
-    </div>
-  </div>
-);
+  );
+};
 
 interface PortraitCardProps {
   card: PortraitCard;
+  onHover: (isHovering: boolean, videoRef: React.RefObject<HTMLVideoElement | null>) => void;
+  registerVideo: (videoRef: React.RefObject<HTMLVideoElement | null>) => void;
 }
-const PortraitCardItem = ({ card }: PortraitCardProps) => (
-  <div className={styles.cardPortrait}>
-    <div
-      className={`${styles.cardInner} ${styles[card.colorClass as keyof typeof styles]}`}
-      style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+const PortraitCardItem = ({ card, onHover, registerVideo }: PortraitCardProps) => {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Register video on mount
+  useEffect(() => {
+    if (videoRef.current && card.videoSrc) {
+      registerVideo(videoRef);
+    }
+  }, [card.videoSrc, registerVideo]);
+
+  const handleMouseEnter = () => {
+    onHover(true, videoRef);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+    }
+  };
+
+  const handleMouseLeave = () => {
+    onHover(false, videoRef);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
+  return (
+    <div 
+      className={styles.cardPortrait}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      <div className={styles.grain} />
-      <span
-        style={{
-          fontFamily: "'Bebas Neue', sans-serif",
-          color: card.textColor,
-          fontSize: '1rem',
-          letterSpacing: '.12em',
-          position: 'relative',
-          zIndex: 2,
-          writingMode: 'vertical-rl',
-        }}
+      <div
+        className={`${styles.cardInner} ${styles[card.colorClass as keyof typeof styles]}`}
+        style={{ width: '100%', height: '100%' }}
       >
-        {card.label}
-      </span>
+        {card.videoSrc ? (
+          <video
+            ref={videoRef}
+            src={card.videoSrc}
+            loop
+            muted
+            playsInline
+            className={styles.cardVideo}
+          />
+        ) : (
+          <>
+            <div className={styles.grain} />
+            <span
+              style={{
+                fontFamily: "'Bebas Neue', sans-serif",
+                color: card.textColor,
+                fontSize: '1rem',
+                letterSpacing: '.12em',
+                position: 'relative',
+                zIndex: 2,
+                writingMode: 'vertical-rl',
+              }}
+            >
+              {card.label}
+            </span>
+          </>
+        )}
+      </div>
+      <div className={styles.cardOverlay}>
+        <div className={styles.cardGenre}>{card.genre}</div>
+        <div className={styles.cardName}>{card.name}</div>
+        <div className={styles.cardDur}>{card.dur}</div>
+      </div>
     </div>
-    <div className={styles.cardOverlay}>
-      <div className={styles.cardGenre}>{card.genre}</div>
-      <div className={styles.cardName}>{card.name}</div>
-      <div className={styles.cardDur}>{card.dur}</div>
-    </div>
-  </div>
-);
+  );
+};
 
 // ── Main Component ─────────────────────────────────────────
 
 const VideoEditingMotionGraphics = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const skillsGridRef = useRef<HTMLDivElement>(null);
+  const [hoveredVideo, setHoveredVideo] = useState<React.RefObject<HTMLVideoElement | null> | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRefs = useRef<Map<HTMLVideoElement, boolean>>(new Map());
+
+  // Handle video mute/unmute globally
+  useEffect(() => {
+    videoRefs.current.forEach((_, videoRef) => {
+      if (videoRef) {
+        videoRef.muted = isMuted;
+      }
+    });
+  }, [isMuted]);
+
+  // Handle video unmute on hover
+  useEffect(() => {
+    if (hoveredVideo && hoveredVideo.current) {
+      hoveredVideo.current.muted = isMuted;
+      hoveredVideo.current.play().catch(() => {
+        // If autoplay fails, keep it muted
+        hoveredVideo.current!.muted = true;
+      });
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(false);
+    }
+
+    return () => {
+      if (hoveredVideo && hoveredVideo.current) {
+        hoveredVideo.current.pause();
+      }
+    };
+  }, [hoveredVideo, isMuted]);
+
+  // Callback for card hover
+  const handleCardHover = (isHovering: boolean, videoRef: React.RefObject<HTMLVideoElement | null>) => {
+    if (isHovering && videoRef.current) {
+      videoRefs.current.set(videoRef.current, true);
+    } else if (videoRef.current) {
+      videoRefs.current.delete(videoRef.current);
+    }
+    setHoveredVideo(isHovering ? videoRef : null);
+  };
+
+  // Register video reference
+  const registerVideo = (videoRef: React.RefObject<HTMLVideoElement | null>) => {
+    if (videoRef.current) {
+      videoRefs.current.set(videoRef.current, false);
+    }
+  };
+
+  // Toggle mute/unmute
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
 
   // Custom cursor
   useEffect(() => {
@@ -306,7 +458,25 @@ const VideoEditingMotionGraphics = () => {
       {/* Custom cursor */}
       <div className={styles.cursorDot} ref={cursorRef} />
 
-      {/* HERO */}
+      {/* Mute/Unmute Toggle */}
+      <button
+        className={`${styles.muteToggle} ${isPlaying ? styles.active : ''}`}
+        onClick={toggleMute}
+        aria-label={isMuted ? 'Unmute' : 'Mute'}
+        title={isMuted ? 'Click to unmute' : 'Click to mute'}
+      >
+        {isMuted ? (
+          <svg viewBox="0 0 24 24">
+            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+          </svg>
+        )}
+      </button>
+
+{/* HERO */}
       <section className={styles.hero}>
         <div className={styles.heroLeft}>
           <div className={styles.heroTag}>Available for projects — 2026</div>
@@ -317,17 +487,18 @@ const VideoEditingMotionGraphics = () => {
             RIGHT
           </h1>
           <p className={styles.heroSub}>
-            Award-winning video editing crafting cinematic narratives for brands, artists, and agencies worldwide.
+          Crafting cinematic narratives for brands, artists, and agencies worldwide.
           </p>
           <div className={styles.heroCta}>
             <a href="#work" className={styles.btnPrimary}>View Reel</a>
             <a href="#contact" className={styles.btnGhost}>Get in Touch</a>
           </div>
         </div>
+        {/* </div> */}
 
-        <div className={styles.heroRight}>
+        {/* <div className={styles.heroRight}>
           <div className={styles.heroReel}>
-            {/* Clip 1: tall */}
+            
             <div className={styles.heroClip} style={{ gridRow: 'span 2', background: '#1a1211' }}>
               <div className={`${styles.clipPlaceholder} ${styles.c1}`} style={{ height: '100%' }}>
                 <div className={styles.noise} />
@@ -345,20 +516,20 @@ const VideoEditingMotionGraphics = () => {
                 </div>
               </div>
             </div>
-            {/* Clip 2 */}
+            
             <div className={styles.heroClip} style={{ background: '#0e1a1c' }}>
               <div className={`${styles.clipPlaceholder} ${styles.c2}`} style={{ height: '100%' }}>
                 <div className={styles.noise} />
               </div>
             </div>
-            {/* Clip 3 */}
+            
             <div className={styles.heroClip} style={{ background: '#1c100f' }}>
               <div className={`${styles.clipPlaceholder} ${styles.c3}`} style={{ height: '100%' }}>
                 <div className={styles.noise} />
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className={styles.heroStats}>
           {/* {STATS.map((s) => (
@@ -374,18 +545,15 @@ const VideoEditingMotionGraphics = () => {
       <div className={styles.ticker}>
         <div className={styles.tickerInner}>
           {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-            <>
-              <span key={i}>
-                {item}
-                <span className={styles.accent}> ✦ </span>
-              </span>
-
-            </>
+            <span key={`${item}-${i}`}>
+              {item}
+              <span className={styles.accent}> ✦ </span>
+            </span>
           ))}
         </div>
       </div>
 
-      {/* LANDSCAPE REEL - Using Coming Soon Cards */}
+      {/* LANDSCAPE REEL - Link-based cards with Coming Soon fallback */}
       <section className={styles.reelSection} id="work">
         <div className={styles.reelHeader}>
           <div>
@@ -397,68 +565,75 @@ const VideoEditingMotionGraphics = () => {
           </p>
         </div>
 
-        {/* Rail 1 — Coming Soon Cards */}
+        {/* Rail 1 */}
         <div className={styles.railWrap}>
           <div className={styles.rail}>
-            {USE_COMING_SOON 
-              ? LANDSCAPE_CARDS_ROW1.map((card, i) => (
-                  <ComingSoonCard key={i} {...card} index={i} />
-                ))
-              : [...LANDSCAPE_CARDS_ROW1, ...LANDSCAPE_CARDS_ROW1].map((card, i) => (
-                  <LandscapeCardItem key={i} card={card} />
-                ))
-            }
+            {[...LANDSCAPE_CARDS_ROW1, ...LANDSCAPE_CARDS_ROW1].map((card, i) =>
+              USE_COMING_SOON || !(card.link !== '#' ) ? (
+                <ComingSoonCard key={i} label={card.label} genre={card.genre} name={card.name} dur={card.dur} index={i} />
+              ) : (
+                <a key={i} href={card.link} target="_blank" rel="noopener noreferrer" className={styles.cardLandscape}>
+                  <LandscapeCardItem card={card} onHover={handleCardHover} registerVideo={registerVideo} />
+                </a>
+              )
+            )}
           </div>
         </div>
 
         <div className={styles.railSpacer} />
 
-        {/* Rail 2 — Coming Soon Cards */}
+{/* Rail 2 */}
         <div className={styles.railWrap}>
           <div className={`${styles.rail} ${styles.reverse}`}>
-            {USE_COMING_SOON
-              ? LANDSCAPE_CARDS_ROW2.map((card, i) => (
-                  <ComingSoonCard key={i} {...card} index={i} />
-                ))
-              : [...LANDSCAPE_CARDS_ROW2, ...LANDSCAPE_CARDS_ROW2].map((card, i) => (
-                  <LandscapeCardItem key={i} card={card} />
-                ))
-            }
+            {[...LANDSCAPE_CARDS_ROW2, ...LANDSCAPE_CARDS_ROW2].map((card, i) =>
+              USE_COMING_SOON || !(card.link !== '#' ) ? (
+                <ComingSoonCard key={i} label={card.label} genre={card.genre} name={card.name} dur={card.dur} index={i} />
+              ) : (
+                <a key={i} href={card.link} target="_blank" rel="noopener noreferrer" className={styles.cardLandscape}>
+                  <LandscapeCardItem card={card} onHover={handleCardHover} registerVideo={registerVideo} />
+                </a>
+              )
+            )}
           </div>
         </div>
       </section>
 
       <div className={styles.divider} />
 
-      {/* PORTRAIT REEL - Using Coming Soon Cards */}
+{/* PORTRAIT REEL - Link-based cards with Coming Soon fallback */}
       <section className={styles.reelSection}>
         <div className={styles.reelHeader}>
           <div>
-            <div className={styles.sectionLabel}>Portrait &amp; Social</div>
+            <div className={styles.sectionLabel}>Portrait & Social</div>
             <h2 className={styles.reelTitle}>VERTICAL<br />FORMAT</h2>
           </div>
           <p className={styles.reelDesc}>
             Reels, TikTok edits, and short-form content designed to stop the scroll.
           </p>
         </div>
+          <p className={styles.reelDesc}>
+            Reels, TikTok edits, and short-form content designed to stop the scroll.
+          </p>
+        {/* </div> */}
 
         <div className={styles.railWrap}>
           <div className={styles.rail} style={{ animationDuration: '30s' }}>
-            {USE_COMING_SOON
-              ? PORTRAIT_CARDS.map((card, i) => (
-                  <ComingSoonCard key={i} {...card} index={i} />
-                ))
-              : [...PORTRAIT_CARDS, ...PORTRAIT_CARDS].map((card, i) => (
-                  <PortraitCardItem key={i} card={card} />
-                ))
-            }
+            {[...PORTRAIT_CARDS, ...PORTRAIT_CARDS].map((card, i) =>
+              USE_COMING_SOON || !(card.link !== '#' )? (
+                <ComingSoonCard key={i} label={card.label} genre={card.genre} name={card.name} dur={card.dur} index={i} isPortrait />
+              ) : (
+                <a key={i} href={card.link} target="_blank" rel="noopener noreferrer" className={styles.cardPortrait}>
+                  <PortraitCardItem card={card} onHover={handleCardHover} registerVideo={registerVideo} />
+                </a>
+              )
+            )}
           </div>
         </div>
       </section>
 
       <div className={styles.divider} />
 
-      {/* ABOUT */}
+{/* ABOUT */}
       <section className={styles.aboutSection} id="about">
         <div className={styles.aboutLeft}>
           <div className={styles.sectionLabel}>About</div>
@@ -475,6 +650,7 @@ const VideoEditingMotionGraphics = () => {
             <a href="#contact" className={styles.btnPrimary}>Hire Me</a>
           </div>
         </div>
+        {/* </div> */}
 
         <div className={styles.aboutRight}>
           <div className={styles.sectionLabel}>Skills</div>
@@ -532,8 +708,8 @@ const VideoEditingMotionGraphics = () => {
         <p className={styles.contactSub}>
           We are open for freelance work. Drop us a message and let's create something extraordinary.
         </p>
-        <a href="mailto:pixcelcypher@gmail.com" className={styles.emailLink}>
-          pixcelcypher@gmail.com
+        <a href="/contact" className={styles.emailLink}>
+          pixelcypher@gmail.com
         </a>
 
         <div className={styles.socialLinks}>

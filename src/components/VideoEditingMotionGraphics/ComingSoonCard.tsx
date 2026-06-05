@@ -7,9 +7,34 @@ interface ComingSoonCardProps {
   name: string;
   dur: string;
   index: number;
+  isPortrait?: boolean; // optional flag for portrait orientation
 }
 
-export default function ComingSoonCard({ label, genre, name, dur, index }: ComingSoonCardProps) {
+export default function ComingSoonCard({ label, genre, name, dur, index, isPortrait = false }: ComingSoonCardProps) {
+  if (isPortrait) {
+    return (
+      <div className={styles.cardPortrait}>
+        <div className={styles.comingSoonCardPortrait}>
+          {/* Coming Soon Image */}
+          <div className={styles.comingSoonImage}>
+            <Image
+              src="/images/sample_images/coming_soon_vertical.png" 
+              alt="Coming Soon"
+              fill
+              className={styles.comingSoonImg}
+              sizes="(max-width: 768px) 100vw, 10vw"
+            />
+          </div>
+          
+          {/* Overlay Content */}
+          <div className={styles.comingSoonOverlay}>
+            <div className={styles.comingSoonLabel}>Coming Soon</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.cardLandscape}>
       <div className={styles.comingSoonCard}>
@@ -26,10 +51,7 @@ export default function ComingSoonCard({ label, genre, name, dur, index }: Comin
         
         {/* Overlay Content */}
         <div className={styles.comingSoonOverlay}>
-          <div className={styles.comingSoonLabel}>{label}</div>
-          <div className={styles.comingSoonGenre}>{genre}</div>
-          <div className={styles.comingSoonName}>{name}</div>
-          <div className={styles.comingSoonDur}>{dur}</div>
+          <div className={styles.comingSoonLabel}>Coming Soon</div>
         </div>
         
         {/* Play Icon (disabled state) */}

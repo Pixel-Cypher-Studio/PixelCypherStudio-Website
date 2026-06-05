@@ -1152,33 +1152,43 @@
   &:first-child {
     border-top: 0.5px solid var(--border);
   }
+}
   
-  &.open .faq-a {
-    max-height: 300px;
-    padding-top: 1rem;
-  }
   
-  &.open .faq-icon {
-    background: rgba(184,157,255,0.1);
-    color: var(--accent-purple);
-    transform: rotate(45deg);
-  }
+
+
+.faq-item.open .faq-a {
+  max-height: 1000px;
+  padding-top: 1rem;
+  opacity: 1;
+}
+
+.faq-item.open .faq-icon {
+  background: rgba(184,157,255,0.1);
+  color: var(--accent-purple);
+  transform: rotate(45deg);
 }
 
 .faq-q {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 1rem;
-cursor: pointer;
-padding: 0.5rem 0;
-
-span {
-flex: 1;
-font-size: 14px;
-font-weight: 600;
-color: var(--text);
-}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  
+  span {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
 }
 
 .faq-icon {
@@ -1197,17 +1207,30 @@ flex-shrink: 0;
 }
 
 .faq-a {
-max-height: 0;
-overflow: hidden;
-transition: max-height 0.3s ease, padding-top 0.3s ease;
-padding-top: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding-top 0.4s ease, opacity 0.4s ease;
+  padding-top: 0;
+  opacity: 0;
 
-p {
-font-size: 13px;
-color: var(--muted);
-line-height: 1.7;
-margin: 0;
+  p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin: 0;
+  }
 }
+
+.faq-item.open .faq-a {
+  max-height: 1000px;
+  padding-top: 1rem;
+  opacity: 1;
+}
+
+.faq-item.open .faq-icon {
+  background: rgba(184,157,255,0.1);
+  color: var(--accent-purple);
+  transform: rotate(45deg);
 }
 
 .cta-band {

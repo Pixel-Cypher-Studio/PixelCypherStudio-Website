@@ -33,7 +33,7 @@ const services = [
     title: 'VIDEO EDITING',
     description: 'Story-driven editing that captures emotion and tells a tale.',
     href: '/capabilities/video-editing-motion-graphics',
-    image: '/images/philosophy/studio-main.jpg',
+    image:  mediaUrl('home.philosophy.videoEdit'),
   },
   {
     number: '05',

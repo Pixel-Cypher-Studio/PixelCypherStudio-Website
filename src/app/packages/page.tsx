@@ -257,10 +257,10 @@ export default function PackagesPage() {
         <div className="faq-list">
           {faqs.map((faq, i) => (
             <div key={i} className={`faq-item ${openFaq === i ? 'open' : ''}`}>
-              <div className="faq-q" onClick={() => toggleFaq(i)}>
+              <button className="faq-q" onClick={() => toggleFaq(i)} type="button" aria-expanded={openFaq === i}>
                 <span>{faq.question}</span>
-                <div className="faq-icon">{openFaq === i ? '+' : '−'}</div>
-              </div>
+                <div className="faq-icon">{openFaq === i ? '−' : '+'}</div>
+              </button>
               <div className="faq-a">
                 <p>{faq.answer}</p>
               </div>
